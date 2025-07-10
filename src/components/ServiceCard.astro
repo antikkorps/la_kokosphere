@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  color: 'primary' | 'secondary';
+  link: string;
+  features?: string[];
+}
+
+const { title, description, icon, color, link, features = [] } = Astro.props;
+
+const colorClasses = {
+  primary: {
+    bg: 'bg-primary-100',
+    text: 'text-primary-600',
+    hover: 'hover:bg-primary-200'
+  },
+  secondary: {
+    bg: 'bg-secondary-100',
+    text: 'text-secondary-600',
+    hover: 'hover:bg-secondary-200'
+  }
+};
+
+const currentColor = colorClasses[color];
+---
+
+<div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-all duration-300 group">
+  <div class={`w-16 h-16 ${currentColor.bg} rounded-lg flex items-center justify-center mb-6 group-hover:${currentColor.hover} transition-colors`}>
+    <svg class={`w-8 h-8 ${currentColor.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icon} />
+  </div>
+  
+  <h3 class="text-xl font-semibold text-gray-900 mb-4">{title}</h3>
+  
+  <p class="text-gray-600 mb-4 leading-relaxed">
+    {description}
+  </p>
+  
+  {features.length > 0 && (
+    <ul class="mb-6 space-y-2">
+      {features.map((feature) => (
+        <li class="flex items-center text-sm text-gray-600">
+          <svg class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          {feature}
+        </li>
+      ))}
+    </ul>
+  )}
+  
+  <a href={link} class={`${currentColor.text} hover:${color === 'primary' ? 'text-primary-700' : 'text-secondary-700'} font-medium transition-colors inline-flex items-center group/link`}>
+    En savoir plus 
+    <svg class="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </a>
+</div> 

@@ -1,63 +1,256 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { CALENDLY_URL, SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title={`À propos - ${SITE_TITLE}`} description="Découvrez mon parcours, ma formation et ma philosophie en tant qu'hypnothérapeute professionnelle. Une approche bienveillante et personnalisée pour votre bien-être." />
+	</head>
+	<body>
+		<Header />
+		
+		<!-- Hero Section -->
+		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
+			<div class="container-max">
+				<div class="text-center">
+					<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+						À propos de moi
+					</h1>
+					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+						Hypnothérapeute passionnée, je mets mon expertise au service de votre bien-être et de votre épanouissement personnel.
+					</p>
+				</div>
+			</div>
+		</section>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+		<!-- Présentation Section -->
+		<section class="section-padding bg-white">
+			<div class="container-max">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+					<div>
+						<h2 class="text-3xl font-bold text-gray-900 mb-6">
+							Qui suis-je ?
+						</h2>
+						<div class="prose prose-lg text-gray-600">
+							<p class="mb-6">
+								Je suis une hypnothérapeute professionnelle dédiée à accompagner les personnes vers un mieux-être durable. 
+								Ma passion pour l'humain et ma conviction que chacun possède en lui les ressources nécessaires pour surmonter 
+								ses difficultés m'ont naturellement conduite vers cette voie.
+							</p>
+							<p class="mb-6">
+								Mon approche se caractérise par une écoute bienveillante, un respect total de la personne et une adaptation 
+								permanente aux besoins spécifiques de chacun. Je considère que chaque individu est unique et mérite un 
+								accompagnement personnalisé.
+							</p>
+							<p>
+								L'hypnothérapie est pour moi un outil puissant qui permet d'accéder aux ressources inconscientes de la personne 
+								pour faciliter le changement et la transformation positive.
+							</p>
+						</div>
+					</div>
+					<div class="relative">
+						<div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8">
+							<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+								<svg class="w-32 h-32 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+		<!-- Formation et Qualifications -->
+		<section class="section-padding bg-gray-50">
+			<div class="container-max">
+				<div class="text-center mb-16">
+					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+						Ma formation et mes qualifications
+					</h2>
+					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+						Une formation solide et continue pour vous garantir un accompagnement professionnel et efficace.
+					</p>
+				</div>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div class="bg-white rounded-xl p-8 shadow-sm">
+						<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+							<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Formation initiale</h3>
+						<p class="text-gray-600">
+							Formation complète en hypnothérapie dans un institut reconnu, incluant les techniques classiques et modernes d'hypnose thérapeutique.
+						</p>
+					</div>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+					<div class="bg-white rounded-xl p-8 shadow-sm">
+						<div class="w-16 h-16 bg-secondary-100 rounded-lg flex items-center justify-center mb-6">
+							<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Certifications</h3>
+						<p class="text-gray-600">
+							Certifications professionnelles en hypnose Ericksonienne, hypnose conversationnelle et techniques de PNL pour un accompagnement complet.
+						</p>
+					</div>
+
+					<div class="bg-white rounded-xl p-8 shadow-sm">
+						<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+							<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Formation continue</h3>
+						<p class="text-gray-600">
+							Formation continue régulière pour rester à jour des dernières avancées en hypnothérapie et psychologie.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Ma philosophie -->
+		<section class="section-padding bg-white">
+			<div class="container-max">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+					<div class="order-2 lg:order-1">
+						<div class="bg-gradient-to-br from-secondary-100 to-primary-100 rounded-2xl p-8">
+							<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+								<svg class="w-32 h-32 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+								</svg>
+							</div>
+						</div>
+					</div>
+					<div class="order-1 lg:order-2">
+						<h2 class="text-3xl font-bold text-gray-900 mb-6">
+							Ma philosophie
+						</h2>
+						<div class="space-y-6">
+							<div class="flex items-start">
+								<div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mr-4 mt-1">
+									<svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+									</svg>
+								</div>
+								<div>
+									<h3 class="text-lg font-semibold text-gray-900 mb-2">Bienveillance</h3>
+									<p class="text-gray-600">
+										Chaque personne est accueillie avec bienveillance et sans jugement. Je crée un espace de confiance où vous pouvez vous exprimer librement.
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<div class="w-8 h-8 bg-secondary-100 rounded-full flex items-center justify-center flex-shrink-0 mr-4 mt-1">
+									<svg class="w-4 h-4 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+									</svg>
+								</div>
+								<div>
+									<h3 class="text-lg font-semibold text-gray-900 mb-2">Personnalisation</h3>
+									<p class="text-gray-600">
+										Chaque accompagnement est unique et adapté à vos besoins spécifiques. Je m'adapte à votre rythme et à votre personnalité.
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start">
+								<div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mr-4 mt-1">
+									<svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+									</svg>
+								</div>
+								<div>
+									<h3 class="text-lg font-semibold text-gray-900 mb-2">Autonomie</h3>
+									<p class="text-gray-600">
+										Mon objectif est de vous rendre autonome en vous donnant les outils et les ressources pour gérer vos difficultés au quotidien.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Déroulement d'une séance -->
+		<section class="section-padding bg-gray-50">
+			<div class="container-max">
+				<div class="text-center mb-16">
+					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+						Comment se déroule une séance ?
+					</h2>
+					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+						Découvrez le processus d'accompagnement en hypnothérapie, de la première consultation au suivi.
+					</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+					<div class="text-center">
+						<div class="w-20 h-20 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+							<span class="text-white text-2xl font-bold">1</span>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Premier contact</h3>
+						<p class="text-gray-600">
+							Échange téléphonique ou par email pour comprendre votre demande et fixer un premier rendez-vous.
+						</p>
+					</div>
+
+					<div class="text-center">
+						<div class="w-20 h-20 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+							<span class="text-white text-2xl font-bold">2</span>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Consultation initiale</h3>
+						<p class="text-gray-600">
+							Première séance d'évaluation pour comprendre votre problématique et définir ensemble vos objectifs.
+						</p>
+					</div>
+
+					<div class="text-center">
+						<div class="w-20 h-20 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+							<span class="text-white text-2xl font-bold">3</span>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Séances de travail</h3>
+						<p class="text-gray-600">
+							Séances d'hypnothérapie personnalisées pour travailler sur vos objectifs et faciliter le changement.
+						</p>
+					</div>
+
+					<div class="text-center">
+						<div class="w-20 h-20 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+							<span class="text-white text-2xl font-bold">4</span>
+						</div>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Suivi et consolidation</h3>
+						<p class="text-gray-600">
+							Suivi régulier pour consolider les progrès et s'assurer de la durabilité des changements.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="section-padding bg-primary-600">
+			<div class="container-max text-center">
+				<h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+					Prêt(e) à commencer votre transformation ?
+				</h2>
+				<p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+					Prenez rendez-vous pour une première consultation et découvrez comment l'hypnothérapie peut vous aider.
+				</p>
+				<a href={CALENDLY_URL} class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
+					Prendre rendez-vous
+				</a>
+			</div>
+		</section>
+
+		<Footer />
+	</body>
+</html>

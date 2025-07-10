@@ -1,0 +1,386 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { CALENDLY_URL, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title={`Services - ${SITE_TITLE}`} description="Découvrez mes services d'hypnothérapie : stress, anxiété, phobies, addictions, confiance en soi. Tarifs et accompagnement personnalisé pour votre bien-être." />
+	</head>
+	<body>
+		<Header />
+		
+		<!-- Hero Section -->
+		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
+			<div class="container-max">
+				<div class="text-center">
+					<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+						Mes services d'hypnothérapie
+					</h1>
+					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+						Un accompagnement personnalisé pour vous aider à surmonter vos difficultés et retrouver votre bien-être.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Services détaillés -->
+		<section class="section-padding bg-white">
+			<div class="container-max">
+				<!-- Stress et Anxiété -->
+				<div id="stress" class="mb-20">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+						<div>
+							<h2 class="text-3xl font-bold text-gray-900 mb-6">Stress et Anxiété</h2>
+							<div class="prose prose-lg text-gray-600 mb-6">
+								<p class="mb-4">
+									Le stress et l'anxiété peuvent considérablement impacter votre qualité de vie. L'hypnothérapie vous offre des outils efficaces pour :
+								</p>
+								<ul class="space-y-2">
+									<li>• Apprendre à gérer le stress quotidien</li>
+									<li>• Réduire l'anxiété et les crises de panique</li>
+									<li>• Développer des techniques de relaxation</li>
+									<li>• Reprogrammer les schémas de pensée négatifs</li>
+									<li>• Retrouver un équilibre émotionnel</li>
+								</ul>
+							</div>
+							<p class="text-gray-600 mb-6">
+								Grâce à des techniques d'hypnose adaptées, vous apprendrez à identifier les déclencheurs de votre stress et à mettre en place des stratégies efficaces pour y faire face.
+							</p>
+							<a href={CALENDLY_URL} class="btn-primary">
+								Prendre rendez-vous
+							</a>
+						</div>
+						<div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8">
+							<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+								<svg class="w-32 h-32 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Phobies -->
+				<div id="phobies" class="mb-20">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+						<div class="order-2 lg:order-1">
+							<div class="bg-gradient-to-br from-secondary-100 to-primary-100 rounded-2xl p-8">
+								<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+									<svg class="w-32 h-32 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div class="order-1 lg:order-2">
+							<h2 class="text-3xl font-bold text-gray-900 mb-6">Phobies</h2>
+							<div class="prose prose-lg text-gray-600 mb-6">
+								<p class="mb-4">
+									Les phobies peuvent limiter votre liberté et votre épanouissement. L'hypnothérapie vous aide à :
+								</p>
+								<ul class="space-y-2">
+									<li>• Surmonter les peurs irrationnelles</li>
+									<li>• Traiter les phobies spécifiques (avion, araignées, etc.)</li>
+									<li>• Retrouver confiance face aux situations redoutées</li>
+									<li>• Libérer les blocages émotionnels</li>
+									<li>• Reprendre le contrôle de votre vie</li>
+								</ul>
+							</div>
+							<p class="text-gray-600 mb-6">
+								En utilisant des techniques d'hypnose spécialisées, nous travaillerons ensemble pour désensibiliser progressivement votre réaction phobique et vous permettre de vivre sans contraintes.
+							</p>
+							<a href={CALENDLY_URL} class="btn-primary">
+								Prendre rendez-vous
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Addictions -->
+				<div id="addictions" class="mb-20">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+						<div>
+							<h2 class="text-3xl font-bold text-gray-900 mb-6">Addictions</h2>
+							<div class="prose prose-lg text-gray-600 mb-6">
+								<p class="mb-4">
+									Les addictions peuvent prendre le contrôle de votre vie. L'hypnothérapie vous accompagne pour :
+								</p>
+								<ul class="space-y-2">
+									<li>• Arrêter de fumer de manière définitive</li>
+									<li>• Contrôler les compulsions alimentaires</li>
+									<li>• Gérer les addictions comportementales</li>
+									<li>• Renforcer votre motivation au changement</li>
+									<li>• Développer de nouvelles habitudes saines</li>
+								</ul>
+							</div>
+							<p class="text-gray-600 mb-6">
+								L'hypnose thérapeutique agit directement sur les mécanismes inconscients qui maintiennent l'addiction, vous permettant de retrouver votre liberté et votre bien-être.
+							</p>
+							<a href={CALENDLY_URL} class="btn-primary">
+								Prendre rendez-vous
+							</a>
+						</div>
+						<div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8">
+							<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+								<svg class="w-32 h-32 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Confiance en soi -->
+				<div id="confiance" class="mb-20">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+						<div class="order-2 lg:order-1">
+							<div class="bg-gradient-to-br from-secondary-100 to-primary-100 rounded-2xl p-8">
+								<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+									<svg class="w-32 h-32 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div class="order-1 lg:order-2">
+							<h2 class="text-3xl font-bold text-gray-900 mb-6">Confiance en soi</h2>
+							<div class="prose prose-lg text-gray-600 mb-6">
+								<p class="mb-4">
+									La confiance en soi est la base de l'épanouissement personnel. L'hypnothérapie vous aide à :
+								</p>
+								<ul class="space-y-2">
+									<li>• Développer votre estime personnelle</li>
+									<li>• Surmonter le syndrome de l'imposteur</li>
+									<li>• Oser prendre la parole en public</li>
+									<li>• Affirmer vos besoins et vos limites</li>
+									<li>• Réaliser vos objectifs personnels et professionnels</li>
+								</ul>
+							</div>
+							<p class="text-gray-600 mb-6">
+								En travaillant sur vos croyances limitantes et en renforçant vos ressources intérieures, vous retrouverez la confiance nécessaire pour vivre pleinement votre vie.
+							</p>
+							<a href={CALENDLY_URL} class="btn-primary">
+								Prendre rendez-vous
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Troubles du sommeil -->
+				<div id="sommeil" class="mb-20">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+						<div>
+							<h2 class="text-3xl font-bold text-gray-900 mb-6">Troubles du sommeil</h2>
+							<div class="prose prose-lg text-gray-600 mb-6">
+								<p class="mb-4">
+									Un sommeil de qualité est essentiel à votre bien-être. L'hypnothérapie vous aide à :
+								</p>
+								<ul class="space-y-2">
+									<li>• Retrouver un endormissement naturel</li>
+									<li>• Améliorer la qualité de votre sommeil</li>
+									<li>• Gérer l'insomnie et les réveils nocturnes</li>
+									<li>• Réduire le stress qui perturbe le sommeil</li>
+									<li>• Établir une routine de sommeil saine</li>
+								</ul>
+							</div>
+							<p class="text-gray-600 mb-6">
+								Grâce à des techniques d'hypnose spécialement conçues pour le sommeil, vous retrouverez un repos réparateur et naturel.
+							</p>
+							<a href={CALENDLY_URL} class="btn-primary">
+								Prendre rendez-vous
+							</a>
+						</div>
+						<div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8">
+							<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+								<svg class="w-32 h-32 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Développement personnel -->
+				<div id="developpement" class="mb-20">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+						<div class="order-2 lg:order-1">
+							<div class="bg-gradient-to-br from-secondary-100 to-primary-100 rounded-2xl p-8">
+								<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg">
+									<svg class="w-32 h-32 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div class="order-1 lg:order-2">
+							<h2 class="text-3xl font-bold text-gray-900 mb-6">Développement personnel</h2>
+							<div class="prose prose-lg text-gray-600 mb-6">
+								<p class="mb-4">
+									Le développement personnel vous permet de réaliser votre plein potentiel. L'hypnothérapie vous accompagne pour :
+								</p>
+								<ul class="space-y-2">
+									<li>• Clarifier vos objectifs de vie</li>
+									<li>• Dépasser vos blocages personnels</li>
+									<li>• Développer votre créativité</li>
+									<li>• Améliorer vos performances</li>
+									<li>• Créer la vie que vous souhaitez</li>
+								</ul>
+							</div>
+							<p class="text-gray-600 mb-6">
+								En travaillant sur vos ressources inconscientes, vous découvrirez de nouvelles possibilités et développerez les compétences nécessaires à votre épanouissement.
+							</p>
+							<a href={CALENDLY_URL} class="btn-primary">
+								Prendre rendez-vous
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Tarifs -->
+		<section class="section-padding bg-gray-50">
+			<div class="container-max">
+				<div class="text-center mb-16">
+					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+						Mes tarifs
+					</h2>
+					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+						Des tarifs transparents et accessibles pour un accompagnement professionnel de qualité.
+					</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<!-- Consultation initiale -->
+					<div class="bg-white rounded-xl p-8 shadow-sm border-2 border-gray-100">
+						<div class="text-center mb-6">
+							<h3 class="text-xl font-semibold text-gray-900 mb-2">Consultation initiale</h3>
+							<div class="text-3xl font-bold text-primary-600 mb-2">60€</div>
+							<p class="text-gray-600">1h30</p>
+						</div>
+						<ul class="space-y-3 mb-8">
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Évaluation de votre situation
+							</li>
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Définition des objectifs
+							</li>
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Plan d'accompagnement personnalisé
+							</li>
+						</ul>
+						<a href={CALENDLY_URL} class="w-full btn-primary text-center">
+							Prendre rendez-vous
+						</a>
+					</div>
+
+					<!-- Séance individuelle -->
+					<div class="bg-white rounded-xl p-8 shadow-lg border-2 border-primary-200 relative">
+						<div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+							<span class="bg-primary-600 text-white px-4 py-1 rounded-full text-sm font-medium">Recommandé</span>
+						</div>
+						<div class="text-center mb-6">
+							<h3 class="text-xl font-semibold text-gray-900 mb-2">Séance individuelle</h3>
+							<div class="text-3xl font-bold text-primary-600 mb-2">80€</div>
+							<p class="text-gray-600">1h</p>
+						</div>
+						<ul class="space-y-3 mb-8">
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Séance d'hypnothérapie complète
+							</li>
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Techniques personnalisées
+							</li>
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Suivi et conseils
+							</li>
+						</ul>
+						<a href={CALENDLY_URL} class="w-full btn-primary text-center">
+							Prendre rendez-vous
+						</a>
+					</div>
+
+					<!-- Pack 5 séances -->
+					<div class="bg-white rounded-xl p-8 shadow-sm border-2 border-gray-100">
+						<div class="text-center mb-6">
+							<h3 class="text-xl font-semibold text-gray-900 mb-2">Pack 5 séances</h3>
+							<div class="text-3xl font-bold text-primary-600 mb-2">350€</div>
+							<p class="text-gray-600">Économisez 50€</p>
+						</div>
+						<ul class="space-y-3 mb-8">
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								5 séances d'hypnothérapie
+							</li>
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Accompagnement complet
+							</li>
+							<li class="flex items-center">
+								<svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+								</svg>
+								Suivi personnalisé
+							</li>
+						</ul>
+						<a href={CALENDLY_URL} class="w-full btn-primary text-center">
+							Prendre rendez-vous
+						</a>
+					</div>
+				</div>
+
+				<div class="text-center mt-12">
+					<p class="text-gray-600 mb-4">
+						* Les tarifs incluent la TVA. Paiement accepté : espèces, chèque, carte bancaire.
+					</p>
+					<p class="text-gray-600">
+						** Possibilité de séances à distance via visioconférence (même tarif).
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="section-padding bg-primary-600">
+			<div class="container-max text-center">
+				<h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+					Prêt(e) à commencer votre transformation ?
+				</h2>
+				<p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+					Prenez rendez-vous pour une première consultation et découvrez comment l'hypnothérapie peut vous aider.
+				</p>
+				<a href={CALENDLY_URL} class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
+					Prendre rendez-vous
+				</a>
+			</div>
+		</section>
+
+		<Footer />
+	</body>
+</html> 

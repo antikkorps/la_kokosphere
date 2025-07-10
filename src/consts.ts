@@ -1,10 +1,10 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = "Hypnothérapie - Votre Praticienne"
+export const SITE_TITLE = "La Kokosphere - Hypnothérapie & Bien-être"
 export const SITE_DESCRIPTION =
-  "Hypnothérapeute professionnelle spécialisée dans le traitement du stress, de l'anxiété, des phobies et des addictions. Retrouvez bien-être et confiance en vous."
-export const SITE_AUTHOR = "Votre Nom"
+  "La Kokosphere, votre espace de bien-être par l'hypnothérapie. Spécialisée dans le traitement du stress, de l'anxiété, des phobies et des addictions. Retrouvez sérénité et confiance en vous."
+export const SITE_AUTHOR = "La Kokosphere"
 export const SITE_EMAIL =
   import.meta.env.SITE_EMAIL || "contact@votre-domaine-hypnotherapie.com"
 export const SITE_PHONE = import.meta.env.SITE_PHONE || "+33 1 23 45 67 89"

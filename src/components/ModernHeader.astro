@@ -1,0 +1,302 @@
+---
+import { CALENDLY_URL } from '../consts';
+
+const navItems = [
+	{ text: 'Accueil', href: '/' },
+	{ text: 'À propos', href: '/about' },
+	{ text: 'Services', href: '/services' },
+	{ text: 'Blog', href: '/blog' },
+	{ text: 'Contact', href: '/contact' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="header">
+	<div class="container-max">
+		<div class="flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
+			<!-- Logo avec animation -->
+			<div class="flex items-center space-x-3" id="logo">
+				<div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center shadow-lg">
+					<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+					</svg>
+				</div>
+				<div>
+					<a href="/" class="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+						La Kokosphere
+					</a>
+					<p class="text-xs text-gray-500 -mt-1">Espace de bien-être</p>
+				</div>
+			</div>
+
+			<!-- Navigation Desktop avec animations -->
+			<nav class="hidden lg:flex items-center space-x-1" id="desktop-nav">
+				{navItems.map((item, index) => (
+					<div class="nav-item" data-index={index}>
+						<a 
+							href={item.href} 
+							class="relative px-4 py-2 text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200 group"
+							data-text={item.text}
+						>
+							<span class="relative z-10">{item.text}</span>
+							<div class="absolute inset-0 bg-primary-50 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-200 origin-center"></div>
+						</a>
+					</div>
+				))}
+			</nav>
+
+			<!-- CTA Button avec animation -->
+			<div class="hidden lg:flex items-center space-x-4" id="cta-section">
+				<a 
+					href={CALENDLY_URL} 
+					class="btn-primary group relative overflow-hidden"
+					id="cta-button"
+				>
+					<span class="relative z-10">Prendre rendez-vous</span>
+					<div class="absolute inset-0 bg-gradient-to-r from-primary-600 to-secondary-600 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+				</a>
+			</div>
+
+			<!-- Mobile menu button avec animation -->
+			<div class="lg:hidden">
+				<button
+					type="button"
+					class="relative w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary-600 transition-colors duration-200"
+					aria-label="Toggle menu"
+					id="mobile-menu-button"
+				>
+					<div class="w-6 h-6 relative">
+						<span class="absolute top-0 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center" id="hamburger-line-1"></span>
+						<span class="absolute top-2 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center" id="hamburger-line-2"></span>
+						<span class="absolute top-4 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center" id="hamburger-line-3"></span>
+					</div>
+				</button>
+			</div>
+		</div>
+
+		<!-- Mobile menu avec animations -->
+		<div class="lg:hidden overflow-hidden" id="mobile-menu">
+			<div class="px-2 pt-2 pb-6 space-y-2 bg-white/95 backdrop-blur-md border-t border-gray-100">
+				{navItems.map((item, index) => (
+					<div class="mobile-nav-item" data-index={index}>
+						<a
+							href={item.href}
+							class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200"
+						>
+							{item.text}
+						</a>
+					</div>
+				))}
+				<div class="pt-4 border-t border-gray-100">
+					<a
+						href={CALENDLY_URL}
+						class="block px-4 py-3 text-base font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg transition-all duration-200 text-center"
+					>
+						Prendre rendez-vous
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<!-- Spacer pour compenser la navbar fixe -->
+<div class="h-20"></div>
+
+<script>
+	import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	
+	// Enregistrer les plugins GSAP
+	gsap.registerPlugin(ScrollTrigger);
+
+	// Animation d'entrée de la navbar
+	const header = document.getElementById('header');
+	const logo = document.getElementById('logo');
+	const desktopNav = document.getElementById('desktop-nav');
+	const ctaSection = document.getElementById('cta-section');
+	const mobileMenuButton = document.getElementById('mobile-menu-button');
+	const mobileMenu = document.getElementById('mobile-menu');
+	const hamburgerLines = [
+		document.getElementById('hamburger-line-1'),
+		document.getElementById('hamburger-line-2'),
+		document.getElementById('hamburger-line-3')
+	];
+
+	// Timeline d'entrée
+	const tl = gsap.timeline();
+	
+	tl.fromTo(logo, 
+		{ y: -50, opacity: 0 },
+		{ y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
+	);
+	
+	if (desktopNav) {
+		tl.fromTo(desktopNav.children, 
+			{ y: -30, opacity: 0 },
+			{ 
+				y: 0, 
+				opacity: 1, 
+				duration: 0.5, 
+				stagger: 0.1, 
+				ease: "power2.out",
+				delay: 0.2
+			}
+		);
+	}
+	
+	tl.fromTo(ctaSection, 
+		{ x: 50, opacity: 0 },
+		{ x: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
+		"-=0.3"
+	);
+
+	// Animation du scroll
+	ScrollTrigger.create({
+		start: "top top",
+		end: 99999,
+		onUpdate: (self) => {
+			if (self.direction === 1 && self.progress > 0.1) {
+				// Scroll vers le bas
+				gsap.to(header, {
+					y: -100,
+					duration: 0.3,
+					ease: "power2.inOut"
+				});
+			} else {
+				// Scroll vers le haut
+				gsap.to(header, {
+					y: 0,
+					duration: 0.3,
+					ease: "power2.inOut"
+				});
+			}
+		}
+	});
+
+	// Menu mobile
+	let isMobileMenuOpen = false;
+
+	mobileMenuButton?.addEventListener('click', () => {
+		isMobileMenuOpen = !isMobileMenuOpen;
+		
+		if (isMobileMenuOpen && mobileMenu) {
+			// Ouvrir le menu
+			gsap.to(mobileMenu, {
+				height: "auto",
+				duration: 0.3,
+				ease: "power2.out"
+			});
+			
+			// Animation des lignes hamburger
+			gsap.to(hamburgerLines[0], {
+				rotation: 45,
+				y: 8,
+				duration: 0.3
+			});
+			gsap.to(hamburgerLines[1], {
+				opacity: 0,
+				duration: 0.2
+			});
+			gsap.to(hamburgerLines[2], {
+				rotation: -45,
+				y: -8,
+				duration: 0.3
+			});
+			
+			// Animation des items du menu
+			gsap.fromTo(mobileMenu.children, 
+				{ x: -50, opacity: 0 },
+				{ 
+					x: 0, 
+					opacity: 1, 
+					duration: 0.4, 
+					stagger: 0.1, 
+					ease: "power2.out",
+					delay: 0.1
+				}
+			);
+		} else {
+			// Fermer le menu
+			gsap.to(mobileMenu, {
+				height: 0,
+				duration: 0.3,
+				ease: "power2.in"
+			});
+			
+			// Reset des lignes hamburger
+			gsap.to(hamburgerLines[0], {
+				rotation: 0,
+				y: 0,
+				duration: 0.3
+			});
+			gsap.to(hamburgerLines[1], {
+				opacity: 1,
+				duration: 0.2
+			});
+			gsap.to(hamburgerLines[2], {
+				rotation: 0,
+				y: 0,
+				duration: 0.3
+			});
+		}
+	});
+
+	// Animation des liens au hover
+	document.querySelectorAll('.nav-item a').forEach(link => {
+		link.addEventListener('mouseenter', () => {
+			gsap.to(link, {
+				scale: 1.05,
+				duration: 0.2,
+				ease: "power2.out"
+			});
+		});
+		
+		link.addEventListener('mouseleave', () => {
+			gsap.to(link, {
+				scale: 1,
+				duration: 0.2,
+				ease: "power2.out"
+			});
+		});
+	});
+
+	// Animation du bouton CTA
+	const ctaButton = document.getElementById('cta-button');
+	ctaButton?.addEventListener('mouseenter', () => {
+		gsap.to(ctaButton, {
+			scale: 1.05,
+			duration: 0.2,
+			ease: "power2.out"
+		});
+	});
+	
+	ctaButton?.addEventListener('mouseleave', () => {
+		gsap.to(ctaButton, {
+			scale: 1,
+			duration: 0.2,
+			ease: "power2.out"
+		});
+	});
+</script>
+
+<style>
+	/* Styles pour les animations GSAP */
+	.nav-item {
+		transform-origin: center;
+	}
+	
+	.mobile-nav-item {
+		transform-origin: left center;
+	}
+	
+	#mobile-menu {
+		height: 0;
+		overflow: hidden;
+	}
+	
+	/* Effet de glassmorphism */
+	#header {
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+	}
+</style> 

@@ -1,7 +1,9 @@
 ---
+import AnimatedSection from '../components/AnimatedSection.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import ModernHeader from '../components/ModernHeader.astro';
+import QuickNav from '../components/QuickNav.astro';
 import { CALENDLY_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
@@ -11,268 +13,259 @@ import { CALENDLY_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
+		<ModernHeader />
 		
 		<!-- Hero Section -->
 		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
-			<div class="container-max">
-				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-					<div>
-						<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-							Retrouvez votre <span class="text-primary-600">bien-être</span> grâce à l'hypnothérapie
-						</h1>
-						<p class="text-xl text-gray-600 mb-8 leading-relaxed">
-							Spécialisée dans le traitement du stress, de l'anxiété, des phobies et des addictions. 
-							Une approche bienveillante et personnalisée pour vous accompagner vers un mieux-être durable.
-						</p>
-						<div class="flex flex-col sm:flex-row gap-4">
-							<a href={CALENDLY_URL} class="btn-primary text-lg px-8 py-4">
-								Prendre rendez-vous
-							</a>
-							<a href="/services" class="btn-outline text-lg px-8 py-4">
-								Découvrir mes services
-							</a>
-						</div>
-					</div>
-					<div class="relative">
-						<div class="bg-white rounded-2xl shadow-xl p-8">
-							<div class="aspect-square bg-gradient-to-br from-primary-100 to-secondary-100 rounded-xl flex items-center justify-center">
-								<svg class="w-32 h-32 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-								</svg>
+			<AnimatedSection trigger="load" delay={0.2}>
+				<div class="container-max">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+						<AnimatedSection trigger="load" delay={0.4} direction="left">
+							<div>
+								<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+									Retrouvez votre <span class="text-primary-600">bien-être</span> grâce à l'hypnothérapie
+								</h1>
+								<p class="text-xl text-gray-600 mb-8 leading-relaxed">
+									Spécialisée dans le traitement du stress, de l'anxiété, des phobies et des addictions. 
+									Une approche bienveillante et personnalisée pour vous accompagner vers un mieux-être durable.
+								</p>
+								<div class="flex flex-col sm:flex-row gap-4">
+									<a href={CALENDLY_URL} class="btn-primary text-lg px-8 py-4">
+										Prendre rendez-vous
+									</a>
+									<a href="/services" class="btn-outline text-lg px-8 py-4">
+										Découvrir mes services
+									</a>
+								</div>
 							</div>
-						</div>
+						</AnimatedSection>
+						<AnimatedSection trigger="load" delay={0.6} direction="right">
+							<div class="relative">
+								<div class="bg-white rounded-2xl shadow-xl p-8">
+									<div class="aspect-square bg-gradient-to-br from-primary-100 to-secondary-100 rounded-xl flex items-center justify-center">
+										<svg class="w-32 h-32 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+										</svg>
+									</div>
+								</div>
+							</div>
+						</AnimatedSection>
 					</div>
 				</div>
-			</div>
+			</AnimatedSection>
 		</section>
 
 		<!-- Services Section -->
 		<section class="section-padding bg-white">
-			<div class="container-max">
-				<div class="text-center mb-16">
-					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Mes domaines d'expertise
-					</h2>
-					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
-						Je vous accompagne dans la résolution de diverses problématiques grâce à des techniques d'hypnothérapie éprouvées et personnalisées.
-					</p>
+			<AnimatedSection trigger="scroll" delay={0.2}>
+				<div class="container-max">
+					<div class="text-center mb-16">
+						<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+							Mes domaines d'expertise
+						</h2>
+						<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+							Je vous accompagne dans la résolution de diverses problématiques grâce à des techniques d'hypnothérapie éprouvées et personnalisées.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						<!-- Stress et Anxiété -->
+						<AnimatedSection trigger="scroll" delay={0.1} class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+							<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+								</svg>
+							</div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-4">Stress et Anxiété</h3>
+							<p class="text-gray-600 mb-4">
+								Apprenez à gérer votre stress quotidien et à surmonter l'anxiété grâce à des techniques de relaxation et de reprogrammation mentale.
+							</p>
+							<a href="/services#stress" class="text-primary-600 hover:text-primary-700 font-medium">
+								En savoir plus →
+							</a>
+						</AnimatedSection>
+
+						<!-- Phobies -->
+						<AnimatedSection trigger="scroll" delay={0.2} class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+							<div class="w-16 h-16 bg-secondary-100 rounded-lg flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+								</svg>
+							</div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-4">Phobies</h3>
+							<p class="text-gray-600 mb-4">
+								Libérez-vous de vos peurs irrationnelles et retrouvez une vie sans contraintes grâce à l'hypnose thérapeutique.
+							</p>
+							<a href="/services#phobies" class="text-primary-600 hover:text-primary-700 font-medium">
+								En savoir plus →
+							</a>
+						</AnimatedSection>
+
+						<!-- Addictions -->
+						<AnimatedSection trigger="scroll" delay={0.3} class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+							<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+								</svg>
+							</div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-4">Addictions</h3>
+							<p class="text-gray-600 mb-4">
+								Brisez le cycle des dépendances et retrouvez le contrôle de votre vie avec un accompagnement personnalisé.
+							</p>
+							<a href="/services#addictions" class="text-primary-600 hover:text-primary-700 font-medium">
+								En savoir plus →
+							</a>
+						</AnimatedSection>
+
+						<!-- Confiance en soi -->
+						<AnimatedSection trigger="scroll" delay={0.4} class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+							<div class="w-16 h-16 bg-secondary-100 rounded-lg flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+							</div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-4">Confiance en soi</h3>
+							<p class="text-gray-600 mb-4">
+								Développez votre estime personnelle et osez être vous-même dans toutes les situations de votre vie.
+							</p>
+							<a href="/services#confiance" class="text-primary-600 hover:text-primary-700 font-medium">
+								En savoir plus →
+							</a>
+						</AnimatedSection>
+
+						<!-- Sommeil -->
+						<AnimatedSection trigger="scroll" delay={0.5} class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+							<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+								</svg>
+							</div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-4">Troubles du sommeil</h3>
+							<p class="text-gray-600 mb-4">
+								Retrouvez un sommeil réparateur et naturel grâce à des techniques d'hypnose spécialement adaptées.
+							</p>
+							<a href="/services#sommeil" class="text-primary-600 hover:text-primary-700 font-medium">
+								En savoir plus →
+							</a>
+						</AnimatedSection>
+
+						<!-- Développement personnel -->
+						<AnimatedSection trigger="scroll" delay={0.6} class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
+							<div class="w-16 h-16 bg-secondary-100 rounded-lg flex items-center justify-center mb-6">
+								<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+								</svg>
+							</div>
+							<h3 class="text-xl font-semibold text-gray-900 mb-4">Développement personnel</h3>
+							<p class="text-gray-600 mb-4">
+								Atteignez vos objectifs et réalisez votre plein potentiel grâce à un accompagnement personnalisé.
+							</p>
+							<a href="/services#developpement" class="text-primary-600 hover:text-primary-700 font-medium">
+								En savoir plus →
+							</a>
+						</AnimatedSection>
+					</div>
 				</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					<!-- Stress et Anxiété -->
-					<div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
-						<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-							<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-							</svg>
-						</div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Stress et Anxiété</h3>
-						<p class="text-gray-600 mb-4">
-							Apprenez à gérer votre stress quotidien et à surmonter l'anxiété grâce à des techniques de relaxation et de reprogrammation mentale.
-						</p>
-						<a href="/services#stress" class="text-primary-600 hover:text-primary-700 font-medium">
-							En savoir plus →
-						</a>
-					</div>
-
-					<!-- Phobies -->
-					<div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
-						<div class="w-16 h-16 bg-secondary-100 rounded-lg flex items-center justify-center mb-6">
-							<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-							</svg>
-						</div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Phobies</h3>
-						<p class="text-gray-600 mb-4">
-							Libérez-vous de vos peurs irrationnelles et retrouvez une vie sans contraintes grâce à l'hypnose thérapeutique.
-						</p>
-						<a href="/services#phobies" class="text-primary-600 hover:text-primary-700 font-medium">
-							En savoir plus →
-						</a>
-					</div>
-
-					<!-- Addictions -->
-					<div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
-						<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-							<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-							</svg>
-						</div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Addictions</h3>
-						<p class="text-gray-600 mb-4">
-							Brisez le cycle des dépendances et retrouvez le contrôle de votre vie avec un accompagnement personnalisé.
-						</p>
-						<a href="/services#addictions" class="text-primary-600 hover:text-primary-700 font-medium">
-							En savoir plus →
-						</a>
-					</div>
-
-					<!-- Confiance en soi -->
-					<div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
-						<div class="w-16 h-16 bg-secondary-100 rounded-lg flex items-center justify-center mb-6">
-							<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-							</svg>
-						</div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Confiance en soi</h3>
-						<p class="text-gray-600 mb-4">
-							Développez votre estime personnelle et osez être vous-même dans toutes les situations de votre vie.
-						</p>
-						<a href="/services#confiance" class="text-primary-600 hover:text-primary-700 font-medium">
-							En savoir plus →
-						</a>
-					</div>
-
-					<!-- Sommeil -->
-					<div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
-						<div class="w-16 h-16 bg-primary-100 rounded-lg flex items-center justify-center mb-6">
-							<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-							</svg>
-						</div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Troubles du sommeil</h3>
-						<p class="text-gray-600 mb-4">
-							Retrouvez un sommeil réparateur et naturel grâce à des techniques d'hypnose spécialement adaptées.
-						</p>
-						<a href="/services#sommeil" class="text-primary-600 hover:text-primary-700 font-medium">
-							En savoir plus →
-						</a>
-					</div>
-
-					<!-- Développement personnel -->
-					<div class="bg-gray-50 rounded-xl p-8 hover:shadow-lg transition-shadow">
-						<div class="w-16 h-16 bg-secondary-100 rounded-lg flex items-center justify-center mb-6">
-							<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-							</svg>
-						</div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Développement personnel</h3>
-						<p class="text-gray-600 mb-4">
-							Atteignez vos objectifs et réalisez votre plein potentiel grâce à un accompagnement personnalisé.
-						</p>
-						<a href="/services#developpement" class="text-primary-600 hover:text-primary-700 font-medium">
-							En savoir plus →
-						</a>
-					</div>
-				</div>
-			</div>
+			</AnimatedSection>
 		</section>
 
 		<!-- Témoignages Section -->
 		<section class="section-padding bg-gray-50">
-			<div class="container-max">
-				<div class="text-center mb-16">
-					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Ce que disent mes patients
-					</h2>
-					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
-						Découvrez les témoignages de personnes qui ont retrouvé leur bien-être grâce à l'hypnothérapie.
-					</p>
-				</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					<div class="bg-white rounded-xl p-8 shadow-sm">
-						<div class="flex items-center mb-4">
-							<div class="flex text-yellow-400">
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-							</div>
-						</div>
-						<p class="text-gray-600 mb-4">
-							"Grâce à l'hypnothérapie, j'ai pu surmonter mon anxiété sociale. Je me sens maintenant plus confiante et épanouie dans ma vie professionnelle et personnelle."
+			<AnimatedSection trigger="scroll" delay={0.2}>
+				<div class="container-max">
+					<div class="text-center mb-16">
+						<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+							Ce que disent mes patients
+						</h2>
+						<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+							Découvrez les témoignages de personnes qui ont retrouvé leur bien-être grâce à l'hypnothérapie.
 						</p>
-						<div class="font-medium text-gray-900">Marie L.</div>
 					</div>
 
-					<div class="bg-white rounded-xl p-8 shadow-sm">
-						<div class="flex items-center mb-4">
-							<div class="flex text-yellow-400">
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						<AnimatedSection trigger="scroll" delay={0.1} class="bg-white rounded-xl p-8 shadow-sm">
+							<div class="flex items-center mb-4">
+								<div class="flex text-yellow-400">
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+								</div>
 							</div>
-						</div>
-						<p class="text-gray-600 mb-4">
-							"Après des années de lutte contre le stress au travail, l'hypnothérapie m'a permis de retrouver un équilibre et une sérénité que je pensais perdus."
-						</p>
-						<div class="font-medium text-gray-900">Thomas B.</div>
-					</div>
+							<p class="text-gray-600 mb-4">
+								"Grâce à l'hypnothérapie, j'ai pu surmonter mon anxiété sociale. Je me sens maintenant plus confiante et épanouie dans ma vie professionnelle et personnelle."
+							</p>
+							<div class="font-medium text-gray-900">Marie L.</div>
+						</AnimatedSection>
 
-					<div class="bg-white rounded-xl p-8 shadow-sm">
-						<div class="flex items-center mb-4">
-							<div class="flex text-yellow-400">
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-								</svg>
+						<AnimatedSection trigger="scroll" delay={0.2} class="bg-white rounded-xl p-8 shadow-sm">
+							<div class="flex items-center mb-4">
+								<div class="flex text-yellow-400">
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+								</div>
 							</div>
-						</div>
-						<p class="text-gray-600 mb-4">
-							"L'hypnothérapie m'a aidé à arrêter de fumer après 15 ans. C'était plus facile que je ne l'imaginais et je me sens maintenant libéré de cette dépendance."
-						</p>
-						<div class="font-medium text-gray-900">Sophie M.</div>
+							<p class="text-gray-600 mb-4">
+								"Après des années de lutte contre le stress au travail, l'hypnothérapie m'a permis de retrouver un équilibre et une sérénité que je pensais perdus."
+							</p>
+							<div class="font-medium text-gray-900">Thomas B.</div>
+						</AnimatedSection>
+
+						<AnimatedSection trigger="scroll" delay={0.3} class="bg-white rounded-xl p-8 shadow-sm">
+							<div class="flex items-center mb-4">
+								<div class="flex text-yellow-400">
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+									<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+									</svg>
+								</div>
+							</div>
+							<p class="text-gray-600 mb-4">
+								"L'hypnothérapie m'a aidé à surmonter ma phobie de l'avion. Maintenant, je peux voyager sereinement et profiter pleinement de mes déplacements."
+							</p>
+							<div class="font-medium text-gray-900">Sophie M.</div>
+						</AnimatedSection>
 					</div>
 				</div>
-			</div>
-		</section>
-
-		<!-- CTA Section -->
-		<section class="section-padding bg-primary-600">
-			<div class="container-max text-center">
-				<h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-					Prêt(e) à transformer votre vie ?
-				</h2>
-				<p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-					Prenez le premier pas vers votre bien-être. Réservez votre consultation d'hypnothérapie dès aujourd'hui.
-				</p>
-				<div class="flex flex-col sm:flex-row gap-4 justify-center">
-					<a href={CALENDLY_URL} class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
-						Prendre rendez-vous
-					</a>
-					<a href="/about" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
-						En savoir plus sur moi
-					</a>
-				</div>
-			</div>
+			</AnimatedSection>
 		</section>
 
 		<Footer />
+		<QuickNav />
 	</body>
 </html>

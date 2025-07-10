@@ -1,0 +1,103 @@
+---
+interface Props {
+  class?: string;
+  delay?: number;
+  direction?: 'up' | 'down' | 'left' | 'right';
+  duration?: number;
+  trigger?: 'scroll' | 'hover' | 'load';
+}
+
+const { 
+  class: className = '', 
+  delay = 0, 
+  direction = 'up', 
+  duration = 0.8, 
+  trigger = 'scroll' 
+} = Astro.props;
+
+const directionClasses = {
+  up: 'translate-y-10',
+  down: '-translate-y-10',
+  left: 'translate-x-10',
+  right: '-translate-x-10'
+};
+
+const initialClass = directionClasses[direction];
+---
+
+<div class={`opacity-0 ${initialClass} ${className}`} data-animated-section data-trigger={trigger} data-delay={delay} data-duration={duration} data-direction={direction}>
+  <slot />
+</div>
+
+<script>
+  import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animation des sections au scroll
+  const animatedSections = document.querySelectorAll('[data-animated-section]');
+  
+  animatedSections.forEach((section) => {
+    const trigger = section.getAttribute('data-trigger');
+    const delay = parseFloat(section.getAttribute('data-delay') || '0');
+    const duration = parseFloat(section.getAttribute('data-duration') || '0.8');
+    const direction = section.getAttribute('data-direction') || 'up';
+    
+    if (trigger === 'scroll') {
+      gsap.fromTo(section, 
+        {
+          opacity: 0,
+          y: direction === 'up' ? 50 : direction === 'down' ? -50 : 0,
+          x: direction === 'left' ? 50 : direction === 'right' ? -50 : 0
+        },
+        {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          duration: duration,
+          delay: delay,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            end: "bottom 15%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    } else if (trigger === 'load') {
+      gsap.fromTo(section,
+        {
+          opacity: 0,
+          y: direction === 'up' ? 50 : direction === 'down' ? -50 : 0,
+          x: direction === 'left' ? 50 : direction === 'right' ? -50 : 0
+        },
+        {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          duration: duration,
+          delay: delay,
+          ease: "power2.out"
+        }
+      );
+    } else if (trigger === 'hover') {
+      section.addEventListener('mouseenter', () => {
+        gsap.to(section, {
+          scale: 1.02,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+      
+      section.addEventListener('mouseleave', () => {
+        gsap.to(section, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      });
+    }
+  });
+</script> 

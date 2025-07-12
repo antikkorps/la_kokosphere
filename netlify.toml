@@ -1,14 +1,20 @@
 [build]
-  command = "npm run build"
+  command = "npm run build:all"
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
 
 # Redirections pour le SPA
 [[redirects]]
   from = "/*"
   to = "/index.html"
+  status = 200
+
+# Redirection pour Sanity Studio sur /admin
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
   status = 200
 
 # Headers de sécurité

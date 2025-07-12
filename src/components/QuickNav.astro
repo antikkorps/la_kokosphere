@@ -106,99 +106,105 @@ const quickLinks = [
 <script>
 	import { gsap } from 'gsap';
 
-	const quickNavToggle = document.getElementById('quick-nav-toggle');
-	const quickLinks = document.getElementById('quick-links');
-	const quickNavIcon = document.getElementById('quick-nav-icon');
-	let isOpen = false;
+	// Attendre que le DOM soit chargé
+	document.addEventListener('DOMContentLoaded', () => {
+		const quickNavToggle = document.getElementById('quick-nav-toggle');
+		const quickLinks = document.getElementById('quick-links');
+		const quickNavIcon = document.getElementById('quick-nav-icon');
+		let isOpen = false;
 
-	quickNavToggle?.addEventListener('click', () => {
-		isOpen = !isOpen;
-		
-		if (isOpen && quickLinks) {
-			// Ouvrir le menu
-			gsap.to(quickLinks, {
-				opacity: 1,
-				pointerEvents: 'auto',
-				duration: 0.3,
-				ease: "power2.out"
-			});
+		// Vérifier que les éléments existent
+		if (!quickNavToggle || !quickLinks || !quickNavIcon) return;
+
+		quickNavToggle.addEventListener('click', () => {
+			isOpen = !isOpen;
 			
-			// Animation des liens (vers le haut)
-			gsap.fromTo(quickLinks.children, 
-				{ 
-					scale: 0, 
-					opacity: 0,
-					y: 20
-				},
-				{ 
-					scale: 1, 
+			if (isOpen) {
+				// Ouvrir le menu
+				gsap.to(quickLinks, {
 					opacity: 1,
-					y: 0,
-					duration: 0.4, 
-					stagger: 0.1, 
-					ease: "back.out(1.7)"
-				}
-			);
-			
-			// Rotation de l'icône
-			gsap.to(quickNavIcon, {
-				rotation: 180,
-				duration: 0.3
-			});
-		} else {
-			// Fermer le menu
-			gsap.to(quickLinks, {
-				opacity: 0,
-				pointerEvents: 'none',
-				duration: 0.3,
-				ease: "power2.in"
-			});
-			
-			// Reset de l'icône
-			gsap.to(quickNavIcon, {
-				rotation: 0,
-				duration: 0.3
-			});
-		}
-	});
-
-	// Animation au hover des liens
-	document.querySelectorAll('#quick-links a').forEach(link => {
-		link.addEventListener('mouseenter', () => {
-			gsap.to(link, {
-				scale: 1.1,
-				duration: 0.2,
-				ease: "power2.out"
-			});
-		});
-		
-		link.addEventListener('mouseleave', () => {
-			gsap.to(link, {
-				scale: 1,
-				duration: 0.2,
-				ease: "power2.out"
-			});
-		});
-	});
-
-	// Masquer le menu au scroll
-	let scrollTimeout: ReturnType<typeof setTimeout>;
-	window.addEventListener('scroll', () => {
-		if (isOpen && quickLinks) {
-			clearTimeout(scrollTimeout);
-			scrollTimeout = setTimeout(() => {
-				isOpen = false;
+					pointerEvents: 'auto',
+					duration: 0.3,
+					ease: "power2.out"
+				});
+				
+				// Animation des liens (vers le haut)
+				gsap.fromTo(quickLinks.children, 
+					{ 
+						scale: 0, 
+						opacity: 0,
+						y: 20
+					},
+					{ 
+						scale: 1, 
+						opacity: 1,
+						y: 0,
+						duration: 0.4, 
+						stagger: 0.1, 
+						ease: "back.out(1.7)"
+					}
+				);
+				
+				// Rotation de l'icône
+				gsap.to(quickNavIcon, {
+					rotation: 180,
+					duration: 0.3
+				});
+			} else {
+				// Fermer le menu
 				gsap.to(quickLinks, {
 					opacity: 0,
 					pointerEvents: 'none',
-					duration: 0.3
+					duration: 0.3,
+					ease: "power2.in"
 				});
+				
+				// Reset de l'icône
 				gsap.to(quickNavIcon, {
 					rotation: 0,
 					duration: 0.3
 				});
-			}, 1000);
-		}
+			}
+		});
+
+		// Animation au hover des liens
+		document.querySelectorAll('#quick-links a').forEach(link => {
+			link.addEventListener('mouseenter', () => {
+				gsap.to(link, {
+					scale: 1.1,
+					duration: 0.2,
+					ease: "power2.out"
+				});
+			});
+			
+			link.addEventListener('mouseleave', () => {
+				gsap.to(link, {
+					scale: 1,
+					duration: 0.2,
+					ease: "power2.out"
+				});
+			});
+		});
+
+		// Masquer le menu au scroll
+		let scrollTimeout: ReturnType<typeof setTimeout>;
+		window.addEventListener('scroll', () => {
+			if (isOpen) {
+				clearTimeout(scrollTimeout);
+				scrollTimeout = setTimeout(() => {
+					isOpen = false;
+					gsap.to(quickLinks, {
+						opacity: 0,
+						pointerEvents: 'none',
+						duration: 0.3
+					});
+					gsap.to(quickNavIcon, {
+						rotation: 0,
+						duration: 0.3
+					});
+				}, 1000);
+			}
+		});
 	});
 </script>
 

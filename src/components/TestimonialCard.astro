@@ -1,39 +1,81 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+
 interface Props {
-  content: string;
-  author: string;
-  rating?: number;
-  service?: string;
+  testimonial: CollectionEntry<'testimonials'>;
+  maxLength?: number;
 }
 
-const { content, author, rating = 5, service } = Astro.props;
+const { testimonial, maxLength = 150 } = Astro.props;
 
-const stars = Array.from({ length: 5 }, (_, i) => i < rating);
+// Générer un avatar Dicebear basé sur le nom du client
+const generateAvatar = (name: string) => {
+  const seed = name.toLowerCase().replace(/\s+/g, '');
+  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+};
+
+const stars = Array.from({ length: 5 }, (_, i) => i < testimonial.data.rating);
+
+// Tronquer le texte si nécessaire
+const isLongText = testimonial.data.testimonial.length > maxLength;
+const truncatedText = isLongText 
+  ? testimonial.data.testimonial.substring(0, maxLength).trim() + '...'
+  : testimonial.data.testimonial;
 ---
 
-<div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
-  {rating > 0 && (
-    <div class="flex items-center mb-4">
-      <div class="flex text-yellow-400">
-        {stars.map((isFilled) => (
-          <svg class="w-5 h-5" fill={isFilled ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        ))}
+<div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
+  <div class="flex items-center mb-4">
+    <div class="flex text-yellow-400">
+      {stars.map((isFilled) => (
+        <svg class="w-5 h-5" fill={isFilled ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  </div>
+  
+  <div class="flex-grow">
+    <blockquote class="text-gray-600 mb-3 italic">
+      "{truncatedText}"
+    </blockquote>
+    
+    {isLongText && (
+      <button 
+        class="text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors"
+        data-testimonial-id={testimonial.id}
+        onclick="document.dispatchEvent(new CustomEvent('openTestimonialModal', { detail: this.dataset.testimonialId }))"
+      >
+        Lire la suite →
+      </button>
+    )}
+  </div>
+  
+  <div class="flex items-center space-x-3 mt-6">
+    <div class="flex-shrink-0">
+      {testimonial.data.clientImage ? (
+        <img 
+          src={testimonial.data.clientImage.src} 
+          alt={`Photo de ${testimonial.data.clientName}`}
+          class="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
+          loading="lazy"
+        />
+      ) : (
+        <img 
+          src={generateAvatar(testimonial.data.clientName)} 
+          alt={`Avatar de ${testimonial.data.clientName}`}
+          class="w-12 h-12 rounded-full border-2 border-gray-200"
+          loading="lazy"
+        />
+      )}
+    </div>
+    <div class="flex-1">
+      <div class="font-medium text-gray-900">{testimonial.data.clientName}</div>
+      <div class="text-sm text-gray-500">
+        {new Date(testimonial.data.date).toLocaleDateString('fr-FR', { 
+          year: 'numeric', 
+          month: 'long' 
+        })}
       </div>
     </div>
-  )}
-  
-  <blockquote class="text-gray-600 mb-4 italic">
-    "{content}"
-  </blockquote>
-  
-  <div class="flex items-center justify-between">
-    <div class="font-medium text-gray-900">{author}</div>
-    {service && (
-      <span class="text-sm text-primary-600 bg-primary-50 px-3 py-1 rounded-full">
-        {service}
-      </span>
-    )}
   </div>
 </div> 

@@ -28,6 +28,7 @@ const services = defineCollection({
       price: z.string().optional(),
       duration: z.string().optional(),
       image: image().optional(),
+      order: z.number().optional(), // Ajout du champ order
     }),
 })
 

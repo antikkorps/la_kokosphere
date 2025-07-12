@@ -15,6 +15,9 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = FallbackImage } = Astro.props;
+
+// Charger Netlify Identity uniquement en production
+const isProduction = import.meta.env.PROD;
 ---
 
 <!-- Global Metadata -->
@@ -56,5 +59,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
-<!-- Netlify Identity -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<!-- Netlify Identity - Chargé uniquement en production -->
+{isProduction && (
+	<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+)}

@@ -56,42 +56,102 @@ const navItems = [
 				</a>
 			</div>
 
-			<!-- Mobile menu button avec animation -->
+			<!-- Mobile menu button avec burger animé -->
 			<div class="lg:hidden">
 				<button
 					type="button"
-					class="relative w-10 h-10 flex items-center justify-center text-gray-600 hover:text-primary-600 transition-colors duration-200"
+					class="relative w-12 h-12 flex items-center justify-center text-gray-600 hover:text-primary-600 transition-colors duration-200 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200 hover:border-primary-300 hover:shadow-lg"
 					aria-label="Toggle menu"
 					id="mobile-menu-button"
 				>
 					<div class="w-6 h-6 relative">
-						<span class="absolute top-0 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center" id="hamburger-line-1"></span>
-						<span class="absolute top-2 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center" id="hamburger-line-2"></span>
-						<span class="absolute top-4 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center" id="hamburger-line-3"></span>
+						<span class="absolute top-0 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center rounded-full" id="hamburger-line-1"></span>
+						<span class="absolute top-2 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center rounded-full" id="hamburger-line-2"></span>
+						<span class="absolute top-4 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 origin-center rounded-full" id="hamburger-line-3"></span>
 					</div>
 				</button>
 			</div>
 		</div>
 
-		<!-- Mobile menu avec animations -->
-		<div class="lg:hidden overflow-hidden" id="mobile-menu">
-			<div class="px-2 pt-2 pb-6 space-y-2 bg-white/95 backdrop-blur-md border-t border-gray-100">
-				{navItems.map((item, index) => (
-					<div class="mobile-nav-item" data-index={index}>
-						<a
-							href={item.href}
-							class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200"
-						>
-							{item.text}
-						</a>
+		<!-- Mobile menu moderne avec overlay -->
+		<div class="lg:hidden fixed inset-0 w-full h-full min-h-screen bg-white z-[99999]" id="mobile-menu-overlay">
+			<!-- Overlay sombre (optionnel, mais ici on ne l'affiche plus) -->
+			<!-- <div class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300" id="mobile-overlay"></div> -->
+
+			<!-- Menu principal -->
+			<div class="fixed inset-0 w-full h-full min-h-screen bg-white z-[99999]" id="mobile-menu">
+				<!-- Header du menu -->
+				<div class="flex items-center justify-between p-4 border-b border-gray-100">
+					<div class="flex items-center space-x-3">
+						<div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
+							<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+							</svg>
+						</div>
+						<span class="text-lg font-bold text-gray-800">Menu</span>
 					</div>
-				))}
-				<div class="pt-4 border-t border-gray-100">
+					<!-- Bouton X harmonisé -->
+					<button type="button" id="mobile-close-button"
+						class="relative w-12 h-12 flex items-center justify-center text-gray-600 hover:text-primary-600 transition-colors duration-200 bg-white border border-gray-200 hover:border-primary-300 rounded-xl shadow-sm hover:shadow-lg">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+				
+				<!-- Navigation -->
+				<div class="flex-1 overflow-y-auto">
+					<nav class="p-4 space-y-2">
+						{navItems.map((item, index) => (
+							<div class="mobile-nav-item opacity-0 transform translate-x-8" data-index={index}>
+								<a
+									href={item.href}
+									class="flex items-center space-x-3 p-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-lg transition-all duration-200"
+								>
+									<div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+										{index === 0 && (
+											<svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+											</svg>
+										)}
+										{index === 1 && (
+											<svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+											</svg>
+										)}
+										{index === 2 && (
+											<svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+											</svg>
+										)}
+										{index === 3 && (
+											<svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+											</svg>
+										)}
+										{index === 4 && (
+											<svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+											</svg>
+										)}
+									</div>
+									<span>{item.text}</span>
+								</a>
+							</div>
+						))}
+					</nav>
+				</div>
+				
+				<!-- CTA Section -->
+				<div class="p-4 border-t border-gray-100 bg-gray-50">
 					<a
 						href={CALENDLY_URL}
-						class="block px-4 py-3 text-base font-medium text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg transition-all duration-200 text-center"
+						class="flex items-center justify-center space-x-2 w-full py-3 px-4 text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg transition-all duration-200 shadow-md"
 					>
-						Prendre rendez-vous
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+						</svg>
+						<span>Prendre rendez-vous</span>
 					</a>
 				</div>
 			</div>
@@ -109,172 +169,240 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	// Enregistrer les plugins GSAP
 	gsap.registerPlugin(ScrollTrigger);
 
-	// Animation d'entrée de la navbar
-	const header = document.getElementById('header');
-	const logo = document.getElementById('logo');
-	const desktopNav = document.getElementById('desktop-nav');
-	const ctaSection = document.getElementById('cta-section');
-	const mobileMenuButton = document.getElementById('mobile-menu-button');
-	const mobileMenu = document.getElementById('mobile-menu');
-	const hamburgerLines = [
-		document.getElementById('hamburger-line-1'),
-		document.getElementById('hamburger-line-2'),
-		document.getElementById('hamburger-line-3')
-	];
+	// Attendre que le DOM soit chargé
+	document.addEventListener('DOMContentLoaded', () => {
+		// Animation d'entrée de la navbar
+		const header = document.getElementById('header');
+		const logo = document.getElementById('logo');
+		const desktopNav = document.getElementById('desktop-nav');
+		const ctaSection = document.getElementById('cta-section');
+		const mobileMenuButton = document.getElementById('mobile-menu-button');
+		const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const mobileCloseButton = document.getElementById('mobile-close-button');
+		const hamburgerLines = [
+			document.getElementById('hamburger-line-1'),
+			document.getElementById('hamburger-line-2'),
+			document.getElementById('hamburger-line-3')
+		];
 
-	// Timeline d'entrée
-	const tl = gsap.timeline();
-	
-	tl.fromTo(logo, 
-		{ y: -50, opacity: 0 },
-		{ y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
-	);
-	
-	if (desktopNav) {
-		tl.fromTo(desktopNav.children, 
-			{ y: -30, opacity: 0 },
-			{ 
-				y: 0, 
-				opacity: 1, 
-				duration: 0.5, 
-				stagger: 0.1, 
-				ease: "power2.out",
-				delay: 0.2
-			}
-		);
-	}
-	
-	tl.fromTo(ctaSection, 
-		{ x: 50, opacity: 0 },
-		{ x: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
-		"-=0.3"
-	);
-
-	// Animation du scroll
-	ScrollTrigger.create({
-		start: "top top",
-		end: 99999,
-		onUpdate: (self) => {
-			if (self.direction === 1 && self.progress > 0.1) {
-				// Scroll vers le bas
-				gsap.to(header, {
-					y: -100,
-					duration: 0.3,
-					ease: "power2.inOut"
-				});
-			} else {
-				// Scroll vers le haut
-				gsap.to(header, {
-					y: 0,
-					duration: 0.3,
-					ease: "power2.inOut"
-				});
-			}
+		// Vérifier que tous les éléments existent
+		if (!header || !logo || !ctaSection) {
+			console.warn('Header elements not found');
+			return;
 		}
-	});
 
-	// Menu mobile
-	let isMobileMenuOpen = false;
+		// S'assurer que le header est visible par défaut
+		gsap.set(header, { opacity: 1, y: 0, clearProps: "all" });
+		gsap.set(logo, { opacity: 1, y: 0, clearProps: "all" });
+		gsap.set(ctaSection, { opacity: 1, x: 0, clearProps: "all" });
+		if (desktopNav) {
+			gsap.set(desktopNav.children, { opacity: 1, y: 0, clearProps: "all" });
+		}
 
-	mobileMenuButton?.addEventListener('click', () => {
-		isMobileMenuOpen = !isMobileMenuOpen;
-		
-		if (isMobileMenuOpen && mobileMenu) {
-			// Ouvrir le menu
-			gsap.to(mobileMenu, {
-				height: "auto",
-				duration: 0.3,
-				ease: "power2.out"
-			});
+		// Timeline d'entrée avec délai pour s'assurer que tout est prêt
+		setTimeout(() => {
+			const tl = gsap.timeline();
 			
-			// Animation des lignes hamburger
-			gsap.to(hamburgerLines[0], {
-				rotation: 45,
-				y: 8,
-				duration: 0.3
-			});
-			gsap.to(hamburgerLines[1], {
-				opacity: 0,
-				duration: 0.2
-			});
-			gsap.to(hamburgerLines[2], {
-				rotation: -45,
-				y: -8,
-				duration: 0.3
-			});
-			
-			// Animation des items du menu
-			gsap.fromTo(mobileMenu.children, 
-				{ x: -50, opacity: 0 },
-				{ 
-					x: 0, 
-					opacity: 1, 
-					duration: 0.4, 
-					stagger: 0.1, 
-					ease: "power2.out",
-					delay: 0.1
-				}
+			tl.fromTo(logo, 
+				{ y: -50, opacity: 0 },
+				{ y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
 			);
-		} else {
-			// Fermer le menu
-			gsap.to(mobileMenu, {
-				height: 0,
-				duration: 0.3,
+			
+			if (desktopNav) {
+				tl.fromTo(desktopNav.children, 
+					{ y: -30, opacity: 0 },
+					{ 
+						y: 0, 
+						opacity: 1, 
+						duration: 0.5, 
+						stagger: 0.1, 
+						ease: "power2.out",
+						delay: 0.2
+					}
+				);
+			}
+			
+			tl.fromTo(ctaSection, 
+				{ x: 50, opacity: 0 },
+				{ x: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
+				"-=0.3"
+			);
+		}, 100);
+
+		// Animation du scroll avec classe CSS
+		let lastScrollY = window.scrollY;
+		let isHeaderHidden = false;
+
+		window.addEventListener('scroll', () => {
+			// Ne pas animer le header si le menu mobile est ouvert
+			if (isMobileMenuOpen) return;
+			
+			const currentScrollY = window.scrollY;
+			const scrollDelta = currentScrollY - lastScrollY;
+			
+			// Cacher le header quand on scroll vers le bas
+			if (scrollDelta > 0 && currentScrollY > 100 && !isHeaderHidden) {
+				header.classList.add('header-hidden');
+				isHeaderHidden = true;
+			}
+			// Montrer le header quand on scroll vers le haut
+			else if (scrollDelta < 0 && isHeaderHidden) {
+				header.classList.remove('header-hidden');
+				isHeaderHidden = false;
+			}
+			// Toujours montrer le header en haut de page
+			else if (currentScrollY < 50 && isHeaderHidden) {
+				header.classList.remove('header-hidden');
+				isHeaderHidden = false;
+			}
+			
+			lastScrollY = currentScrollY;
+		});
+
+		// Menu mobile
+		let isMobileMenuOpen = false;
+
+		mobileMenuButton?.addEventListener('click', () => {
+			console.log('Bouton mobile cliqué');
+			if (!mobileMenuOverlay || !mobileMenu) {
+				console.log('Éléments manquants:', { mobileMenuOverlay, mobileMenu });
+				return;
+			}
+
+			isMobileMenuOpen = !isMobileMenuOpen;
+			console.log('Menu ouvert:', isMobileMenuOpen);
+
+			if (isMobileMenuOpen) {
+				// Bloquer le scroll
+				document.body.style.overflow = 'hidden';
+				// Ouvrir le menu avec classes CSS
+				mobileMenuOverlay.classList.add('menu-open');
+				mobileMenu.classList.add('menu-open');
+				// Animation moderne des lignes hamburger
+				gsap.to(hamburgerLines[0], {
+					rotation: 45,
+					y: 8,
+					scaleX: 1.1,
+					duration: 0.4,
+					ease: "power2.out"
+				});
+				gsap.to(hamburgerLines[1], {
+					opacity: 0,
+					scaleX: 0.8,
+					duration: 0.3,
+					ease: "power2.in"
+				});
+				gsap.to(hamburgerLines[2], {
+					rotation: -45,
+					y: -8,
+					scaleX: 1.1,
+					duration: 0.4,
+					ease: "power2.out"
+				});
+				// Animation des items du menu avec délai
+				setTimeout(() => {
+					gsap.to('.mobile-nav-item', {
+						opacity: 1,
+						x: 0,
+						duration: 0.4,
+						stagger: 0.1,
+						ease: "power2.out"
+					});
+				}, 200);
+			} else {
+				// Fermer le menu
+				closeMobileMenu();
+			}
+		});
+
+		function closeMobileMenu() {
+			if (!mobileMenuOverlay || !mobileMenu) return;
+
+			isMobileMenuOpen = false;
+			// Débloquer le scroll
+			document.body.style.overflow = '';
+			// Animation des items du menu (sortie)
+			gsap.to('.mobile-nav-item', {
+				opacity: 0,
+				x: 50,
+				duration: 0.2,
+				stagger: 0.05,
 				ease: "power2.in"
 			});
-			
-			// Reset des lignes hamburger
+			// Fermer le menu avec classes CSS
+			setTimeout(() => {
+				mobileMenuOverlay.classList.remove('menu-open');
+				mobileMenu.classList.remove('menu-open');
+			}, 300);
+			// Reset moderne des lignes hamburger
 			gsap.to(hamburgerLines[0], {
 				rotation: 0,
 				y: 0,
-				duration: 0.3
+				scaleX: 1,
+				duration: 0.4,
+				ease: "power2.out"
 			});
 			gsap.to(hamburgerLines[1], {
 				opacity: 1,
-				duration: 0.2
+				scaleX: 1,
+				duration: 0.3,
+				ease: "power2.out"
 			});
 			gsap.to(hamburgerLines[2], {
 				rotation: 0,
 				y: 0,
-				duration: 0.3
+				scaleX: 1,
+				duration: 0.4,
+				ease: "power2.out"
 			});
 		}
-	});
 
-	// Animation des liens au hover
-	document.querySelectorAll('.nav-item a').forEach(link => {
-		link.addEventListener('mouseenter', () => {
-			gsap.to(link, {
+		// Fermer le menu avec le bouton X
+		mobileCloseButton?.addEventListener('click', closeMobileMenu);
+		// Fermer le menu avec la touche Escape
+		// (plus besoin de mobileOverlay)
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && isMobileMenuOpen) {
+				closeMobileMenu();
+			}
+		});
+
+		// Animation des liens au hover
+		document.querySelectorAll('.nav-item a').forEach(link => {
+			link.addEventListener('mouseenter', () => {
+				gsap.to(link, {
+					scale: 1.05,
+					duration: 0.2,
+					ease: "power2.out"
+				});
+			});
+			
+			link.addEventListener('mouseleave', () => {
+				gsap.to(link, {
+					scale: 1,
+					duration: 0.2,
+					ease: "power2.out"
+				});
+			});
+		});
+
+		// Animation du bouton CTA
+		const ctaButton = document.getElementById('cta-button');
+		ctaButton?.addEventListener('mouseenter', () => {
+			gsap.to(ctaButton, {
 				scale: 1.05,
 				duration: 0.2,
 				ease: "power2.out"
 			});
 		});
 		
-		link.addEventListener('mouseleave', () => {
-			gsap.to(link, {
+		ctaButton?.addEventListener('mouseleave', () => {
+			gsap.to(ctaButton, {
 				scale: 1,
 				duration: 0.2,
 				ease: "power2.out"
 			});
-		});
-	});
-
-	// Animation du bouton CTA
-	const ctaButton = document.getElementById('cta-button');
-	ctaButton?.addEventListener('mouseenter', () => {
-		gsap.to(ctaButton, {
-			scale: 1.05,
-			duration: 0.2,
-			ease: "power2.out"
-		});
-	});
-	
-	ctaButton?.addEventListener('mouseleave', () => {
-		gsap.to(ctaButton, {
-			scale: 1,
-			duration: 0.2,
-			ease: "power2.out"
 		});
 	});
 </script>
@@ -289,14 +417,103 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 		transform-origin: left center;
 	}
 	
+	/* Menu mobile moderne */
+	#mobile-menu-overlay {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+	}
+	
+	#mobile-menu-overlay.menu-open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+	
 	#mobile-menu {
-		height: 0;
-		overflow: hidden;
+		transform: translateX(100%);
+		transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	
+	#mobile-menu.menu-open {
+		transform: translateX(0);
+	}
+	
+	/* Animation des items du menu */
+	.mobile-nav-item {
+		opacity: 0;
+		transform: translateX(2rem);
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	
+	.mobile-nav-item.animate-in {
+		opacity: 1;
+		transform: translateX(0);
 	}
 	
 	/* Effet de glassmorphism */
 	#header {
 		backdrop-filter: blur(10px);
 		-webkit-backdrop-filter: blur(10px);
+		top: 0;
+		transition: top 0.3s ease-out;
+	}
+	
+	/* Animation de slide pour le header */
+	#header.header-hidden {
+		top: -80px;
+	}
+	
+	/* Assurer que le header reste au-dessus du contenu */
+	#header {
+		z-index: 1000;
+	}
+	
+	/* Le menu mobile doit être au-dessus de tout */
+	#mobile-menu-overlay {
+		z-index: 99999 !important;
+	}
+	
+	/* Burger moderne */
+	#mobile-menu-button {
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+	}
+	
+	/* Lignes du burger avec effet moderne */
+	#hamburger-line-1,
+	#hamburger-line-2,
+	#hamburger-line-3 {
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+	
+	/* Menu avec fond blanc solide */
+	#mobile-menu {
+		background: white !important;
+		backdrop-filter: none;
+	}
+	
+	/* Fallback pour s'assurer que le header est visible */
+	#logo, #desktop-nav, #cta-section {
+		opacity: 1;
+		transform: none;
+	}
+	
+	/* Animation d'entrée CSS de fallback */
+	@keyframes headerFadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	
+	/* Appliquer l'animation CSS si JavaScript est désactivé */
+	.no-js #header {
+		animation: headerFadeIn 0.6s ease-out;
 	}
 </style> 

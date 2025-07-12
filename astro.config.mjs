@@ -2,10 +2,11 @@
 import mdx from "@astrojs/mdx"
 import sitemap from "@astrojs/sitemap"
 import tailwind from "@astrojs/tailwind"
+import vue from "@astrojs/vue"
 import { defineConfig } from "astro/config"
 
 // https://astro.build/config
 export default defineConfig({
-  site: import.meta.env.SITE_URL || "https://votre-domaine-hypnotherapie.com",
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [tailwind(), mdx(), sitemap(), vue()],
+  site: "https://la-kokosphere.fr",
 })

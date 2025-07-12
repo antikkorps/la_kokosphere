@@ -73,28 +73,24 @@ collections:
     fields:
       - { label: "Titre", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
-      - {
-          label: "Icône",
-          name: "icon",
-          widget: "select",
-          options:
-            - { label: "Cœur", value: "heart" }
-            - { label: "Attention", value: "warning" }
-            - { label: "Éclair", value: "lightning" }
-            - { label: "Cercle avec coche", value: "check-circle" }
-            - { label: "Lune", value: "moon" }
-            - { label: "Étoile", value: "star" }
-            - { label: "Bouclier", value: "shield" }
-            - { label: "Cerveau", value: "brain" }
-        }
-      - {
-          label: "Couleur",
-          name: "color",
-          widget: "select",
-          options:
-            - { label: "Primaire", value: "primary" }
-            - { label: "Secondaire", value: "secondary" }
-        }
+      - label: "Icône"
+        name: "icon"
+        widget: "select"
+        options:
+          - { label: "Cœur", value: "heart" }
+          - { label: "Attention", value: "warning" }
+          - { label: "Éclair", value: "lightning" }
+          - { label: "Cercle avec coche", value: "check-circle" }
+          - { label: "Lune", value: "moon" }
+          - { label: "Étoile", value: "star" }
+          - { label: "Bouclier", value: "shield" }
+          - { label: "Cerveau", value: "brain" }
+      - label: "Couleur"
+        name: "color"
+        widget: "select"
+        options:
+          - { label: "Primaire", value: "primary" }
+          - { label: "Secondaire", value: "secondary" }
       - { label: "Ordre d'affichage", name: "order", widget: "number", value_type: "int" }
       - { label: "Ancre (pour les liens)", name: "anchor", widget: "string" }
       - { label: "Contenu détaillé", name: "body", widget: "markdown" }

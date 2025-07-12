@@ -1,17 +1,13 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import { getCollection } from 'astro:content';
 import { CALENDLY_URL, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Récupérer les services créés via Decap CMS
+const services = await getCollection('services');
 ---
 
-<!doctype html>
-<html lang="fr">
-	<head>
-		<BaseHead title={`Services - ${SITE_TITLE}`} description="Découvrez mes services d'hypnothérapie : stress, anxiété, phobies, addictions, confiance en soi. Tarifs et accompagnement personnalisé pour votre bien-être." />
-	</head>
-	<body>
-		<Header />
+<BaseLayout title={`Services - ${SITE_TITLE}`} description="Découvrez mes services d'hypnothérapie : stress, anxiété, phobies, addictions, confiance en soi. Tarifs et accompagnement personnalisé pour votre bien-être.">
 		
 		<!-- Hero Section -->
 		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
@@ -242,6 +238,54 @@ import { CALENDLY_URL, SITE_TITLE } from '../consts';
 			</div>
 		</section>
 
+		<!-- Services dynamiques créés via Decap CMS -->
+		{services.length > 0 && (
+			<section class="section-padding bg-white">
+				<div class="container-max">
+					<div class="text-center mb-16">
+						<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+							Services personnalisés
+						</h2>
+						<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+							Découvrez mes services spécialisés créés sur mesure pour répondre à vos besoins spécifiques.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{services.map((service) => (
+							<div class="bg-white rounded-xl p-8 shadow-lg border-2 border-gray-100 hover:border-primary-200 transition-colors duration-200">
+								{service.data.image && (
+									<div class="mb-6">
+										<img 
+											src={service.data.image.src} 
+											alt={service.data.title}
+											class="w-full h-48 object-cover rounded-lg"
+										/>
+									</div>
+								)}
+								<div class="mb-4">
+									<h3 class="text-xl font-semibold text-gray-900 mb-2">{service.data.title}</h3>
+									<p class="text-gray-600 mb-4">{service.data.description}</p>
+									{service.data.price && (
+										<div class="text-2xl font-bold text-primary-600 mb-2">{service.data.price}</div>
+									)}
+									{service.data.duration && (
+										<p class="text-gray-500 text-sm">{service.data.duration}</p>
+									)}
+								</div>
+								<div class="prose prose-sm text-gray-600 mb-6">
+									{service.body && <div set:html={service.body} />}
+								</div>
+								<a href={CALENDLY_URL} class="w-full btn-primary text-center">
+									Prendre rendez-vous
+								</a>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+		)}
+
 		<!-- Tarifs -->
 		<section class="section-padding bg-gray-50">
 			<div class="container-max">
@@ -381,6 +425,4 @@ import { CALENDLY_URL, SITE_TITLE } from '../consts';
 			</div>
 		</section>
 
-		<Footer />
-	</body>
-</html> 
+</BaseLayout> 

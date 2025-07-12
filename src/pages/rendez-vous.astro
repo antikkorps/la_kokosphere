@@ -1,17 +1,9 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
 import { CALENDLY_URL, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="fr">
-	<head>
-		<BaseHead title={`Prendre rendez-vous - ${SITE_TITLE}`} description="Prenez rendez-vous en ligne pour votre consultation d'hypnothérapie. Réservation simple et rapide via notre système de prise de rendez-vous." />
-	</head>
-	<body>
-		<Header />
+<BaseLayout title={`Prendre rendez-vous - ${SITE_TITLE}`} description="Prenez rendez-vous en ligne pour votre consultation d'hypnothérapie. Réservation simple et rapide via notre système de prise de rendez-vous.">
 		
 		<!-- Hero Section -->
 		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
@@ -235,6 +227,4 @@ import { CALENDLY_URL, SITE_TITLE } from '../consts';
 			</div>
 		</section>
 
-		<Footer />
-	</body>
-</html> 
+</BaseLayout> 

@@ -9,20 +9,9 @@ const quickLinks = [
 ];
 ---
 
-<div class="fixed bottom-6 right-6 z-40" id="quick-nav">
+<div class="fixed bottom-6 left-6 z-40 md:block" id="quick-nav">
 	<div class="flex flex-col space-y-3">
-		<!-- Bouton principal -->
-		<button 
-			class="w-14 h-14 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
-			id="quick-nav-toggle"
-			aria-label="Menu rapide"
-		>
-			<svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="quick-nav-icon">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-			</svg>
-		</button>
-
-		<!-- Liens rapides -->
+		<!-- Liens rapides (se déplient vers le haut) -->
 		<div class="flex flex-col space-y-2 opacity-0 pointer-events-none transition-all duration-300" id="quick-links">
 			{quickLinks.map((link, index) => (
 				<a 
@@ -59,6 +48,58 @@ const quickLinks = [
 				</svg>
 			</a>
 		</div>
+
+		<!-- Bouton principal -->
+		<button 
+			class="w-14 h-14 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
+			id="quick-nav-toggle"
+			aria-label="Menu rapide"
+		>
+			<svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="quick-nav-icon">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+			</svg>
+		</button>
+	</div>
+</div>
+
+<!-- Menu mobile sticky en bas -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg" id="mobile-nav">
+	<div class="flex justify-around items-center py-3 px-4">
+		{quickLinks.map((link) => (
+			<a 
+				href={link.href}
+				class="flex flex-col items-center space-y-1 text-gray-600 hover:text-primary-600 transition-colors duration-200"
+				title={link.text}
+			>
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					{link.icon === 'heart' && (
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+					)}
+					{link.icon === 'user' && (
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+					)}
+					{link.icon === 'email' && (
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+					)}
+					{link.icon === 'calendar' && (
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+					)}
+				</svg>
+				<span class="text-xs font-medium">{link.text}</span>
+			</a>
+		))}
+		
+		<!-- Bouton Calendly mobile -->
+		<a 
+			href={CALENDLY_URL}
+			class="flex flex-col items-center space-y-1 text-green-600 hover:text-green-700 transition-colors duration-200"
+			title="Prendre rendez-vous"
+		>
+			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+			</svg>
+			<span class="text-xs font-medium">RDV</span>
+		</a>
 	</div>
 </div>
 
@@ -82,17 +123,17 @@ const quickLinks = [
 				ease: "power2.out"
 			});
 			
-			// Animation des liens
+			// Animation des liens (vers le haut)
 			gsap.fromTo(quickLinks.children, 
 				{ 
 					scale: 0, 
 					opacity: 0,
-					rotation: -180
+					y: 20
 				},
 				{ 
 					scale: 1, 
 					opacity: 1,
-					rotation: 0,
+					y: 0,
 					duration: 0.4, 
 					stagger: 0.1, 
 					ease: "back.out(1.7)"
@@ -164,12 +205,12 @@ const quickLinks = [
 <style>
 	/* Animation d'entrée du composant */
 	#quick-nav {
-		animation: slideIn 0.6s ease-out 1s both;
+		animation: slideInLeft 0.6s ease-out 1s both;
 	}
 
-	@keyframes slideIn {
+	@keyframes slideInLeft {
 		from {
-			transform: translateX(100px);
+			transform: translateX(-100px);
 			opacity: 0;
 		}
 		to {
@@ -181,8 +222,22 @@ const quickLinks = [
 	/* Responsive */
 	@media (max-width: 768px) {
 		#quick-nav {
-			bottom: 1rem;
-			right: 1rem;
+			display: none;
+		}
+		
+		#mobile-nav {
+			animation: slideUp 0.6s ease-out 1s both;
+		}
+		
+		@keyframes slideUp {
+			from {
+				transform: translateY(100%);
+				opacity: 0;
+			}
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
 		}
 	}
 </style> 

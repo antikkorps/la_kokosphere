@@ -1,17 +1,9 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
 import { CALENDLY_URL, SITE_ADDRESS, SITE_EMAIL, SITE_PHONE, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="fr">
-	<head>
-		<BaseHead title={`Contact - ${SITE_TITLE}`} description="Contactez votre hypnothérapeute. Formulaire de contact, informations de contact et prise de rendez-vous en ligne." />
-	</head>
-	<body>
-		<Header />
+<BaseLayout title={`Contact - ${SITE_TITLE}`} description="Contactez votre hypnothérapeute. Formulaire de contact, informations de contact et prise de rendez-vous en ligne.">
 		
 		<!-- Hero Section -->
 		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
@@ -294,6 +286,4 @@ import { CALENDLY_URL, SITE_ADDRESS, SITE_EMAIL, SITE_PHONE, SITE_TITLE } from '
 			</div>
 		</section>
 
-		<Footer />
-	</body>
-</html> 
+</BaseLayout> 

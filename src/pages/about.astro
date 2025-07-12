@@ -1,17 +1,9 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
 import { CALENDLY_URL, SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<!doctype html>
-<html lang="fr">
-	<head>
-		<BaseHead title={`À propos - ${SITE_TITLE}`} description="Découvrez mon parcours, ma formation et ma philosophie en tant qu'hypnothérapeute professionnelle. Une approche bienveillante et personnalisée pour votre bien-être." />
-	</head>
-	<body>
-		<Header />
+<BaseLayout title={`À propos - ${SITE_TITLE}`} description="Découvrez mon parcours, ma formation et ma philosophie en tant qu'hypnothérapeute professionnelle. Une approche bienveillante et personnalisée pour votre bien-être.">
 		
 		<!-- Hero Section -->
 		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
@@ -251,6 +243,4 @@ import { CALENDLY_URL, SITE_TITLE } from '../consts';
 			</div>
 		</section>
 
-		<Footer />
-	</body>
-</html>
+</BaseLayout>

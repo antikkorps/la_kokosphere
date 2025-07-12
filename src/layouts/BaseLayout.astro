@@ -1,0 +1,42 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import ColorTheme from '../components/ColorTheme.astro';
+import Footer from '../components/Footer.astro';
+import ModernHeader from '../components/ModernHeader.astro';
+import QuickNav from '../components/QuickNav.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+
+
+interface Props {
+	title: string;
+	description: string;
+	image?: any;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title={title} description={description} image={image} />
+		<ColorTheme />
+	</head>
+	<body>
+		<ModernHeader />
+		
+		<main class="pb-20 md:pb-0">
+			<slot />
+		</main>
+		
+		<Footer />
+
+		<!-- QuickNav flottant en bas à gauche -->
+		<QuickNav />
+
+		<!-- ScrollToTop flottant en bas à droite -->
+		<ScrollToTop />
+
+
+	</body>
+</html> 

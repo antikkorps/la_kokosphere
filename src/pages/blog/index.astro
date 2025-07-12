@@ -1,114 +1,247 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import AnimatedSection from '../../components/AnimatedSection.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { SITE_TITLE } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title={`Blog - ${SITE_TITLE}`} description="Découvrez nos articles sur l'hypnothérapie, le bien-être et le développement personnel. Conseils, témoignages et informations pour votre transformation.">
+		
+		<!-- Hero Section -->
+		<section class="bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-100 section-padding">
+			<AnimatedSection trigger="load" delay={0.2}>
+				<div class="container-max">
+					<div class="text-center">
+						<div class="inline-flex items-center px-4 py-2 bg-white/50 backdrop-blur-sm rounded-full text-sm font-medium mb-6">
+							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+							</svg>
+							Blog & Ressources
+						</div>
+						<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+							Nos Articles & Conseils
+						</h1>
+						<p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+							Découvrez nos articles sur l'hypnothérapie, le bien-être et le développement personnel. 
+							Conseils, témoignages et informations pour vous accompagner dans votre transformation.
+						</p>
+					</div>
+				</div>
+			</AnimatedSection>
+		</section>
+
+		<!-- Articles Section -->
+		<section class="section-padding bg-white">
+			<div class="container-max">
+				{posts.length > 0 ? (
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{posts.map((post, index) => (
+							<AnimatedSection trigger="scroll" delay={index * 0.1} class="group">
+								<article class="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 h-full flex flex-col">
+									<a href={`/blog/${post.id}/`} class="block h-full flex flex-col">
+										{post.data.heroImage && (
+											<div class="aspect-video overflow-hidden relative">
+												<Image 
+													width={400} 
+													height={225} 
+													src={post.data.heroImage} 
+													alt={post.data.title}
+													class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+												/>
+												<!-- Overlay pour garantir la lisibilité -->
+												<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+												
+												<!-- Badge de date avec fond garanti -->
+												<div class="absolute top-4 left-4">
+													<div class="inline-flex items-center px-3 py-1 bg-white/95 backdrop-blur-sm rounded-full text-xs font-medium text-gray-700 shadow-sm">
+														<svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+															<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+														</svg>
+														<FormattedDate date={post.data.pubDate} />
+													</div>
+												</div>
+												
+												<!-- Titre sur l'image avec fond garanti -->
+												<div class="absolute bottom-0 left-0 right-0 p-4">
+													<h2 class="text-lg font-bold text-white mb-2 line-clamp-2 leading-tight drop-shadow-lg">
+														{post.data.title}
+													</h2>
+													<p class="text-sm text-gray-200 line-clamp-2 leading-relaxed drop-shadow-lg">
+														{post.data.description}
+													</p>
+												</div>
+											</div>
+										)}
+										
+										<div class="p-6 flex-1 flex flex-col">
+											{!post.data.heroImage && (
+												<>
+													<div class="flex items-center text-sm text-gray-500 mb-4">
+														<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+															<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+														</svg>
+														<FormattedDate date={post.data.pubDate} />
+													</div>
+													<h2 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2 leading-tight">
+														{post.data.title}
+													</h2>
+													<p class="text-gray-600 mb-6 line-clamp-3 leading-relaxed flex-1">
+														{post.data.description}
+													</p>
+												</>
+											)}
+											
+											{post.data.heroImage && (
+												<p class="text-gray-600 mb-6 line-clamp-3 leading-relaxed flex-1">
+													{post.data.description}
+												</p>
+											)}
+											
+											<div class="flex items-center justify-between mt-auto">
+												<div class="inline-flex items-center text-primary-600 font-semibold group-hover:text-primary-700 transition-colors duration-300">
+													Lire l'article
+													<svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+													</svg>
+												</div>
+												<div class="w-8 h-8 bg-primary-50 rounded-full flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
+													<svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+													</svg>
+												</div>
+											</div>
+										</div>
+									</a>
+								</article>
+							</AnimatedSection>
+						))}
+					</div>
+				) : (
+					<div class="text-center py-16">
+						<AnimatedSection trigger="load" delay={0.2}>
+							<div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-12 max-w-md mx-auto border border-gray-200">
+								<div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+									<svg class="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+									</svg>
+								</div>
+								<h3 class="text-2xl font-bold text-gray-900 mb-4">Aucun article pour le moment</h3>
+								<p class="text-gray-600 mb-6 leading-relaxed">
+									Nous préparons actuellement du contenu passionnant pour vous accompagner dans votre bien-être.
+								</p>
+								<div class="inline-flex items-center px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium">
+									<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+									Revenez bientôt !
+								</div>
+							</div>
+						</AnimatedSection>
+					</div>
+				)}
+			</div>
+		</section>
+
+		<!-- Newsletter Section -->
+		<section class="section-padding bg-gradient-to-br from-primary-600 to-secondary-600">
+			<div class="container-max">
+				<AnimatedSection trigger="scroll" delay={0.2}>
+					<div class="text-center text-white">
+						<h2 class="text-3xl md:text-4xl font-bold mb-6">
+							Restez informé(e) de nos conseils
+						</h2>
+						<p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto leading-relaxed">
+							Recevez nos derniers articles et conseils directement dans votre boîte mail pour continuer votre transformation.
+						</p>
+						<div class="max-w-md mx-auto">
+							<div class="flex flex-col sm:flex-row gap-4">
+								<input 
+									type="email" 
+									placeholder="Votre adresse email" 
+									class="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20"
+								>
+								<button class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+									S'abonner
+								</button>
+							</div>
+							<p class="text-sm text-primary-200 mt-3">
+								Nous respectons votre vie privée. Désabonnement à tout moment.
+							</p>
+						</div>
+					</div>
+				</AnimatedSection>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="section-padding bg-gray-50">
+			<div class="container-max text-center">
+				<AnimatedSection trigger="scroll" delay={0.2}>
+					<div class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-gray-200">
+						<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+							Prêt(e) à commencer votre transformation ?
+						</h2>
+						<p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+							Découvrez comment l'hypnothérapie peut vous aider à surmonter vos difficultés et retrouver votre bien-être.
+						</p>
+						<div class="flex flex-col sm:flex-row gap-4 justify-center">
+							<a href="/rendez-vous" class="btn-primary text-lg px-8 py-4">
+								Prendre rendez-vous
+							</a>
+							<a href="/services" class="inline-flex items-center justify-center px-8 py-4 text-primary-600 hover:text-primary-700 font-semibold text-lg transition-colors duration-200">
+								Découvrir nos services
+								<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+								</svg>
+							</a>
+						</div>
+					</div>
+				</AnimatedSection>
+			</div>
+		</section>
+
+</BaseLayout>
+
+<style>
+	/* Custom animations for cards */
+	.group:hover .group-hover\:scale-110 {
+		transform: scale(1.1);
+	}
+	
+	.group:hover .group-hover\:-translate-y-2 {
+		transform: translateY(-0.5rem);
+	}
+	
+	/* Enhanced card shadows */
+	.shadow-sm {
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	}
+	
+	.hover\:shadow-xl:hover {
+		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+	}
+	
+	/* Smooth transitions */
+	.transition-all {
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	
+	.duration-500 {
+		transition-duration: 500ms;
+	}
+	
+	.duration-700 {
+		transition-duration: 700ms;
+	}
+	
+	/* Drop shadow for better text readability */
+	.drop-shadow-lg {
+		filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+	}
+</style>

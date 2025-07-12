@@ -31,6 +31,13 @@ collections:
       - { label: "Image", name: "image", widget: "image", required: false }
       - { label: "Prix", name: "price", widget: "string", required: false }
       - { label: "Durée", name: "duration", widget: "string", required: false }
+      - {
+          label: "Ordre d'affichage",
+          name: "order",
+          widget: "number",
+          value_type: "int",
+          required: false,
+        }
       - { label: "Contenu détaillé", name: "body", widget: "markdown" }
 
   - name: "testimonials"

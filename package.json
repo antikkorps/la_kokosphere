@@ -4,12 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "dev:all": "concurrently \"npm run dev\" \"npm run studio\"",
-    "studio": "cd studio-la_kokosphere && npm run dev",
-    "build": "astro build",
-    "build:studio": "cd studio-la_kokosphere && npm run build",
-    "build:all": "npm run build && npm run build:studio && npm run copy:studio",
-    "copy:studio": "mkdir -p dist/admin && cp -r studio-la_kokosphere/dist/* dist/admin/",
+    "build": "astro build && npm run copy:admin",
+    "copy:admin": "cp -r public/admin dist/admin && cp public/admin/config.yml dist/config.yml",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -18,7 +14,6 @@
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
     "@astrojs/tailwind": "^6.0.2",
-    "@sanity/astro": "^3.2.6",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
     "astro": "^5.11.0",

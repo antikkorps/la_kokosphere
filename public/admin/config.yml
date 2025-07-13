@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: franck/la-kokosphere
+  name: git-gateway
   branch: main
 
 # local_backend: true

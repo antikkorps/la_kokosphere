@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "./scripts/replace-env-vars.sh && astro build && npm run copy:admin",
+    "build": "astro build && npm run copy:admin",
     "copy:admin": "cp -r public/admin dist/admin && cp public/admin/config.yml dist/config.yml",
     "preview": "astro preview",
     "astro": "astro"

@@ -1,5 +1,8 @@
+# Servir les fichiers admin directement
+/admin/*    /admin/:splat   200
+
 # Redirection pour la page de connexion admin
 /admin    /admin/index.html   200
 
-# Redirections pour le SPA (excluant admin)
+# Redirections pour le SPA (en dernier)
 /*    /index.html   200 

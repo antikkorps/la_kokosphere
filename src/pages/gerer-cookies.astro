@@ -8,10 +8,10 @@ const pages = await getCollection('pages');
 const gererCookies = pages.find(page => page.id === 'gerer-cookies');
 
 // Rendre le contenu Markdown
-let content = '';
+let Content = null;
 if (gererCookies) {
-  const { Content } = await render(gererCookies);
-  content = Content;
+  const { Content: RenderedContent } = await render(gererCookies);
+  Content = RenderedContent;
 }
 ---
 
@@ -32,7 +32,7 @@ if (gererCookies) {
 	<section class="section-padding bg-white">
 		<div class="container-max">
 			<div class="prose prose-lg max-w-4xl mx-auto">
-				{content && <content.Component />}
+				{Content && <Content />}
 			</div>
 		</div>
 	</section>

@@ -6,6 +6,32 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <div id="login-container">
+      <h2>Connexion requise</h2>
+      <p>Vous devez vous connecter pour accéder à Decap CMS.</p>
+      <button onclick="login()">Se connecter avec Auth0</button>
+    </div>
+
+    <div id="cms-container" style="display: none">
+      <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    </div>
+
+    <script>
+      function login() {
+        window.location.href = "/.netlify/functions/auth0-login"
+      }
+
+      // Vérifier si l'utilisateur est authentifié
+      fetch("/.netlify/functions/check-auth")
+        .then((response) => {
+          if (response.ok) {
+            document.getElementById("login-container").style.display = "none"
+            document.getElementById("cms-container").style.display = "block"
+          }
+        })
+        .catch(() => {
+          // L'utilisateur n'est pas authentifié, afficher le bouton de connexion
+        })
+    </script>
   </body>
 </html>

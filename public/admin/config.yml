@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: antikkorps/la_kokosphere
+  name: git-gateway
   branch: main
 
 # local_backend: true

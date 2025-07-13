@@ -70,20 +70,8 @@ const currentYear = new Date().getFullYear();
 					<a href="/politique-confidentialite" class="text-gray-400 hover:text-white text-sm transition-colors">
 						Politique de confidentialité
 					</a>
-					<a href="#" onclick="showCookiePreferences()" class="text-gray-400 hover:text-white text-sm transition-colors">
-						Gérer mes cookies
-					</a>
-					<a href="/politique-conservation" class="text-gray-400 hover:text-white text-sm transition-colors">
-						Politique de conservation
-					</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </footer>
-
-<script>
-function showCookiePreferences() {
-  window.dispatchEvent(new CustomEvent('show-cookie-preferences'));
-}
-</script>

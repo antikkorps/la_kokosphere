@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import ColorTheme from '../components/ColorTheme.astro';
+import CookieConsent from '../components/CookieConsent.vue';
 import Footer from '../components/Footer.astro';
 import ModernHeader from '../components/ModernHeader.astro';
 import QuickNav from '../components/QuickNav.astro';
@@ -37,6 +38,8 @@ const { title, description, image } = Astro.props;
 		<!-- ScrollToTop flottant en bas à droite -->
 		<ScrollToTop />
 
+		<!-- Composant de gestion des cookies -->
+		<CookieConsent client:load />
 
 	</body>
 </html> 

@@ -16,12 +16,12 @@ export const handler = async (event, context) => {
 
     console.log("Token response:", JSON.stringify(tokenResponse, null, 2))
 
-    // Rediriger vers Decap CMS avec le token JWT
+    // Rediriger vers Decap CMS avec le token
     return {
       statusCode: 302,
       headers: {
         Location: "/admin",
-        "Set-Cookie": `auth0_token=${tokenResponse.id_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
+        "Set-Cookie": `auth0_token=${tokenResponse.access_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
       },
     }
   } catch (error) {

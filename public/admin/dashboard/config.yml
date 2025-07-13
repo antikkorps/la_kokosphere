@@ -1,5 +1,5 @@
 backend:
-  name: git-gateway
+  name: auth0-git-gateway
   branch: main
 
 # local_backend: true

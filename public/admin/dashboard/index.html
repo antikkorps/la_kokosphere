@@ -75,7 +75,7 @@
         script.onload = () => {
           if (window.CMS) {
             // Configurer Decap CMS pour utiliser notre authentification Auth0
-            window.CMS.registerBackend("git-gateway", {
+            window.CMS.registerBackend("auth0-git-gateway", {
               init: () => ({
                 login: () => Promise.resolve({}),
                 logout: () => Promise.resolve(),

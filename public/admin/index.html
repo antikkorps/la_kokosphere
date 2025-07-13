@@ -110,6 +110,12 @@
         // Charger Decap CMS directement
         const script = document.createElement("script")
         script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+        script.onload = function () {
+          console.log("Decap CMS chargé avec succès")
+        }
+        script.onerror = function () {
+          console.error("Erreur lors du chargement de Decap CMS")
+        }
         document.head.appendChild(script)
       }
 

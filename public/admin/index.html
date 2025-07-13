@@ -112,6 +112,13 @@
         hideUserSection()
       })
 
+      // Écouter les messages de l'iframe CMS
+      window.addEventListener("message", (event) => {
+        if (event.data.type === "logout") {
+          hideUserSection()
+        }
+      })
+
       function showUserSection() {
         const user = netlifyIdentity.currentUser()
         document.getElementById("login-section").style.display = "none"
@@ -135,14 +142,17 @@
       }
 
       function loadDecapCMS() {
-        // Charger Decap CMS
-        const script = document.createElement("script")
-        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
-        script.onload = function () {
-          // Decap CMS se charge automatiquement avec la configuration
-          console.log("Decap CMS chargé")
-        }
-        document.head.appendChild(script)
+        // Nettoyer le conteneur avant de charger
+        const container = document.getElementById("cms-container")
+        container.innerHTML = ""
+
+        // Créer un iframe pour isoler Decap CMS
+        const iframe = document.createElement("iframe")
+        iframe.src = "/admin/cms.html"
+        iframe.style.width = "100%"
+        iframe.style.height = "600px"
+        iframe.style.border = "none"
+        container.appendChild(iframe)
       }
     </script>
   </body>

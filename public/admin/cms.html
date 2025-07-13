@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decap CMS - La Kokosphere</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      #cms-root {
+        width: 100%;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cms-root"></div>
+
+    <script>
+      // Initialiser Netlify Identity
+      netlifyIdentity.init()
+
+      // Vérifier l'authentification
+      if (!netlifyIdentity.currentUser()) {
+        document.body.innerHTML =
+          '<div style="padding: 20px; text-align: center;"><h2>Authentification requise</h2><p>Vous devez être connecté pour accéder au CMS.</p></div>'
+      } else {
+        // Charger Decap CMS
+        const script = document.createElement("script")
+        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+        script.onload = function () {
+          console.log("Decap CMS chargé dans iframe")
+        }
+        document.head.appendChild(script)
+      }
+
+      // Écouter les événements de déconnexion
+      netlifyIdentity.on("logout", () => {
+        // Informer la page parent
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: "logout" }, "*")
+        }
+      })
+    </script>
+  </body>
+</html>

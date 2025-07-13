@@ -1,6 +1,6 @@
-const https = require("https")
+import https from "https"
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   const { code } = event.queryStringParameters || {}
 
   if (!code) {

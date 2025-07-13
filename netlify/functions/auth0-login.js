@@ -1,4 +1,4 @@
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // Construire l'URL d'autorisation Auth0
   const auth0Domain = process.env.AUTH0_DOMAIN
   const clientId = process.env.AUTH0_CLIENT_ID

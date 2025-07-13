@@ -4,16 +4,40 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
+    <style>
+      #login-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      .login-button {
+        background: #007cba;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      .login-button:hover {
+        background: #005a87;
+      }
+    </style>
   </head>
   <body>
     <div id="login-container">
       <h2>Connexion requise</h2>
       <p>Vous devez vous connecter pour accéder à Decap CMS.</p>
-      <button onclick="login()">Se connecter avec Auth0</button>
-    </div>
-
-    <div id="cms-container" style="display: none">
-      <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+      <button class="login-button" onclick="login()">Se connecter avec Auth0</button>
     </div>
 
     <script>
@@ -25,13 +49,20 @@
       fetch("/.netlify/functions/check-auth")
         .then((response) => {
           if (response.ok) {
+            // L'utilisateur est authentifié, charger Decap CMS
             document.getElementById("login-container").style.display = "none"
-            document.getElementById("cms-container").style.display = "block"
+            loadDecapCMS()
           }
         })
         .catch(() => {
-          // L'utilisateur n'est pas authentifié, afficher le bouton de connexion
+          // L'utilisateur n'est pas authentifié, garder l'écran de connexion
         })
+
+      function loadDecapCMS() {
+        const script = document.createElement("script")
+        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+        document.body.appendChild(script)
+      }
     </script>
   </body>
 </html>

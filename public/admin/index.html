@@ -17,6 +17,7 @@
         justify-content: center;
         align-items: center;
         z-index: 9999;
+        transition: opacity 0.3s ease;
       }
       .login-button {
         background: #007cba;
@@ -37,6 +38,10 @@
         color: #666;
         max-width: 400px;
         text-align: center;
+      }
+      .fade-out {
+        opacity: 0;
+        pointer-events: none;
       }
     </style>
   </head>
@@ -72,7 +77,6 @@
             }
 
             // L'utilisateur est authentifié, charger Decap CMS
-            document.getElementById("login-container").style.display = "none"
             loadDecapCMS()
           }
         })
@@ -82,27 +86,36 @@
         })
 
       function loadDecapCMS() {
-        const script = document.createElement("script")
-        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
-        script.onload = () => {
-          // Configurer Decap CMS avec le token Auth0
-          if (window.CMS) {
-            // Intercepter les requêtes pour ajouter le token Auth0
-            const originalFetch = window.fetch
-            window.fetch = function (url, options = {}) {
-              if (auth0Token && url.includes("/.netlify/functions/decap-backend")) {
-                options.headers = {
-                  ...options.headers,
-                  Authorization: `Bearer ${auth0Token}`,
-                }
-              }
-              return originalFetch(url, options)
-            }
+        // Faire un fade-out de l'écran de connexion
+        const loginContainer = document.getElementById("login-container")
+        loginContainer.classList.add("fade-out")
 
-            window.CMS.init()
+        // Attendre la fin de l'animation avant de charger Decap CMS
+        setTimeout(() => {
+          loginContainer.style.display = "none"
+
+          const script = document.createElement("script")
+          script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+          script.onload = () => {
+            // Configurer Decap CMS avec le token Auth0
+            if (window.CMS) {
+              // Intercepter les requêtes pour ajouter le token Auth0
+              const originalFetch = window.fetch
+              window.fetch = function (url, options = {}) {
+                if (auth0Token && url.includes("/.netlify/functions/decap-backend")) {
+                  options.headers = {
+                    ...options.headers,
+                    Authorization: `Bearer ${auth0Token}`,
+                  }
+                }
+                return originalFetch(url, options)
+              }
+
+              window.CMS.init()
+            }
           }
-        }
-        document.body.appendChild(script)
+          document.body.appendChild(script)
+        }, 300)
       }
     </script>
   </body>

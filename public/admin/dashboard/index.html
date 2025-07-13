@@ -41,15 +41,6 @@
     </div>
 
     <script>
-      let auth0Token = null
-
-      // Récupérer le token Auth0 depuis les cookies
-      const cookies = document.cookie.split(";")
-      const auth0Cookie = cookies.find((c) => c.trim().startsWith("auth0_token="))
-      if (auth0Cookie) {
-        auth0Token = auth0Cookie.split("=")[1]
-      }
-
       // Vérifier l'authentification avant de charger Decap CMS
       fetch("/.netlify/functions/check-auth")
         .then((response) => response.json())
@@ -57,7 +48,9 @@
           if (data.authenticated) {
             // L'utilisateur est authentifié, charger Decap CMS
             document.getElementById("loading").style.display = "none"
-            loadDecapCMS()
+            const script = document.createElement("script")
+            script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+            document.body.appendChild(script)
           } else {
             // L'utilisateur n'est pas authentifié, rediriger vers la page de connexion
             window.location.href = "/admin"
@@ -68,27 +61,6 @@
           // En cas d'erreur, rediriger vers la page de connexion
           window.location.href = "/admin"
         })
-
-      function loadDecapCMS() {
-        const script = document.createElement("script")
-        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
-        script.onload = () => {
-          if (window.CMS) {
-            // Configurer Decap CMS pour utiliser notre authentification Auth0
-            window.CMS.registerBackend("auth0-git-gateway", {
-              init: () => ({
-                login: () => Promise.resolve({}),
-                logout: () => Promise.resolve(),
-                getToken: () => Promise.resolve("auth0-authenticated"),
-                authComponent: () => null,
-              }),
-            })
-
-            window.CMS.init()
-          }
-        }
-        document.body.appendChild(script)
-      }
     </script>
   </body>
 </html>

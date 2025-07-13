@@ -31,6 +31,13 @@
       .login-button:hover {
         background: #005a87;
       }
+      #debug {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #666;
+        max-width: 400px;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -38,6 +45,7 @@
       <h2>Connexion requise</h2>
       <p>Vous devez vous connecter pour accéder à Decap CMS.</p>
       <button class="login-button" onclick="login()">Se connecter avec Auth0</button>
+      <div id="debug"></div>
     </div>
 
     <script>
@@ -47,15 +55,20 @@
 
       // Vérifier si l'utilisateur est authentifié
       fetch("/.netlify/functions/check-auth")
-        .then((response) => {
-          if (response.ok) {
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Auth check response:", data)
+          document.getElementById("debug").textContent = `Status: ${JSON.stringify(data)}`
+
+          if (data.authenticated) {
             // L'utilisateur est authentifié, charger Decap CMS
             document.getElementById("login-container").style.display = "none"
             loadDecapCMS()
           }
         })
-        .catch(() => {
-          // L'utilisateur n'est pas authentifié, garder l'écran de connexion
+        .catch((error) => {
+          console.error("Auth check error:", error)
+          document.getElementById("debug").textContent = `Error: ${error.message}`
         })
 
       function loadDecapCMS() {

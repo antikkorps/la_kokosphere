@@ -1,21 +1,21 @@
-const { Auth0Client } = require("@auth0/auth0-spa-js")
-
 exports.handler = async (event, context) => {
-  // Rediriger vers Auth0 pour l'authentification
-  const auth0 = new Auth0Client({
-    domain: process.env.AUTH0_DOMAIN,
-    client_id: process.env.AUTH0_CLIENT_ID,
-    authorizationParams: {
-      redirect_uri: `${event.headers.host}/.netlify/functions/auth0-callback`,
-    },
-  })
+  // Construire l'URL d'autorisation Auth0
+  const auth0Domain = process.env.AUTH0_DOMAIN
+  const clientId = process.env.AUTH0_CLIENT_ID
+  const redirectUri = `https://${event.headers.host}/.netlify/functions/auth0-callback`
 
-  const loginUrl = await auth0.buildAuthorizeUrl()
+  const authUrl =
+    `https://${auth0Domain}/authorize?` +
+    `response_type=code&` +
+    `client_id=${clientId}&` +
+    `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+    `scope=openid%20profile%20email&` +
+    `state=${Math.random().toString(36).substring(7)}`
 
   return {
     statusCode: 302,
     headers: {
-      Location: loginUrl,
+      Location: authUrl,
     },
   }
 }

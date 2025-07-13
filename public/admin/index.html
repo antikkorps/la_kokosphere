@@ -4,9 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Configuration Auth0 avec les variables d'environnement Netlify
+      const auth0 = await createAuth0Client({
+        domain: 'dev-xmogyv0r3a8jmews.eu.auth0.com',
+        client_id: 'Q1PWj5OIU0OTl2uh7Zkt7rkoVbtDgHNS',
+        authorizationParams: {
+          redirect_uri: window.location.origin + '/admin'
+        }
+      });
+
+      // Gestion de l'authentification
+      if (await auth0.isAuthenticated()) {
+        console.log('Authenticated with Auth0');
+      } else {
+        await auth0.loginWithRedirect();
+      }
+    </script>
   </body>
 </html>

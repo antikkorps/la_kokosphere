@@ -41,33 +41,6 @@
       .login-button:hover {
         background: #005a87;
       }
-      .logout-button {
-        background: #dc3545;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        font-size: 14px;
-        cursor: pointer;
-        margin-left: 10px;
-      }
-      .logout-button:hover {
-        background: #c82333;
-      }
-      .user-info {
-        background: #e9ecef;
-        padding: 15px;
-        border-radius: 4px;
-        margin-bottom: 20px;
-      }
-      .cms-section {
-        margin-top: 30px;
-      }
-      #cms-container {
-        min-height: 400px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
     </style>
   </head>
   <body>
@@ -79,18 +52,6 @@
         <button class="login-button" onclick="netlifyIdentity.open()">
           Se connecter
         </button>
-      </div>
-
-      <div id="user-section" style="display: none">
-        <div class="user-info">
-          <strong>Connecté en tant que :</strong> <span id="user-email"></span>
-          <button class="logout-button" onclick="logout()">Se déconnecter</button>
-        </div>
-
-        <div class="cms-section">
-          <h2>Gestion du contenu</h2>
-          <div id="cms-container"></div>
-        </div>
       </div>
     </div>
 
@@ -108,51 +69,9 @@
         showUserSection()
       })
 
-      netlifyIdentity.on("logout", () => {
-        hideUserSection()
-      })
-
-      // Écouter les messages de l'iframe CMS
-      window.addEventListener("message", (event) => {
-        if (event.data.type === "logout") {
-          hideUserSection()
-        }
-      })
-
       function showUserSection() {
-        const user = netlifyIdentity.currentUser()
-        document.getElementById("login-section").style.display = "none"
-        document.getElementById("user-section").style.display = "block"
-        document.getElementById("user-email").textContent = user.email
-
-        // Charger Decap CMS
-        loadDecapCMS()
-      }
-
-      function hideUserSection() {
-        document.getElementById("login-section").style.display = "block"
-        document.getElementById("user-section").style.display = "none"
-
-        // Nettoyer le conteneur CMS
-        document.getElementById("cms-container").innerHTML = ""
-      }
-
-      function logout() {
-        netlifyIdentity.logout()
-      }
-
-      function loadDecapCMS() {
-        // Nettoyer le conteneur avant de charger
-        const container = document.getElementById("cms-container")
-        container.innerHTML = ""
-
-        // Créer un iframe pour isoler Decap CMS
-        const iframe = document.createElement("iframe")
-        iframe.src = "/admin/cms.html"
-        iframe.style.width = "100%"
-        iframe.style.height = "600px"
-        iframe.style.border = "none"
-        container.appendChild(iframe)
+        // Rediriger directement vers le CMS
+        window.location.href = "/admin/cms.html"
       }
     </script>
   </body>

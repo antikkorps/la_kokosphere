@@ -12,7 +12,7 @@ export const handler = async (event, context) => {
 
   try {
     // Échanger le code contre un token
-    const tokenResponse = await exchangeCodeForToken(code)
+    const tokenResponse = await exchangeCodeForToken(code, event)
 
     console.log("Token response:", JSON.stringify(tokenResponse, null, 2))
 
@@ -33,7 +33,7 @@ export const handler = async (event, context) => {
   }
 }
 
-async function exchangeCodeForToken(code) {
+async function exchangeCodeForToken(code, event) {
   const auth0Domain = process.env.AUTH0_DOMAIN
   const clientId = process.env.AUTH0_CLIENT_ID
   const clientSecret = process.env.AUTH0_CLIENT_SECRET

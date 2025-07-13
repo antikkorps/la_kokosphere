@@ -1,6 +1,12 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: antikkorps/la_kokosphere
   branch: main
+
+# Configuration Auth0
+auth0:
+  domain: "ton-domaine.auth0.com"
+  client_id: "ton-client-id"
 
 # local_backend: true
 

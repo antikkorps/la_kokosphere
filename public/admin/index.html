@@ -3,20 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content Manager</title>
+    <title>La Kokosphere - Administration</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
-      #login-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
         background: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .login-section {
+        text-align: center;
+        margin-bottom: 30px;
       }
       .login-button {
         background: #007cba;
@@ -26,49 +37,113 @@
         border-radius: 4px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 20px;
       }
       .login-button:hover {
         background: #005a87;
       }
-      #debug {
-        margin-top: 20px;
-        font-size: 12px;
-        color: #666;
-        max-width: 400px;
-        text-align: center;
+      .logout-button {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+      .logout-button:hover {
+        background: #c82333;
+      }
+      .user-info {
+        background: #e9ecef;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      .cms-section {
+        margin-top: 30px;
+      }
+      #cms-container {
+        min-height: 400px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
       }
     </style>
   </head>
   <body>
-    <div id="login-container">
-      <h2>Connexion requise</h2>
-      <p>Vous devez vous connecter pour accéder à Decap CMS.</p>
-      <button class="login-button" onclick="login()">Se connecter avec Auth0</button>
-      <div id="debug"></div>
+    <div class="container">
+      <h1>Administration - La Kokosphere</h1>
+
+      <div id="login-section" class="login-section">
+        <p>Connectez-vous pour accéder au CMS</p>
+        <button class="login-button" onclick="netlifyIdentity.open()">
+          Se connecter
+        </button>
+      </div>
+
+      <div id="user-section" style="display: none">
+        <div class="user-info">
+          <strong>Connecté en tant que :</strong> <span id="user-email"></span>
+          <button class="logout-button" onclick="logout()">Se déconnecter</button>
+        </div>
+
+        <div class="cms-section">
+          <h2>Gestion du contenu</h2>
+          <div id="cms-container"></div>
+        </div>
+      </div>
     </div>
 
     <script>
-      function login() {
-        window.location.href = "/.netlify/functions/auth0-login"
+      // Initialiser Netlify Identity
+      netlifyIdentity.init()
+
+      // Vérifier l'état de connexion au chargement
+      if (netlifyIdentity.currentUser()) {
+        showUserSection()
       }
 
-      // Vérifier si l'utilisateur est authentifié
-      fetch("/.netlify/functions/check-auth")
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Auth check response:", data)
-          document.getElementById("debug").textContent = `Status: ${JSON.stringify(data)}`
+      // Écouter les événements de connexion/déconnexion
+      netlifyIdentity.on("login", () => {
+        showUserSection()
+      })
 
-          if (data.authenticated) {
-            // L'utilisateur est authentifié, rediriger vers le dashboard
-            window.location.href = "/admin/dashboard"
-          }
-        })
-        .catch((error) => {
-          console.error("Auth check error:", error)
-          document.getElementById("debug").textContent = `Error: ${error.message}`
-        })
+      netlifyIdentity.on("logout", () => {
+        hideUserSection()
+      })
+
+      function showUserSection() {
+        const user = netlifyIdentity.currentUser()
+        document.getElementById("login-section").style.display = "none"
+        document.getElementById("user-section").style.display = "block"
+        document.getElementById("user-email").textContent = user.email
+
+        // Charger Decap CMS
+        loadDecapCMS()
+      }
+
+      function hideUserSection() {
+        document.getElementById("login-section").style.display = "block"
+        document.getElementById("user-section").style.display = "none"
+
+        // Nettoyer le conteneur CMS
+        document.getElementById("cms-container").innerHTML = ""
+      }
+
+      function logout() {
+        netlifyIdentity.logout()
+      }
+
+      function loadDecapCMS() {
+        // Charger Decap CMS
+        const script = document.createElement("script")
+        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+        script.onload = function () {
+          // Decap CMS se charge automatiquement avec la configuration
+          console.log("Decap CMS chargé")
+        }
+        document.head.appendChild(script)
+      }
     </script>
   </body>
 </html>

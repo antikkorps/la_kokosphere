@@ -1,8 +1,10 @@
-# Servir les fichiers admin directement
-/admin/*    /admin/:splat   200
+# Netlify Identity redirects
+/.netlify/identity  /.netlify/identity
+/.netlify/identity/*  /.netlify/identity/:splat
 
-# Redirection pour la page de connexion admin
-/admin    /admin/index.html   200
+# Admin routes
+/admin  /admin/index.html
+/admin/*  /admin/index.html
 
-# Redirections pour le SPA (en dernier)
-/*    /index.html   200 
+# SPA fallback (pour le reste du site)
+/*  /index.html  200 

@@ -5,8 +5,8 @@ backend:
 
 # Configuration Auth0
 auth0:
-  domain: "dev-xmogyv0r3a8jmews.eu.auth0.com"
-  client_id: "Q1PWj5OIU0OTl2uh7Zkt7rkoVbtDgHNS"
+  domain: "${AUTH0_DOMAIN}"
+  client_id: "${AUTH0_CLIENT_ID}"
 
 # local_backend: true
 

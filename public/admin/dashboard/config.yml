@@ -1,0 +1,103 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# local_backend: true
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Articles de blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Date de publication", name: "pubDate", widget: "datetime" }
+      - { label: "Image principale", name: "heroImage", widget: "image", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "services"
+    label: "Services"
+    folder: "src/content/services"
+    create: true
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Description courte", name: "description", widget: "text" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Prix", name: "price", widget: "string", required: false }
+      - { label: "Durée", name: "duration", widget: "string", required: false }
+      - {
+          label: "Ordre d'affichage",
+          name: "order",
+          widget: "number",
+          value_type: "int",
+          required: false,
+        }
+      - { label: "Contenu détaillé", name: "body", widget: "markdown" }
+
+  - name: "testimonials"
+    label: "Témoignages"
+    folder: "src/content/testimonials"
+    create: true
+    fields:
+      - { label: "Nom du client", name: "clientName", widget: "string" }
+      - {
+          label: "Photo du client",
+          name: "clientImage",
+          widget: "image",
+          required: false,
+        }
+      - { label: "Témoignage", name: "testimonial", widget: "text" }
+      - {
+          label: "Note (1-5)",
+          name: "rating",
+          widget: "number",
+          min: 1,
+          max: 5,
+          value_type: "int",
+        }
+      - { label: "Date", name: "date", widget: "datetime" }
+
+  - name: "pages"
+    label: "Pages"
+    folder: "src/content/pages"
+    create: true
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Image", name: "heroImage", widget: "image", required: false }
+      - { label: "Contenu", name: "body", widget: "markdown" }
+
+  - name: "expertise-domains"
+    label: "Domaines d'expertise"
+    folder: "src/content/expertise-domains"
+    create: true
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - label: "Icône"
+        name: "icon"
+        widget: "select"
+        options:
+          - { label: "Cœur", value: "heart" }
+          - { label: "Attention", value: "warning" }
+          - { label: "Éclair", value: "lightning" }
+          - { label: "Cercle avec coche", value: "check-circle" }
+          - { label: "Lune", value: "moon" }
+          - { label: "Étoile", value: "star" }
+          - { label: "Bouclier", value: "shield" }
+          - { label: "Cerveau", value: "brain" }
+      - label: "Couleur"
+        name: "color"
+        widget: "select"
+        options:
+          - { label: "Primaire", value: "primary" }
+          - { label: "Secondaire", value: "secondary" }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", value_type: "int" }
+      - { label: "Ancre (pour les liens)", name: "anchor", widget: "string" }
+      - { label: "Contenu détaillé", name: "body", widget: "markdown" }

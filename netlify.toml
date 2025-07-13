@@ -5,24 +5,6 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Permettre l'accès direct aux fichiers admin (doit être avant la redirection SPA)
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/:splat"
-  status = 200
-
-# Redirection pour la page de connexion admin
-[[redirects]]
-  from = "/admin"
-  to = "/admin/index.html"
-  status = 200
-
-# Redirections pour le SPA (en dernier)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 # Headers de sécurité
 [[headers]]
   for = "/*"

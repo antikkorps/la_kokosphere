@@ -1,0 +1,5 @@
+# Redirection pour la page de connexion admin
+/admin    /admin/index.html   200
+
+# Redirections pour le SPA (excluant admin)
+/*    /index.html   200 

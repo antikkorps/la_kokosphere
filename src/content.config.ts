@@ -81,25 +81,10 @@ const expertiseDomains = defineCollection({
   }),
 })
 
-const consentStats = defineCollection({
-  // Load Markdown files in the `src/content/consent-stats/` directory.
-  loader: glob({ base: "./src/content/consent-stats", pattern: "**/*.md" }),
-  // Type-check frontmatter using a schema
-  schema: z.object({
-    date: z.coerce.date(),
-    method: z.string(),
-    version: z.string(),
-    analytics: z.boolean(),
-    marketing: z.boolean(),
-    retentionPeriod: z.string(),
-  }),
-})
-
 export const collections = {
   blog,
   services,
   testimonials,
   pages,
   expertiseDomains,
-  consentStats,
 }

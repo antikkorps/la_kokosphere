@@ -4,8 +4,63 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Decap CMS - Dashboard</title>
+    <style>
+      #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #007cba;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <div id="loading">
+      <div class="spinner"></div>
+    </div>
+
+    <script>
+      // Vérifier l'authentification avant de charger Decap CMS
+      fetch("/.netlify/functions/check-auth")
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.authenticated) {
+            // L'utilisateur est authentifié, charger Decap CMS
+            document.getElementById("loading").style.display = "none"
+            const script = document.createElement("script")
+            script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+            document.body.appendChild(script)
+          } else {
+            // L'utilisateur n'est pas authentifié, rediriger vers la page de connexion
+            window.location.href = "/admin"
+          }
+        })
+        .catch((error) => {
+          console.error("Auth check error:", error)
+          // En cas d'erreur, rediriger vers la page de connexion
+          window.location.href = "/admin"
+        })
+    </script>
   </body>
 </html>

@@ -11,12 +11,6 @@
   to = "/index.html"
   status = 200
 
-# Redirection pour Decap CMS dashboard (protégé)
-[[redirects]]
-  from = "/admin/dashboard"
-  to = "/.netlify/functions/protect-dashboard"
-  status = 200
-
 # Redirection pour la page de connexion admin
 [[redirects]]
   from = "/admin"

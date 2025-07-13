@@ -41,6 +41,30 @@
       .login-button:hover {
         background: #005a87;
       }
+      .logout-button {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+      .logout-button:hover {
+        background: #c82333;
+      }
+      .user-info {
+        background: #e9ecef;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      #cms-container {
+        min-height: 600px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
     </style>
   </head>
   <body>
@@ -52,6 +76,14 @@
         <button class="login-button" onclick="netlifyIdentity.open()">
           Se connecter
         </button>
+      </div>
+
+      <div id="cms-section" style="display: none">
+        <div class="user-info">
+          <strong>Connecté en tant que :</strong> <span id="user-email"></span>
+          <button class="logout-button" onclick="logout()">Se déconnecter</button>
+        </div>
+        <div id="cms-container"></div>
       </div>
     </div>
 
@@ -70,9 +102,26 @@
       })
 
       function showUserSection() {
-        // Rediriger directement vers le CMS
-        window.location.href = "/admin/cms.html"
+        const user = netlifyIdentity.currentUser()
+        document.getElementById("login-section").style.display = "none"
+        document.getElementById("cms-section").style.display = "block"
+        document.getElementById("user-email").textContent = user.email
+
+        // Charger Decap CMS directement
+        const script = document.createElement("script")
+        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+        document.head.appendChild(script)
       }
+
+      function logout() {
+        netlifyIdentity.logout()
+      }
+
+      netlifyIdentity.on("logout", () => {
+        document.getElementById("login-section").style.display = "block"
+        document.getElementById("cms-section").style.display = "none"
+        document.getElementById("cms-container").innerHTML = ""
+      })
     </script>
   </body>
 </html>

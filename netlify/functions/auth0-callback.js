@@ -16,11 +16,11 @@ export const handler = async (event, context) => {
 
     console.log("Token response:", JSON.stringify(tokenResponse, null, 2))
 
-    // Rediriger vers Decap CMS avec le token
+    // Rediriger vers le dashboard Decap CMS avec le token
     return {
       statusCode: 302,
       headers: {
-        Location: "/admin",
+        Location: "/admin/dashboard",
         "Set-Cookie": `auth0_token=${tokenResponse.access_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
       },
     }

@@ -49,8 +49,6 @@
     </div>
 
     <script>
-      let auth0Token = null
-
       function login() {
         window.location.href = "/.netlify/functions/auth0-login"
       }
@@ -63,40 +61,14 @@
           document.getElementById("debug").textContent = `Status: ${JSON.stringify(data)}`
 
           if (data.authenticated) {
-            // Récupérer le token depuis le cookie
-            const cookies = document.cookie.split(";")
-            const auth0Cookie = cookies.find((c) => c.trim().startsWith("auth0_token="))
-            if (auth0Cookie) {
-              auth0Token = auth0Cookie.split("=")[1]
-              console.log("Auth0 token retrieved:", auth0Token ? "present" : "missing")
-            }
-
-            // L'utilisateur est authentifié, charger Decap CMS
-            loadDecapCMS()
+            // L'utilisateur est authentifié, rediriger vers le dashboard
+            window.location.href = "/admin/dashboard"
           }
         })
         .catch((error) => {
           console.error("Auth check error:", error)
           document.getElementById("debug").textContent = `Error: ${error.message}`
         })
-
-      function loadDecapCMS() {
-        // Supprimer l'écran de connexion
-        const loginContainer = document.getElementById("login-container")
-        if (loginContainer && loginContainer.parentNode) {
-          loginContainer.parentNode.removeChild(loginContainer)
-        }
-
-        // Charger Decap CMS
-        const script = document.createElement("script")
-        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
-        script.onload = () => {
-          if (window.CMS) {
-            window.CMS.init()
-          }
-        }
-        document.body.appendChild(script)
-      }
     </script>
   </body>
 </html>

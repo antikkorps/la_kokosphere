@@ -49,6 +49,8 @@
     </div>
 
     <script>
+      let auth0Token = null
+
       function login() {
         window.location.href = "/.netlify/functions/auth0-login"
       }
@@ -61,6 +63,14 @@
           document.getElementById("debug").textContent = `Status: ${JSON.stringify(data)}`
 
           if (data.authenticated) {
+            // Récupérer le token depuis le cookie
+            const cookies = document.cookie.split(";")
+            const auth0Cookie = cookies.find((c) => c.trim().startsWith("auth0_token="))
+            if (auth0Cookie) {
+              auth0Token = auth0Cookie.split("=")[1]
+              console.log("Auth0 token retrieved:", auth0Token ? "present" : "missing")
+            }
+
             // L'utilisateur est authentifié, charger Decap CMS
             document.getElementById("login-container").style.display = "none"
             loadDecapCMS()
@@ -74,6 +84,24 @@
       function loadDecapCMS() {
         const script = document.createElement("script")
         script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+        script.onload = () => {
+          // Configurer Decap CMS avec le token Auth0
+          if (window.CMS) {
+            // Intercepter les requêtes pour ajouter le token Auth0
+            const originalFetch = window.fetch
+            window.fetch = function (url, options = {}) {
+              if (auth0Token && url.includes("/.netlify/functions/decap-backend")) {
+                options.headers = {
+                  ...options.headers,
+                  Authorization: `Bearer ${auth0Token}`,
+                }
+              }
+              return originalFetch(url, options)
+            }
+
+            window.CMS.init()
+          }
+        }
         document.body.appendChild(script)
       }
     </script>

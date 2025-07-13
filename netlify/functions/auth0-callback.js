@@ -14,6 +14,8 @@ export const handler = async (event, context) => {
     // Échanger le code contre un token
     const tokenResponse = await exchangeCodeForToken(code)
 
+    console.log("Token response:", JSON.stringify(tokenResponse, null, 2))
+
     // Rediriger vers Decap CMS avec le token
     return {
       statusCode: 302,
@@ -23,9 +25,10 @@ export const handler = async (event, context) => {
       },
     }
   } catch (error) {
+    console.error("Auth callback error:", error)
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: "Authentication failed" }),
+      body: JSON.stringify({ error: "Authentication failed", details: error.message }),
     }
   }
 }
@@ -34,7 +37,14 @@ async function exchangeCodeForToken(code) {
   const auth0Domain = process.env.AUTH0_DOMAIN
   const clientId = process.env.AUTH0_CLIENT_ID
   const clientSecret = process.env.AUTH0_CLIENT_SECRET
-  const redirectUri = `https://${process.env.URL}/.netlify/functions/auth0-callback`
+  const redirectUri = `https://${event.headers.host}/.netlify/functions/auth0-callback`
+
+  console.log("Auth0 config:", {
+    domain: auth0Domain,
+    clientId: clientId,
+    redirectUri: redirectUri,
+    hasSecret: !!clientSecret,
+  })
 
   const postData = JSON.stringify({
     grant_type: "authorization_code",
@@ -59,8 +69,20 @@ async function exchangeCodeForToken(code) {
         let data = ""
         res.on("data", (chunk) => (data += chunk))
         res.on("end", () => {
+          console.log("Auth0 response status:", res.statusCode)
+          console.log("Auth0 response data:", data)
+
           try {
-            resolve(JSON.parse(data))
+            const parsedData = JSON.parse(data)
+            if (res.statusCode !== 200) {
+              reject(
+                new Error(
+                  `Auth0 error: ${parsedData.error_description || parsedData.error}`
+                )
+              )
+            } else {
+              resolve(parsedData)
+            }
           } catch (e) {
             reject(e)
           }

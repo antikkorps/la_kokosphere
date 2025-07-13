@@ -1,4 +1,4 @@
-import https from "https"
+import { verifyAuth0Token } from "../lib/auth.js"
 
 export const handler = async (event, context) => {
   // Vérifier si le cookie auth0_token existe
@@ -16,17 +16,28 @@ export const handler = async (event, context) => {
   const token = auth0Token.split("=")[1]
 
   try {
-    // Vérifier la validité du token auprès d'Auth0
-    const userInfo = await getUserInfo(token)
+    // Convertir l'event Netlify en Request pour la fonction verifyAuth0Token
+    const request = new Request(`https://${event.headers.host}${event.path}`, {
+      method: event.httpMethod,
+      headers: {
+        ...event.headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: event.body,
+    })
+
+    // Vérifier la validité du token JWT Auth0
+    const authResult = await verifyAuth0Token(request)
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         authenticated: true,
-        user: userInfo,
+        user: authResult.result.payload,
       }),
     }
   } catch (error) {
+    console.error("Auth check error:", error)
     // Token invalide, supprimer le cookie
     return {
       statusCode: 401,
@@ -36,40 +47,4 @@ export const handler = async (event, context) => {
       body: JSON.stringify({ authenticated: false }),
     }
   }
-}
-
-async function getUserInfo(token) {
-  const auth0Domain = process.env.AUTH0_DOMAIN
-
-  return new Promise((resolve, reject) => {
-    const req = https.request(
-      {
-        hostname: auth0Domain,
-        path: "/userinfo",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      },
-      (res) => {
-        let data = ""
-        res.on("data", (chunk) => (data += chunk))
-        res.on("end", () => {
-          if (res.statusCode === 200) {
-            try {
-              resolve(JSON.parse(data))
-            } catch (e) {
-              reject(e)
-            }
-          } else {
-            reject(new Error(`HTTP ${res.statusCode}: ${data}`))
-          }
-        })
-      }
-    )
-
-    req.on("error", reject)
-    req.end()
-  })
 }

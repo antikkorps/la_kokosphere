@@ -6,8 +6,6 @@ price: "60€"
 duration: "1h"
 ---
 
-# Confiance en soi
-
 La confiance en soi est la base de l'épanouissement personnel. L'hypnothérapie vous aide à :
 
 - Développer votre estime personnelle

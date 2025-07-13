@@ -6,8 +6,6 @@ price: "60€"
 duration: "1h"
 ---
 
-# Addictions
-
 Les addictions peuvent prendre le contrôle de votre vie. L'hypnothérapie vous accompagne pour :
 
 - Arrêter de fumer de manière définitive

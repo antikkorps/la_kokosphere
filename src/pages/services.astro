@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { CALENDLY_URL, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -12,6 +12,14 @@ const sortedServices = [...services].sort((a, b) => {
   if (orderA !== orderB) return orderA - orderB;
   return a.data.title.localeCompare(b.data.title);
 });
+
+// Rendre le contenu Markdown de chaque service
+const renderedServices = await Promise.all(
+  sortedServices.map(async (service) => {
+    const { Content } = await render(service);
+    return { ...service, Content };
+  })
+);
 ---
 
 <BaseLayout title={`Services - ${SITE_TITLE}`} description="Découvrez mes services d'hypnothérapie : stress, anxiété, phobies, addictions, confiance en soi. Tarifs et accompagnement personnalisé pour votre bien-être.">
@@ -33,7 +41,7 @@ const sortedServices = [...services].sort((a, b) => {
 		<!-- Services dynamiques (section principale) -->
 		<section class="section-padding bg-white">
 			<div class="container-max">
-				{sortedServices.map((service: any, idx: number) => {
+				{renderedServices.map((service: any, idx: number) => {
 					// Mapping des titres de services vers les ancres des domaines d'expertise
 					const anchorMapping: { [key: string]: string } = {
 						'Stress et Anxiété': 'stress',
@@ -64,7 +72,7 @@ const sortedServices = [...services].sort((a, b) => {
 							<h2 class="text-3xl font-bold text-gray-900 mb-6">{service.data.title}</h2>
 							<div class="prose prose-lg text-gray-600 mb-6">
 								<p class="mb-4">{service.data.description}</p>
-								{service.body && <div set:html={service.body} />}
+								<service.Content />
 							</div>
 							<div class="flex flex-wrap items-center gap-6 mb-6">
 								{service.data.price && (

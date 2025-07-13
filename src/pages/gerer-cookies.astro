@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import { SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Récupérer le contenu de la page
+const pages = await getCollection('pages');
+const gererCookies = pages.find(page => page.id === 'gerer-cookies');
+
+// Rendre le contenu Markdown
+let content = '';
+if (gererCookies) {
+  const { Content } = await render(gererCookies);
+  content = Content;
+}
+---
+
+<BaseLayout title={`Gérer mes cookies - ${SITE_TITLE}`} description="Modifiez vos préférences de consentement aux cookies sur ce site.">
+	<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
+		<div class="container-max">
+			<div class="text-center">
+				<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+					Gérer mes cookies
+				</h1>
+				<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+					Modifiez vos préférences de consentement aux cookies sur ce site.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-padding bg-white">
+		<div class="container-max">
+			<div class="prose prose-lg max-w-4xl mx-auto">
+				{content && <content.Component />}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

@@ -6,8 +6,6 @@ price: "60€"
 duration: "1h"
 ---
 
-# Stress et Anxiété
-
 Le stress et l'anxiété peuvent considérablement impacter votre qualité de vie. L'hypnothérapie vous offre des outils efficaces pour :
 
 - Apprendre à gérer le stress quotidien

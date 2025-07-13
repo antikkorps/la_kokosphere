@@ -6,8 +6,6 @@ price: "60€"
 duration: "1h"
 ---
 
-# Troubles du sommeil
-
 Un sommeil de qualité est essentiel à votre bien-être. L'hypnothérapie vous aide à :
 
 - Retrouver un endormissement naturel

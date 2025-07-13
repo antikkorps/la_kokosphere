@@ -6,8 +6,6 @@ price: "60€"
 duration: "1h"
 ---
 
-# Phobies
-
 Les phobies peuvent limiter votre liberté et votre épanouissement. L'hypnothérapie vous aide à :
 
 - Surmonter les peurs irrationnelles

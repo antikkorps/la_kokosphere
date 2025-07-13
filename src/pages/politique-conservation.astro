@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import { SITE_TITLE } from '../consts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Récupérer le contenu de la page
+const pages = await getCollection('pages');
+const politiqueConservation = pages.find(page => page.id === 'politique-conservation');
+
+// Rendre le contenu Markdown
+let Content = null;
+if (politiqueConservation) {
+  const { Content: RenderedContent } = await render(politiqueConservation);
+  Content = RenderedContent;
+}
+---
+
+<BaseLayout title={`Politique de conservation - ${SITE_TITLE}`} description="Informations sur la durée de conservation des données et des consentements aux cookies.">
+	<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
+		<div class="container-max">
+			<div class="text-center">
+				<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+					Politique de conservation
+				</h1>
+				<p class="text-xl text-gray-600 max-w-3xl mx-auto">
+					Informations sur la durée de conservation des données et des consentements aux cookies.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-padding bg-white">
+		<div class="container-max">
+			<div class="prose prose-lg max-w-4xl mx-auto">
+				{Content && <Content />}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

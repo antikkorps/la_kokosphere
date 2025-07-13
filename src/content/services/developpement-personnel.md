@@ -6,8 +6,6 @@ price: "60€"
 duration: "1h"
 ---
 
-# Développement personnel
-
 Le développement personnel vous permet de réaliser votre plein potentiel. L'hypnothérapie vous accompagne pour :
 
 - Clarifier vos objectifs de vie

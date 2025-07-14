@@ -10,6 +10,7 @@
         margin: 0;
         padding: 0;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
       }
       .login-section {
         position: fixed;
@@ -46,6 +47,9 @@
       #cms-root {
         width: 100%;
         height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     </style>
   </head>
@@ -60,7 +64,7 @@
       </div>
     </div>
 
-    <div id="cms-root"></div>
+    <div id="cms-root" style="display: none"></div>
 
     <script>
       // Initialiser Netlify Identity
@@ -82,6 +86,7 @@
 
       function showCMS() {
         document.getElementById("login-section").style.display = "none"
+        document.getElementById("cms-root").style.display = "block"
 
         // Charger Decap CMS comme dans le test
         const script = document.createElement("script")
@@ -91,6 +96,7 @@
 
       function hideCMS() {
         document.getElementById("login-section").style.display = "flex"
+        document.getElementById("cms-root").style.display = "none"
         document.getElementById("cms-root").innerHTML = ""
       }
     </script>

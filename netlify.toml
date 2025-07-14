@@ -9,16 +9,7 @@
 [context.production.environment]
   NETLIFY_USE_YARN = "true"
 
-# Redirections pour Netlify Identity
-[[redirects]]
-  from = "/.netlify/identity"
-  to = "/.netlify/identity"
-  status = 200
 
-[[redirects]]
-  from = "/.netlify/identity/*"
-  to = "/.netlify/identity/:splat"
-  status = 200
 
 # Headers de sécurité
 [[headers]]

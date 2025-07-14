@@ -24,6 +24,11 @@
     "tailwindcss": "^3.4.17",
     "vue": "^3.5.17"
   },
+  "netlifyFunctions": {
+    "dependencies": {
+      "@octokit/rest": "^22.0.0"
+    }
+  },
   "devDependencies": {
     "concurrently": "^9.2.0"
   }

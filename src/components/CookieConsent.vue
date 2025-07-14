@@ -186,7 +186,10 @@
           <!-- Note sur la conservation -->
           <div class="text-xs text-gray-500 mt-4 p-4 bg-gray-50 rounded-lg">
             <p><strong>Durée de conservation :</strong> 6 mois maximum</p>
-            <p>Vos préférences sont conservées localement et des statistiques anonymes sont sauvegardées pour 6 mois conformément au RGPD.</p>
+            <p>
+              Vos préférences sont conservées localement et des statistiques anonymes sont
+              sauvegardées pour 6 mois conformément au RGPD.
+            </p>
           </div>
 
           <!-- Boutons d'action -->
@@ -234,28 +237,28 @@ const sendConsentStats = async (consent: any) => {
       // Données anonymes uniquement
       analytics: consent.analytics,
       marketing: consent.marketing,
-      method: consent.method || 'banner',
+      method: consent.method || "banner",
       date: new Date().toISOString(),
-      version: '1.0'
-    };
+      version: "1.0",
+    }
 
     // Envoyer les stats (pas de données personnelles)
-    const response = await fetch('/.netlify/functions/consent-stats', {
-      method: 'POST',
+    const response = await fetch("/.netlify/functions/save-consent-stats", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(stats)
-    });
+      body: JSON.stringify(stats),
+    })
 
     if (response.ok) {
-      console.log('Statistiques de consentement envoyées');
+      console.log("Statistiques de consentement envoyées")
     }
   } catch (error) {
-    console.error('Erreur lors de l\'envoi des statistiques:', error);
+    console.error("Erreur lors de l'envoi des statistiques:", error)
     // Ne pas bloquer l'utilisateur si ça échoue
   }
-};
+}
 
 // Accepter tous les cookies
 const acceptAll = () => {
@@ -263,16 +266,16 @@ const acceptAll = () => {
     essential: true,
     analytics: true,
     marketing: true,
-    method: 'banner',
+    method: "banner",
     date: new Date().toISOString(),
   }
-  
+
   // Sauvegarder localement (pour l'utilisateur)
   localStorage.setItem("cookie-consent", JSON.stringify(consent))
-  
+
   // Envoyer des statistiques anonymes (pour vous)
-  sendConsentStats(consent);
-  
+  sendConsentStats(consent)
+
   showBanner.value = false
   showPreferences.value = false
 
@@ -286,13 +289,13 @@ const acceptEssential = () => {
     essential: true,
     analytics: false,
     marketing: false,
-    method: 'banner',
+    method: "banner",
     date: new Date().toISOString(),
   }
-  
+
   localStorage.setItem("cookie-consent", JSON.stringify(consent))
-  sendConsentStats(consent);
-  
+  sendConsentStats(consent)
+
   showBanner.value = false
   showPreferences.value = false
 
@@ -316,13 +319,13 @@ const savePreferences = () => {
     essential: true,
     analytics: preferences.value.analytics,
     marketing: preferences.value.marketing,
-    method: 'modal',
+    method: "modal",
     date: new Date().toISOString(),
   }
-  
+
   localStorage.setItem("cookie-consent", JSON.stringify(consent))
-  sendConsentStats(consent);
-  
+  sendConsentStats(consent)
+
   showBanner.value = false
   showPreferences.value = false
 
@@ -351,11 +354,11 @@ onMounted(() => {
       console.error("Erreur lors du chargement des préférences de cookies:", e)
     }
   }
-  
+
   // Écouter l'événement pour ouvrir les préférences
-  window.addEventListener('show-cookie-preferences', () => {
-    showPreferences.value = true;
-  });
+  window.addEventListener("show-cookie-preferences", () => {
+    showPreferences.value = true
+  })
 })
 </script>
 

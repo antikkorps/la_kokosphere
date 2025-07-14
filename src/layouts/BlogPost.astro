@@ -2,7 +2,24 @@
 import AnimatedSection from '../components/AnimatedSection.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from './BaseLayout.astro';
-import { getPosts, getSanityImageUrl } from '../lib/sanity';
+import { getPosts } from '../lib/sanity';
+
+// Fonction pour construire l'URL d'une image Sanity
+function buildImageUrl(imageRef: string, width = 1200, height = 800): string {
+  if (!imageRef) return "";
+  
+  const projectId = process.env.SANITY_STUDIO_PROJECT_ID || "j41wv78y";
+  const dataset = process.env.SANITY_STUDIO_DATASET || "production";
+  
+  // Nettoyer la référence
+  const cleanRef = imageRef
+    .replace("image-", "")
+    .replace("-jpg", ".jpg")
+    .replace("-png", ".png")
+    .replace("-webp", ".webp");
+
+  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${cleanRef}?w=${width}&h=${height}&fit=crop&auto=format`;
+}
 
 interface Props {
   _id: string;
@@ -59,19 +76,19 @@ if (tags && tags.length > 0) {
 		
 		<!-- Hero Section avec image Sanity -->
 		{mainImage && (
-			<section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+			<section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
 				<div class="absolute inset-0">
 					<img 
-						src={mainImage.url || getSanityImageUrl(mainImage._ref, 1920, 1080)} 
+						src={mainImage.url || buildImageUrl(mainImage._ref, 1920, 1080)} 
 						alt={title}
 						class="w-full h-full object-cover"
 					/>
-					<!-- Overlay pour garantir la lisibilité -->
-					<div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
+					<!-- Overlay amélioré pour plus de lisibilité -->
+					<div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
 				</div>
-				<div class="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
+				<div class="relative z-10 text-center text-white max-w-5xl mx-auto px-6">
 					<AnimatedSection trigger="load" delay={0.2}>
-						<div class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-6 border border-white/20">
+						<div class="inline-flex items-center px-6 py-3 bg-white/25 backdrop-blur-md rounded-full text-sm font-medium mb-8 border border-white/30 shadow-lg">
 							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 							</svg>
@@ -79,20 +96,20 @@ if (tags && tags.length > 0) {
 						</div>
 					</AnimatedSection>
 					<AnimatedSection trigger="load" delay={0.4}>
-						<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
+						<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-2xl">
 							{title}
 						</h1>
 					</AnimatedSection>
 					<AnimatedSection trigger="load" delay={0.6}>
-						<p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
+						<p class="text-xl md:text-2xl lg:text-3xl text-gray-100 max-w-4xl mx-auto leading-relaxed drop-shadow-lg font-light">
 							{description}
 						</p>
 					</AnimatedSection>
 					{tags && tags.length > 0 && (
 						<AnimatedSection trigger="load" delay={0.8}>
-							<div class="flex flex-wrap justify-center gap-2 mt-6">
+							<div class="flex flex-wrap justify-center gap-3 mt-8">
 								{tags.map(tag => (
-									<span class="inline-flex items-center px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-white border border-white/20">
+									<span class="inline-flex items-center px-4 py-2 bg-white/25 backdrop-blur-md rounded-full text-sm font-medium text-white border border-white/30 shadow-lg hover:bg-white/35 transition-all duration-300">
 										#{tag}
 									</span>
 								))}
@@ -100,19 +117,19 @@ if (tags && tags.length > 0) {
 						</AnimatedSection>
 					)}
 				</div>
-				<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent"></div>
+				<div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
 			</section>
 		)}
 
 		<!-- Article Content -->
-		<section class="section-padding bg-white">
+		<section class="section-padding bg-gradient-to-b from-white to-gray-50">
 			<div class="container-max">
 				<AnimatedSection trigger="scroll" delay={0.2}>
 					<article class="max-w-4xl mx-auto">
 						{!mainImage && (
-							<div class="text-center mb-16">
+							<div class="text-center mb-20">
 								<AnimatedSection trigger="load" delay={0.2}>
-									<div class="inline-flex items-center px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium mb-6">
+									<div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 rounded-full text-sm font-medium mb-8 shadow-sm">
 										<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 										</svg>
@@ -120,7 +137,7 @@ if (tags && tags.length > 0) {
 									</div>
 								</AnimatedSection>
 								<AnimatedSection trigger="load" delay={0.4}>
-									<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+									<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
 										{title}
 									</h1>
 								</AnimatedSection>
@@ -131,9 +148,9 @@ if (tags && tags.length > 0) {
 								</AnimatedSection>
 								{tags && tags.length > 0 && (
 									<AnimatedSection trigger="load" delay={0.8}>
-										<div class="flex flex-wrap justify-center gap-2 mt-6">
+										<div class="flex flex-wrap justify-center gap-3 mt-8">
 											{tags.map(tag => (
-												<span class="inline-flex items-center px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium">
+												<span class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary-100 to-primary-200 text-primary-700 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
 													#{tag}
 												</span>
 											))}
@@ -145,37 +162,41 @@ if (tags && tags.length > 0) {
 						
 						<!-- Contenu de l'article avec mise en forme raffinée -->
 						<div class="max-w-3xl mx-auto">
-							<div class="prose prose-lg md:prose-xl max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h2:text-2xl md:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:leading-tight prose-h3:text-xl md:text-2xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:leading-tight prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:text-lg prose-a:text-primary-600 prose-a:font-medium prose-a:no-underline hover:prose-a:text-primary-700 prose-strong:text-gray-900 prose-strong:font-semibold prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:bg-gradient-to-r prose-blockquote:from-primary-50 prose-blockquote:to-transparent prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:rounded-r-xl prose-blockquote:italic prose-blockquote:text-gray-700 prose-blockquote:shadow-sm prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:text-gray-700 prose-li:mb-2 prose-li:leading-relaxed prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8 prose-hr:my-12 prose-hr:border-gray-200">
-								<slot />
+							<div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 md:p-12">
+								<div class="prose prose-lg md:prose-xl max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h2:text-2xl md:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:leading-tight prose-h3:text-xl md:text-2xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:leading-tight prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:text-lg prose-a:text-primary-600 prose-a:font-medium prose-a:no-underline hover:prose-a:text-primary-700 prose-strong:text-gray-900 prose-strong:font-semibold prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:bg-gradient-to-r prose-blockquote:from-primary-50 prose-blockquote:to-transparent prose-blockquote:py-6 prose-blockquote:px-8 prose-blockquote:rounded-r-xl prose-blockquote:italic prose-blockquote:text-gray-700 prose-blockquote:shadow-sm prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:text-gray-700 prose-li:mb-2 prose-li:leading-relaxed prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8 prose-hr:my-12 prose-hr:border-gray-200">
+									<slot />
+								</div>
 							</div>
 						</div>
 		
 		<!-- Article Footer avec bouton retour -->
-		<div class="mt-20 pt-12 border-t border-gray-100">
+		<div class="mt-20 pt-12">
 			<div class="max-w-3xl mx-auto">
-				<div class="flex flex-col md:flex-row items-center justify-between gap-6">
-					<div class="flex items-center space-x-6">
-						<a href="/blog" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-							</svg>
-							Retour aux articles
-						</a>
-						<div class="hidden md:block w-px h-8 bg-gray-200"></div>
-						<div class="text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
-							<FormattedDate date={pubDate} />
+				<div class="bg-gradient-to-r from-gray-50 to-white rounded-3xl p-8 border border-gray-100 shadow-lg">
+					<div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+						<div class="flex items-center space-x-4">
+							<a href="/blog" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm">
+								<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+								</svg>
+								Retour
+							</a>
+							<div class="hidden md:block w-px h-6 bg-gray-200"></div>
+							<div class="text-sm text-gray-500 bg-white px-3 py-2 rounded-lg shadow-sm border border-gray-200">
+								<FormattedDate date={pubDate} />
+							</div>
 						</div>
-					</div>
-					<div class="flex items-center space-x-3">
-						<button id="shareBtn" class="inline-flex items-center px-4 py-2 text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200 bg-gray-50 hover:bg-gray-100 rounded-lg">
-							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-							</svg>
-							Partager
-						</button>
-						<a href="/rendez-vous" class="btn-primary rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300">
-							Prendre rendez-vous
-						</a>
+						<div class="flex items-center space-x-3">
+							<button id="shareBtn" class="inline-flex items-center px-3 py-2 text-gray-600 hover:text-primary-600 font-medium transition-all duration-200 bg-white hover:bg-gray-50 rounded-lg shadow-sm border border-gray-200 hover:shadow-md text-sm">
+								<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+								</svg>
+								Partager
+							</button>
+							<a href="/rendez-vous" class="btn-primary rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 text-sm px-4 py-2">
+								Rendez-vous
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -187,40 +208,44 @@ if (tags && tags.length > 0) {
 
 <!-- Articles similaires basés sur les tags -->
 {relatedPosts.length > 0 && (
-	<section class="section-padding bg-gradient-to-b from-gray-50 to-white">
+	<section class="section-padding bg-gradient-to-b from-gray-50 via-white to-gray-50">
 		<div class="container-max">
 			<AnimatedSection trigger="scroll" delay={0.2}>
-				<div class="text-center mb-16">
-					<div class="inline-flex items-center px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium mb-6">
+				<div class="text-center mb-20">
+					<div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 rounded-full text-sm font-medium mb-8 shadow-sm">
 						<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
 						</svg>
 						Articles similaires
 					</div>
-					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
 						Continuez votre lecture
 					</h2>
-					<p class="text-xl text-gray-600 max-w-2xl mx-auto">
+					<p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
 						Découvrez d'autres articles qui pourraient vous intéresser
 					</p>
 				</div>
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
 					{relatedPosts.map((post, index) => (
 						<AnimatedSection trigger="scroll" delay={index * 0.1} class="group">
-							<article class="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 h-full flex flex-col">
+							<article class="bg-white rounded-3xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-3 h-full flex flex-col">
 								<a href={`/blog/${post.slug?.current || 'article'}/`} class="block h-full flex flex-col">
 									{post.mainImage && (
 										<div class="aspect-video overflow-hidden relative">
 											<img 
-												src={post.mainImage.url || getSanityImageUrl(post.mainImage._ref)} 
+												src={post.mainImage.url || buildImageUrl(post.mainImage._ref)} 
 												alt={post.title}
 												class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
 											/>
 											<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+											{/* Badge de date sur l'image */}
+											<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs text-gray-700 font-medium">
+												<FormattedDate date={new Date(post.publishedAt)} />
+											</div>
 										</div>
 									)}
 									
-									<div class="p-6 flex-1 flex flex-col">
+									<div class="p-8 flex-1 flex flex-col">
 										{!post.mainImage && (
 											<div class="flex items-center text-sm text-gray-500 mb-4">
 												<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,7 +255,7 @@ if (tags && tags.length > 0) {
 											</div>
 										)}
 										
-										<h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2 leading-tight">
+										<h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary-600 transition-colors duration-300 line-clamp-2 leading-tight">
 											{post.title}
 										</h3>
 										<p class="text-gray-600 mb-6 line-clamp-3 leading-relaxed flex-1">
@@ -238,9 +263,9 @@ if (tags && tags.length > 0) {
 										</p>
 										
 										{post.tags && post.tags.length > 0 && (
-											<div class="flex flex-wrap gap-2 mb-4">
+											<div class="flex flex-wrap gap-2 mb-6">
 												{post.tags.slice(0, 2).map(tag => (
-													<span class="inline-flex items-center px-2 py-1 bg-primary-50 text-primary-600 rounded-full text-xs font-medium">
+													<span class="inline-flex items-center px-3 py-1 bg-gradient-to-r from-primary-50 to-primary-100 text-primary-600 rounded-full text-xs font-medium shadow-sm">
 														#{tag}
 													</span>
 												))}

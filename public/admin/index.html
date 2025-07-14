@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Decap CMS - La Kokosphere</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
       body {
         margin: 0;
@@ -54,66 +53,12 @@
     </style>
   </head>
   <body>
-    <div id="login-section" class="login-section">
-      <div class="login-box">
-        <h2>Connexion requise</h2>
-        <p>Connectez-vous pour accéder au CMS</p>
-        <button class="login-button" onclick="netlifyIdentity.open()">
-          Se connecter
-        </button>
-      </div>
-    </div>
+    <div id="cms-root"></div>
 
-    <div id="cms-root" style="display: none"></div>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
     <script>
-      // Initialiser Netlify Identity
-      netlifyIdentity.init()
-
-      // Vérifier l'état de connexion au chargement
-      if (netlifyIdentity.currentUser()) {
-        showCMS()
-      }
-
-      // Écouter les événements de connexion/déconnexion
-      netlifyIdentity.on("login", () => {
-        showCMS()
-      })
-
-      netlifyIdentity.on("logout", () => {
-        hideCMS()
-      })
-
-      function showCMS() {
-        document.getElementById("login-section").style.display = "none"
-        document.getElementById("cms-root").style.display = "block"
-
-        // Attendre un peu que Netlify Identity soit bien initialisé
-        setTimeout(() => {
-          // Charger Decap CMS comme dans le test
-          const script = document.createElement("script")
-          script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
-          script.onload = function () {
-            console.log("Decap CMS chargé avec succès")
-            // Attendre encore un peu que Decap CMS s'initialise
-            setTimeout(() => {
-              if (window.CMS) {
-                console.log("Decap CMS prêt")
-              }
-            }, 1000)
-          }
-          script.onerror = function () {
-            console.error("Erreur lors du chargement de Decap CMS")
-          }
-          document.head.appendChild(script)
-        }, 500)
-      }
-
-      function hideCMS() {
-        document.getElementById("login-section").style.display = "flex"
-        document.getElementById("cms-root").style.display = "none"
-        document.getElementById("cms-root").innerHTML = ""
-      }
+      console.log("Decap CMS chargé directement")
     </script>
   </body>
 </html>

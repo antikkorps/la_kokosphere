@@ -1,21 +1,34 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import SanityContent from '../../components/SanityContent.astro';
 import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
+import { getPosts } from '../../lib/sanity';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	// Récupérer tous les articles depuis Sanity
+	const posts = await getPosts();
+	
+	// Générer les routes pour chaque article
 	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
+		params: { slug: post.slug.current },
+		props: { post },
 	}));
 }
-type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const { post } = Astro.props;
+
+if (!post) {
+	return Astro.redirect('/404');
+}
 ---
 
-<BlogPost {...post.data}>
-	<Content />
+<BlogPost 
+	_id={post._id}
+	title={post.title}
+	description={post.description}
+	pubDate={new Date(post.publishedAt)}
+	tags={post.tags}
+	mainImage={post.mainImage}
+	author={post.author}
+>
+	<SanityContent content={post.body} />
 </BlogPost>

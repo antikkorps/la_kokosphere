@@ -1,26 +1,32 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
 interface Props {
-  testimonial: CollectionEntry<'testimonials'>;
+  testimonial: {
+    _id: string;
+    clientName: string;
+    avatarType: string;
+    avatarSeed?: string;
+    testimonial: string;
+    rating: number;
+    date: string;
+  };
   maxLength?: number;
 }
 
 const { testimonial, maxLength = 150 } = Astro.props;
 
-// Générer un avatar Dicebear basé sur le nom du client
-const generateAvatar = (name: string) => {
-  const seed = name.toLowerCase().replace(/\s+/g, '');
-  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+// Générer un avatar DiceBear basé sur le type et le seed
+const generateAvatar = (type: string, seed?: string) => {
+  const avatarSeed = seed || testimonial.clientName.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return `https://api.dicebear.com/7.x/${type}/svg?seed=${avatarSeed}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
 };
 
-const stars = Array.from({ length: 5 }, (_, i) => i < testimonial.data.rating);
+const stars = Array.from({ length: 5 }, (_, i) => i < testimonial.rating);
 
 // Tronquer le texte si nécessaire
-const isLongText = testimonial.data.testimonial.length > maxLength;
+const isLongText = testimonial.testimonial.length > maxLength;
 const truncatedText = isLongText 
-  ? testimonial.data.testimonial.substring(0, maxLength).trim() + '...'
-  : testimonial.data.testimonial;
+  ? testimonial.testimonial.substring(0, maxLength).trim() + '...'
+  : testimonial.testimonial;
 ---
 
 <div class="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
@@ -42,7 +48,7 @@ const truncatedText = isLongText
     {isLongText && (
       <button 
         class="text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors"
-        data-testimonial-id={testimonial.id}
+        data-testimonial-id={testimonial._id}
         onclick="document.dispatchEvent(new CustomEvent('openTestimonialModal', { detail: this.dataset.testimonialId }))"
       >
         Lire la suite →
@@ -52,26 +58,17 @@ const truncatedText = isLongText
   
   <div class="flex items-center space-x-3 mt-6">
     <div class="flex-shrink-0">
-      {testimonial.data.clientImage ? (
-        <img 
-          src={testimonial.data.clientImage.src} 
-          alt={`Photo de ${testimonial.data.clientName}`}
-          class="w-12 h-12 rounded-full object-cover border-2 border-gray-200"
-          loading="lazy"
-        />
-      ) : (
-        <img 
-          src={generateAvatar(testimonial.data.clientName)} 
-          alt={`Avatar de ${testimonial.data.clientName}`}
-          class="w-12 h-12 rounded-full border-2 border-gray-200"
-          loading="lazy"
-        />
-      )}
+      <img 
+        src={generateAvatar(testimonial.avatarType, testimonial.avatarSeed)} 
+        alt={`Avatar de ${testimonial.clientName}`}
+        class="w-12 h-12 rounded-full border-2 border-gray-200"
+        loading="lazy"
+      />
     </div>
     <div class="flex-1">
-      <div class="font-medium text-gray-900">{testimonial.data.clientName}</div>
+      <div class="font-medium text-gray-900">{testimonial.clientName}</div>
       <div class="text-sm text-gray-500">
-        {new Date(testimonial.data.date).toLocaleDateString('fr-FR', { 
+        {new Date(testimonial.date).toLocaleDateString('fr-FR', { 
           year: 'numeric', 
           month: 'long' 
         })}

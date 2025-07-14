@@ -1,25 +1,18 @@
 ---
-import { getCollection, render } from 'astro:content';
+import SanityContent from '../components/SanityContent.astro';
 import { CALENDLY_URL, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getServices } from '../lib/sanity';
 
-// Récupérer les services créés via Decap CMS
-const services = await getCollection('services');
+// Récupérer les services depuis Sanity
+const services = await getServices();
 // Trier les services par 'order' si présent, sinon par titre
 const sortedServices = [...services].sort((a, b) => {
-  const orderA = typeof a.data.order === 'number' ? a.data.order : 999;
-  const orderB = typeof b.data.order === 'number' ? b.data.order : 999;
+  const orderA = typeof a.order === 'number' ? a.order : 999;
+  const orderB = typeof b.order === 'number' ? b.order : 999;
   if (orderA !== orderB) return orderA - orderB;
-  return a.data.title.localeCompare(b.data.title);
+  return a.title.localeCompare(b.title);
 });
-
-// Rendre le contenu Markdown de chaque service
-const renderedServices = await Promise.all(
-  sortedServices.map(async (service) => {
-    const { Content } = await render(service);
-    return { ...service, Content };
-  })
-);
 ---
 
 <BaseLayout title={`Services - ${SITE_TITLE}`} description="Découvrez mes services d'hypnothérapie : stress, anxiété, phobies, addictions, confiance en soi. Tarifs et accompagnement personnalisé pour votre bien-être.">
@@ -41,7 +34,7 @@ const renderedServices = await Promise.all(
 		<!-- Services dynamiques (section principale) -->
 		<section class="section-padding bg-white">
 			<div class="container-max">
-				{renderedServices.map((service: any, idx: number) => {
+				{sortedServices.map((service: any, idx: number) => {
 					// Mapping des titres de services vers les ancres des domaines d'expertise
 					const anchorMapping: { [key: string]: string } = {
 						'Stress et Anxiété': 'stress',
@@ -52,7 +45,7 @@ const renderedServices = await Promise.all(
 						'Développement personnel': 'developpement'
 					};
 					
-					const anchorId = anchorMapping[service.data.title] || service.data.title
+					const anchorId = anchorMapping[service.title] || service.title
 						.toLowerCase()
 						.replace(/[éèê]/g, 'e')
 						.replace(/[àâ]/g, 'a')
@@ -69,17 +62,17 @@ const renderedServices = await Promise.all(
 					<div id={anchorId} class="mb-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center scroll-mt-20">
 						{/* Colonne texte - alterne entre gauche et droite */}
 						<div class={idx % 2 === 0 ? '' : 'lg:order-2'}>
-							<h2 class="text-3xl font-bold text-gray-900 mb-6">{service.data.title}</h2>
+							<h2 class="text-3xl font-bold text-gray-900 mb-6">{service.title}</h2>
 							<div class="prose prose-lg text-gray-600 mb-6">
-								<p class="mb-4">{service.data.description}</p>
-								<service.Content />
+								<p class="mb-4">{service.description}</p>
+								<SanityContent content={service.body} />
 							</div>
 							<div class="flex flex-wrap items-center gap-6 mb-6">
-								{service.data.price && (
-									<span class="inline-block text-2xl font-bold text-primary-600 bg-primary-50 rounded-lg px-4 py-2">{service.data.price}</span>
+								{service.price && (
+									<span class="inline-block text-2xl font-bold text-primary-600 bg-primary-50 rounded-lg px-4 py-2">{service.price}</span>
 								)}
-								{service.data.duration && (
-									<span class="inline-block text-gray-500 bg-gray-100 rounded-lg px-4 py-2">{service.data.duration}</span>
+								{service.duration && (
+									<span class="inline-block text-gray-500 bg-gray-100 rounded-lg px-4 py-2">{service.duration}</span>
 								)}
 							</div>
 							<a href={CALENDLY_URL} class="btn-primary">
@@ -88,10 +81,26 @@ const renderedServices = await Promise.all(
 						</div>
 						{/* Colonne image - alterne entre droite et gauche */}
 						<div class={idx % 2 === 0 ? '' : 'lg:order-1'}>
-							{service.data.image && (
+							{service.image && service.image.type === "url" && service.image.externalUrl ? (
 								<div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8">
 									<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
-										<img src={typeof service.data.image === 'object' ? service.data.image.src : service.data.image} alt={service.data.title} class="w-full h-full object-cover rounded-xl" loading="lazy" />
+										<img src={service.image.externalUrl} alt={service.image.altText || service.title} class="w-full h-full object-cover rounded-xl" loading="lazy" />
+									</div>
+								</div>
+							) : service.image && service.image.type === "upload" && service.image.uploadedImage && service.image.uploadedImage.asset ? (
+								<div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8">
+									<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
+										<img src={`https://cdn.sanity.io/images/j41wv78y/production/${service.image.uploadedImage.asset._ref.replace('image-', '').replace('-webp', '.webp')}?w=800&h=600&fit=crop&auto=format`} alt={service.title} class="w-full h-full object-cover rounded-xl" loading="lazy" />
+									</div>
+								</div>
+							) : (
+								<div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-2xl p-8">
+									<div class="aspect-square bg-white rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
+										<div class="flex items-center justify-center text-gray-400">
+											<svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+											</svg>
+										</div>
 									</div>
 								</div>
 							)}

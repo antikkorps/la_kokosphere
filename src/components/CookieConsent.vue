@@ -233,29 +233,28 @@ const hasConsent = () => {
 // Envoyer des statistiques anonymes
 const sendConsentStats = async (consent: any) => {
   try {
-    const stats = {
-      // Données anonymes uniquement
-      analytics: consent.analytics,
-      marketing: consent.marketing,
-      method: consent.method || "banner",
-      date: new Date().toISOString(),
-      version: "1.0",
-    }
-
-    // Envoyer les stats (pas de données personnelles)
-    const response = await fetch("/.netlify/functions/save-consent-stats", {
+    const response = await fetch("/api/consent-stats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(stats),
+      body: JSON.stringify({
+        analytics: consent.analytics,
+        marketing: consent.marketing,
+        necessary: consent.necessary,
+        method: consent.method || "banner",
+      }),
     })
 
-    if (response.ok) {
-      console.log("Statistiques de consentement envoyées")
+    const result = await response.json()
+
+    if (result.success) {
+      console.log("✅ Statistiques de consentement envoyées à Sanity")
+    } else {
+      console.error("❌ Erreur lors de l'envoi:", result.error)
     }
   } catch (error) {
-    console.error("Erreur lors de l'envoi des statistiques:", error)
+    console.error("❌ Erreur lors de l'envoi des statistiques:", error)
     // Ne pas bloquer l'utilisateur si ça échoue
   }
 }

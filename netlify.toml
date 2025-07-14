@@ -5,6 +5,27 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Redirections
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+# Fonctions Netlify
+[functions]
+  directory = "netlify/functions"
+
+# Variables d'environnement pour les fonctions
+[functions."cleanup-consent-stats"]
+  included_files = ["node_modules/@sanity/**"]
+
+# Configuration pour le nettoyage automatique (cron job)
+# À configurer dans le dashboard Netlify :
+# - Aller dans Functions > Scheduled Functions
+# - Créer un cron job qui appelle /api/cleanup-consent-stats
+# - Fréquence recommandée : tous les jours à 2h du matin (0 2 * * *)
+
+
 # Configuration Netlify Identity
 [context.production.environment]
   NETLIFY_USE_YARN = "true"

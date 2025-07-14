@@ -1,19 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
 import AnimatedSection from '../components/AnimatedSection.astro';
 import ExpertiseDomainCard from '../components/ExpertiseDomainCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import TestimonialModal from '../components/TestimonialModal.vue';
 import { CALENDLY_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getExpertiseDomains, getTestimonials } from '../lib/sanity';
 
-// Récupérer les témoignages créés via Decap CMS
-const testimonials = await getCollection('testimonials');
+// Récupérer les témoignages depuis Sanity
+const testimonials = await getTestimonials();
 
-// Récupérer les domaines d'expertise
-const expertiseDomains = await getCollection('expertiseDomains');
+// Récupérer les domaines d'expertise depuis Sanity
+const expertiseDomains = await getExpertiseDomains();
 // Trier par ordre
-const sortedDomains = expertiseDomains.sort((a, b) => a.data.order - b.data.order);
+const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -123,11 +123,11 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.data.order - b.data.orde
 
 		<!-- Island Vue pour la modal -->
 		<TestimonialModal client:only="vue" testimonials={testimonials.map(t => ({
-			id: t.id,
-			clientName: t.data.clientName,
-			testimonial: t.data.testimonial,
-			rating: t.data.rating,
-			date: t.data.date.toISOString()
+			id: t._id,
+			clientName: t.clientName,
+			testimonial: t.testimonial,
+			rating: t.rating,
+			date: t.date
 		}))} />
 
 </BaseLayout>

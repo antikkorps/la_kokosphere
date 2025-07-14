@@ -262,7 +262,7 @@ const sendConsentStats = async (consent: any) => {
 // Accepter tous les cookies
 const acceptAll = () => {
   const consent = {
-    essential: true,
+    necessary: true,
     analytics: true,
     marketing: true,
     method: "banner",
@@ -285,7 +285,7 @@ const acceptAll = () => {
 // Accepter seulement les cookies essentiels
 const acceptEssential = () => {
   const consent = {
-    essential: true,
+    necessary: true,
     analytics: false,
     marketing: false,
     method: "banner",
@@ -315,7 +315,7 @@ const closePreferences = () => {
 // Sauvegarder les préférences personnalisées
 const savePreferences = () => {
   const consent = {
-    essential: true,
+    necessary: true,
     analytics: preferences.value.analytics,
     marketing: preferences.value.marketing,
     method: "modal",

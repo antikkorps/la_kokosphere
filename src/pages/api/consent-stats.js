@@ -1,14 +1,17 @@
+export const prerender = false;
 import { createClient } from "@sanity/client"
 
 const client = createClient({
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "j41wv78y",
-  dataset: process.env.SANITY_STUDIO_DATASET || "production",
+  projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID || "j41wv78y",
+  dataset: import.meta.env.SANITY_STUDIO_DATASET || "production",
   apiVersion: "2024-01-01",
   useCdn: false,
-  token: process.env.SANITY_TOKEN,
+  token: import.meta.env.SANITY_TOKEN,
 })
 
 export async function POST({ request }) {
+  
+
   try {
     const body = await request.json()
     const { analytics, marketing, necessary, method } = body

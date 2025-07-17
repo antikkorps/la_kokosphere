@@ -233,7 +233,7 @@ const hasConsent = () => {
 // Envoyer des statistiques anonymes
 const sendConsentStats = async (consent: any) => {
   try {
-    const response = await fetch("/api/consent-stats", {
+    const response = await fetch("/.netlify/functions/consent-stats", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -8,6 +8,5 @@ import { defineConfig } from "astro/config"
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), mdx(), sitemap(), vue()],
-  output: "static",
   site: "https://la-kokosphere.fr",
 })

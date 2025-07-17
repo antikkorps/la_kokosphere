@@ -1,4 +1,4 @@
-import { createClient } from "@sanity/client"
+const { createClient } = require("@sanity/client")
 
 const client = createClient({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || "j41wv78y",

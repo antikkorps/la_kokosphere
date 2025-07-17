@@ -45,6 +45,7 @@ export interface Post {
         _ref: string
       }
     }
+    bio?: any[]
   }
 }
 
@@ -115,7 +116,8 @@ export async function getPosts(): Promise<Post[]> {
       body,
       "author": author->{
         name,
-        image
+        image,
+        bio
       }
     }
   `)
@@ -139,7 +141,8 @@ export async function getPost(slug: string): Promise<Post | null> {
       body,
       "author": author->{
         name,
-        image
+        image,
+        bio
       }
     }
   `,

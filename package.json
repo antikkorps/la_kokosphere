@@ -6,7 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "dev:all": "concurrently \"npm run dev\" \"npm run studio\"",
+    "studio": "cd studio-sanity && npm run dev",
+    "studio:build": "cd studio-sanity && npm run build",
+    "studio:deploy": "cd studio-sanity && npm run deploy"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",

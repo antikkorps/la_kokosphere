@@ -1,6 +1,6 @@
 ---
 import SanityContent from '../components/SanityContent.astro';
-import { CALENDLY_URL, SITE_TITLE } from '../consts';
+import { SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getServices } from '../lib/sanity';
 
@@ -75,7 +75,7 @@ const sortedServices = [...services].sort((a, b) => {
 									<span class="inline-block text-gray-500 bg-gray-100 rounded-lg px-4 py-2">{service.duration}</span>
 								)}
 							</div>
-							<a href={CALENDLY_URL} class="btn-primary">
+							<a href="/rendez-vous" class="btn-primary">
 								Prendre rendez-vous
 							</a>
 						</div>
@@ -151,7 +151,7 @@ const sortedServices = [...services].sort((a, b) => {
 								Plan d'accompagnement personnalisé
 							</li>
 						</ul>
-						<a href={CALENDLY_URL} class="w-full btn-primary text-center">
+						<a href="/rendez-vous" class="w-full btn-primary text-center">
 							Prendre rendez-vous
 						</a>
 					</div>
@@ -186,7 +186,7 @@ const sortedServices = [...services].sort((a, b) => {
 								Suivi et conseils
 							</li>
 						</ul>
-						<a href={CALENDLY_URL} class="w-full btn-primary text-center">
+						<a href="/rendez-vous" class="w-full btn-primary text-center">
 							Prendre rendez-vous
 						</a>
 					</div>
@@ -218,7 +218,7 @@ const sortedServices = [...services].sort((a, b) => {
 								Suivi personnalisé
 							</li>
 						</ul>
-						<a href={CALENDLY_URL} class="w-full btn-primary text-center">
+						<a href="/rendez-vous" class="w-full btn-primary text-center">
 							Prendre rendez-vous
 						</a>
 					</div>
@@ -244,7 +244,7 @@ const sortedServices = [...services].sort((a, b) => {
 				<p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
 					Prenez rendez-vous pour une première consultation et découvrez comment l'hypnothérapie peut vous aider.
 				</p>
-				<a href={CALENDLY_URL} class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
+				<a href="/rendez-vous" class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
 					Prendre rendez-vous
 				</a>
 			</div>

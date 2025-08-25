@@ -1,5 +1,5 @@
 ---
-import { CALENDLY_URL } from '../consts';
+// Import supprimé car on utilise maintenant /rendez-vous
 
 const navItems = [
 	{ text: 'Accueil', href: '/' },
@@ -47,7 +47,7 @@ const navItems = [
 			<!-- CTA Button avec animation -->
 			<div class="hidden lg:flex items-center space-x-4" id="cta-section">
 				<a 
-					href={CALENDLY_URL} 
+					href="/rendez-vous" 
 					class="btn-primary group relative overflow-hidden"
 					id="cta-button"
 				>
@@ -145,7 +145,7 @@ const navItems = [
 				<!-- CTA Section -->
 				<div class="p-4 border-t border-gray-100 bg-gray-50">
 					<a
-						href={CALENDLY_URL}
+						href="/rendez-vous"
 						class="flex items-center justify-center space-x-2 w-full py-3 px-4 text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg transition-all duration-200 shadow-md"
 					>
 						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

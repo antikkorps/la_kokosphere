@@ -1,133 +1,153 @@
 ---
-import AnimatedSection from '../components/AnimatedSection.astro';
-import ExpertiseDomainCard from '../components/ExpertiseDomainCard.astro';
-import TestimonialCard from '../components/TestimonialCard.astro';
-import TestimonialModal from '../components/TestimonialModal.vue';
-import { CALENDLY_URL, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getExpertiseDomains, getTestimonials } from '../lib/sanity';
+import AnimatedSection from "../components/AnimatedSection.astro"
+import ExpertiseDomainCard from "../components/ExpertiseDomainCard.astro"
+import TestimonialCard from "../components/TestimonialCard.astro"
+import TestimonialModal from "../components/TestimonialModal.vue"
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts"
+import BaseLayout from "../layouts/BaseLayout.astro"
+import { getExpertiseDomains, getTestimonials } from "../lib/sanity"
 
 // Récupérer les témoignages depuis Sanity
-const testimonials = await getTestimonials();
+const testimonials = await getTestimonials()
 
 // Récupérer les domaines d'expertise depuis Sanity
-const expertiseDomains = await getExpertiseDomains();
+const expertiseDomains = await getExpertiseDomains()
 // Trier par ordre
-const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order);
+const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-		
-		<!-- Hero Section -->
-		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
-			<AnimatedSection trigger="load" delay={0.2}>
-				<div class="container-max">
-					<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-						<AnimatedSection trigger="load" delay={0.4} direction="left">
-							<div>
-								<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-									Retrouvez votre <span class="text-primary-600">bien-être</span> grâce à l'hypnothérapie
-								</h1>
-								<p class="text-xl text-gray-600 mb-8 leading-relaxed">
-									Spécialisée dans le traitement du stress, de l'anxiété, des phobies et des addictions. 
-									Une approche bienveillante et personnalisée pour vous accompagner vers un mieux-être durable.
-								</p>
-								<div class="flex flex-col sm:flex-row gap-4">
-									<a href={CALENDLY_URL} class="btn-primary text-lg px-8 py-4">
-										Prendre rendez-vous
-									</a>
-									<a href="/services" class="btn-outline text-lg px-8 py-4">
-										Découvrir mes services
-									</a>
-								</div>
-							</div>
-						</AnimatedSection>
-						<AnimatedSection trigger="load" delay={0.6} direction="right">
-							<div class="relative">
-								<div class="bg-white rounded-2xl shadow-xl p-8">
-									<div class="aspect-square rounded-xl overflow-hidden">
-										<img 
-											src="/images/illustrationsSite/bien-etre.webp" 
-											alt="Illustration du bien-être et de l'hypnothérapie" 
-											class="w-full h-full object-cover"
-											loading="eager"
-										/>
-									</div>
-								</div>
-							</div>
-						</AnimatedSection>
-					</div>
-				</div>
-			</AnimatedSection>
-		</section>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
+    <AnimatedSection trigger="load" delay={0.2}>
+      <div class="container-max">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <AnimatedSection trigger="load" delay={0.4} direction="left">
+            <div>
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                Retrouvez votre <span class="text-primary-600">bien-être</span> grâce à l'hypnothérapie
+              </h1>
+              <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                Spécialisée dans le traitement du stress, de l'anxiété, des phobies et des
+                addictions. Une approche bienveillante et personnalisée pour vous
+                accompagner vers un mieux-être durable.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="/rendez-vous" class="btn-primary text-lg px-8 py-4">
+                  Prendre rendez-vous
+                </a>
+                <a href="/services" class="btn-outline text-lg px-8 py-4">
+                  Découvrir mes services
+                </a>
+              </div>
+            </div>
+          </AnimatedSection>
+          <AnimatedSection trigger="load" delay={0.6} direction="right">
+            <div class="relative">
+              <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="aspect-square rounded-xl overflow-hidden">
+                  <img
+                    src="/images/illustrationsSite/bien-etre.webp"
+                    alt="Illustration du bien-être et de l'hypnothérapie"
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+    </AnimatedSection>
+  </section>
 
-		<!-- Services Section -->
-		<section class="section-padding bg-white">
-			<AnimatedSection trigger="scroll" delay={0.2}>
-				<div class="container-max">
-					<div class="text-center mb-16">
-						<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-							Mes domaines d'expertise
-						</h2>
-						<p class="text-xl text-gray-600 max-w-3xl mx-auto">
-							Je vous accompagne dans la résolution de diverses problématiques grâce à des techniques d'hypnothérapie éprouvées et personnalisées.
-						</p>
-					</div>
+  <!-- Services Section -->
+  <section class="section-padding bg-white">
+    <AnimatedSection trigger="scroll" delay={0.2}>
+      <div class="container-max">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Mes domaines d'expertise
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Je vous accompagne dans la résolution de diverses problématiques grâce à des
+            techniques d'hypnothérapie éprouvées et personnalisées.
+          </p>
+        </div>
 
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{sortedDomains.map((domain, index) => (
-							<ExpertiseDomainCard domain={domain} delay={index * 0.1} />
-						))}
-					</div>
-				</div>
-			</AnimatedSection>
-		</section>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            sortedDomains.map((domain, index) => (
+              <ExpertiseDomainCard domain={domain} delay={index * 0.1} />
+            ))
+          }
+        </div>
+      </div>
+    </AnimatedSection>
+  </section>
 
-		<!-- Témoignages Section -->
-		<section class="section-padding bg-gray-50">
-			<AnimatedSection trigger="scroll" delay={0.2}>
-				<div class="container-max">
-					<div class="text-center mb-16">
-						<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-							Ce que disent mes patients
-						</h2>
-						<p class="text-xl text-gray-600 max-w-3xl mx-auto">
-							Découvrez les témoignages de personnes qui ont retrouvé leur bien-être grâce à l'hypnothérapie.
-						</p>
-					</div>
+  <!-- Témoignages Section -->
+  <section class="section-padding bg-gray-50">
+    <AnimatedSection trigger="scroll" delay={0.2}>
+      <div class="container-max">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Ce que disent mes patients
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Découvrez les témoignages de personnes qui ont retrouvé leur bien-être grâce à
+            l'hypnothérapie.
+          </p>
+        </div>
 
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{testimonials.length > 0 ? (
-							testimonials.slice(0, 3).map((testimonial, index) => (
-								<AnimatedSection trigger="scroll" delay={index * 0.1}>
-									<TestimonialCard testimonial={testimonial} />
-								</AnimatedSection>
-							))
-						) : (
-							<div class="col-span-full text-center py-12">
-								<div class="bg-gray-50 rounded-xl p-8 max-w-md mx-auto">
-									<svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-									</svg>
-									<h3 class="text-lg font-semibold text-gray-900 mb-2">Aucun témoignage pour le moment</h3>
-									<p class="text-gray-600">
-										Les témoignages de nos patients apparaîtront ici.
-									</p>
-								</div>
-							</div>
-						)}
-					</div>
-				</div>
-			</AnimatedSection>
-		</section>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            testimonials.length > 0 ? (
+              testimonials.slice(0, 3).map((testimonial, index) => (
+                <AnimatedSection trigger="scroll" delay={index * 0.1}>
+                  <TestimonialCard testimonial={testimonial} />
+                </AnimatedSection>
+              ))
+            ) : (
+              <div class="col-span-full text-center py-12">
+                <div class="bg-gray-50 rounded-xl p-8 max-w-md mx-auto">
+                  <svg
+                    class="w-16 h-16 text-gray-400 mx-auto mb-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
+                  </svg>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                    Aucun témoignage pour le moment
+                  </h3>
+                  <p class="text-gray-600">
+                    Les témoignages de nos patients apparaîtront ici.
+                  </p>
+                </div>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </AnimatedSection>
+  </section>
 
-		<!-- Island Vue pour la modal -->
-		<TestimonialModal client:only="vue" testimonials={testimonials.map(t => ({
-			id: t._id,
-			clientName: t.clientName,
-			testimonial: t.testimonial,
-			rating: t.rating,
-			date: t.date
-		}))} />
-
+  <!-- Island Vue pour la modal -->
+  <TestimonialModal
+    client:only="vue"
+    testimonials={testimonials.map((t) => ({
+      id: t._id,
+      clientName: t.clientName,
+      testimonial: t.testimonial,
+      rating: t.rating,
+      date: t.date,
+    }))}
+  />
 </BaseLayout>

@@ -83,7 +83,15 @@ export interface ExpertiseDomain {
   _id: string
   title: string
   description: string
-  icon: string
+  icon:
+    | "heart"
+    | "warning"
+    | "lightning"
+    | "check-circle"
+    | "moon"
+    | "star"
+    | "shield"
+    | "brain"
   color: "primary" | "secondary"
   order: number
   anchor: string

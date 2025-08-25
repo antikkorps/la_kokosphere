@@ -3,12 +3,13 @@ export const SITE_TITLE = "La Kokosphère"
 export const SITE_DESCRIPTION =
   "Hypnothérapeute spécialisée dans le bien-être et le développement personnel"
 export const SITE_URL = "https://la-kokosphere.fr"
-export const SITE_EMAIL = "contact@la-kokosphere.fr"
-export const SITE_PHONE = "+33 6 12 34 56 78"
-export const SITE_ADDRESS = "123 Rue de la Paix, 75001 Paris, France"
+export const SITE_EMAIL = "kokosphere72@gmail.com"
+export const SITE_PHONE = "+33 6 63 64 10 85"
+export const SITE_ADDRESS = "BAT A APPT 236 - 28 RUE EDOUARD FAUCHARD - 72000 LE MANS"
+export const SITE_ADMIN = "https://la-kokosphere.sanity.studio"
 
 // Calendly URL
-export const CALENDLY_URL = "https://calendly.com/la-kokosphere/consultation"
+export const CALENDLY_URL = "https://calendly.com/kokosphere72/30min"
 
 // Charte graphique - Couleurs centralisées
 export const COLORS = {

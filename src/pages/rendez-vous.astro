@@ -1,230 +1,357 @@
 ---
-import { CALENDLY_URL, SITE_TITLE } from '../consts';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { CALENDLY_URL, SITE_TITLE } from "../consts"
+import BaseLayout from "../layouts/BaseLayout.astro"
 ---
 
-<BaseLayout title={`Prendre rendez-vous - ${SITE_TITLE}`} description="Prenez rendez-vous en ligne pour votre consultation d'hypnothérapie. Réservation simple et rapide via notre système de prise de rendez-vous.">
-		
-		<!-- Hero Section -->
-		<section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
-			<div class="container-max">
-				<div class="text-center">
-					<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-						Prendre rendez-vous
-					</h1>
-					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
-						Réservez votre consultation d'hypnothérapie en quelques clics. Choisissez le créneau qui vous convient le mieux.
-					</p>
-				</div>
-			</div>
-		</section>
+<BaseLayout
+  title={`Prendre rendez-vous - ${SITE_TITLE}`}
+  description="Prenez rendez-vous en ligne pour votre consultation d'hypnothérapie. Réservation simple et rapide via notre système de prise de rendez-vous."
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
+    <div class="container-max">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Prendre rendez-vous
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Réservez votre consultation d'hypnothérapie en quelques clics. Choisissez le
+          créneau qui vous convient le mieux.
+        </p>
+      </div>
+    </div>
+  </section>
 
-		<!-- Calendly Section -->
-		<section class="section-padding bg-white">
-			<div class="container-max">
-				<div class="max-w-4xl mx-auto">
-					<div class="text-center mb-12">
-						<h2 class="text-3xl font-bold text-gray-900 mb-4">
-							Réservez votre séance
-						</h2>
-						<p class="text-lg text-gray-600">
-							Sélectionnez un créneau disponible et confirmez votre rendez-vous. Vous recevrez une confirmation par email.
-						</p>
-					</div>
+  <!-- Calendly Section -->
+  <section class="section-padding bg-white">
+    <div class="container-max">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Réservez votre séance</h2>
+          <p class="text-lg text-gray-600">
+            Sélectionnez un créneau disponible et confirmez votre rendez-vous. Vous
+            recevrez une confirmation par email.
+          </p>
+        </div>
 
-					<!-- Calendly Widget -->
-					<div class="bg-gray-50 rounded-xl p-8">
-						<div class="calendly-inline-widget" data-url={CALENDLY_URL} style="min-width:320px;height:700px;"></div>
-						<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-					</div>
+        <!-- Calendly Widget -->
+        <div id="calendly-widget" class="bg-gray-50 rounded-xl p-8">
+          <div
+            class="calendly-inline-widget"
+            data-url={CALENDLY_URL}
+            style="min-width:320px;height:700px;"
+          >
+          </div>
+          <script
+            type="text/javascript"
+            src="https://assets.calendly.com/assets/external/widget.js"
+            async></script>
+        </div>
 
-					<!-- Informations complémentaires -->
-					<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-						<div class="text-center">
-							<div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-								<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-							</div>
-							<h3 class="text-lg font-semibold text-gray-900 mb-2">Séance d'1h</h3>
-							<p class="text-gray-600">
-								Chaque séance dure environ 1 heure pour un accompagnement complet et personnalisé.
-							</p>
-						</div>
+        <!-- Informations complémentaires -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div
+              class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-primary-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Séance d'1h</h3>
+            <p class="text-gray-600">
+              Chaque séance dure environ 1 heure pour un accompagnement complet et
+              personnalisé.
+            </p>
+          </div>
 
-						<div class="text-center">
-							<div class="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-								<svg class="w-8 h-8 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-							</div>
-							<h3 class="text-lg font-semibold text-gray-900 mb-2">Confirmation immédiate</h3>
-							<p class="text-gray-600">
-								Vous recevrez immédiatement une confirmation par email avec tous les détails de votre rendez-vous.
-							</p>
-						</div>
+          <div class="text-center">
+            <div
+              class="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-secondary-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              Confirmation immédiate
+            </h3>
+            <p class="text-gray-600">
+              Vous recevrez immédiatement une confirmation par email avec tous les détails
+              de votre rendez-vous.
+            </p>
+          </div>
 
-						<div class="text-center">
-							<div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-								<svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-								</svg>
-							</div>
-							<h3 class="text-lg font-semibold text-gray-900 mb-2">Annulation gratuite</h3>
-							<p class="text-gray-600">
-								Vous pouvez annuler ou modifier votre rendez-vous gratuitement jusqu'à 24h avant la séance.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+          <div class="text-center">
+            <div
+              class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                class="w-8 h-8 text-primary-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Annulation gratuite</h3>
+            <p class="text-gray-600">
+              Vous pouvez annuler ou modifier votre rendez-vous gratuitement jusqu'à 24h
+              avant la séance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-		<!-- Informations pratiques -->
-		<section class="section-padding bg-gray-50">
-			<div class="container-max">
-				<div class="text-center mb-16">
-					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Informations pratiques
-					</h2>
-					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
-						Tout ce que vous devez savoir avant votre première séance d'hypnothérapie.
-					</p>
-				</div>
+  <!-- Informations pratiques -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-max">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Informations pratiques
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Tout ce que vous devez savoir avant votre première séance d'hypnothérapie.
+        </p>
+      </div>
 
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-					<div class="bg-white rounded-xl p-8 shadow-sm">
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">
-							Avant votre séance
-						</h3>
-						<ul class="space-y-3 text-gray-600">
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Arrivez 10 minutes avant votre rendez-vous
-							</li>
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Préparez vos questions et objectifs
-							</li>
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Portez des vêtements confortables
-							</li>
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Évitez l'alcool et les médicaments sédatifs
-							</li>
-						</ul>
-					</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Avant votre séance</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Arrivez 10 minutes avant votre rendez-vous
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Préparez vos questions et objectifs
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Portez des vêtements confortables
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Évitez l'alcool et les médicaments sédatifs
+            </li>
+          </ul>
+        </div>
 
-					<div class="bg-white rounded-xl p-8 shadow-sm">
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">
-							Paiement et tarifs
-						</h3>
-						<ul class="space-y-3 text-gray-600">
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Paiement à la fin de chaque séance
-							</li>
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Espèces, chèque ou carte bancaire acceptés
-							</li>
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Facture remise à chaque séance
-							</li>
-							<li class="flex items-start">
-								<svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-								Possibilité de packs à tarifs préférentiels
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</section>
+        <div class="bg-white rounded-xl p-8 shadow-sm">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Paiement et tarifs</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Paiement à la fin de chaque séance
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Espèces, chèque ou carte bancaire acceptés
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Facture remise à chaque séance
+            </li>
+            <li class="flex items-start">
+              <svg
+                class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"></path>
+              </svg>
+              Possibilité de packs à tarifs préférentiels
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-		<!-- Questions fréquentes -->
-		<section class="section-padding bg-white">
-			<div class="container-max">
-				<div class="text-center mb-16">
-					<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-						Questions sur la prise de rendez-vous
-					</h2>
-					<p class="text-xl text-gray-600 max-w-3xl mx-auto">
-						Retrouvez les réponses aux questions les plus courantes sur la réservation.
-					</p>
-				</div>
+  <!-- Questions fréquentes -->
+  <section class="section-padding bg-white">
+    <div class="container-max">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Questions sur la prise de rendez-vous
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Retrouvez les réponses aux questions les plus courantes sur la réservation.
+        </p>
+      </div>
 
-				<div class="max-w-4xl mx-auto space-y-6">
-					<div class="bg-gray-50 rounded-xl p-6">
-						<h3 class="text-lg font-semibold text-gray-900 mb-3">
-							Comment annuler ou modifier un rendez-vous ?
-						</h3>
-						<p class="text-gray-600">
-							Vous pouvez annuler ou modifier votre rendez-vous directement depuis le lien de confirmation reçu par email, ou en me contactant par téléphone au moins 24h à l'avance.
-						</p>
-					</div>
+      <div class="max-w-4xl mx-auto space-y-6">
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            Comment annuler ou modifier un rendez-vous ?
+          </h3>
+          <p class="text-gray-600">
+            Vous pouvez annuler ou modifier votre rendez-vous directement depuis le lien
+            de confirmation reçu par email, ou en me contactant par téléphone au moins 24h
+            à l'avance.
+          </p>
+        </div>
 
-					<div class="bg-gray-50 rounded-xl p-6">
-						<h3 class="text-lg font-semibold text-gray-900 mb-3">
-							Que se passe-t-il si je suis en retard ?
-						</h3>
-						<p class="text-gray-600">
-							En cas de retard, je m'efforcerai de vous accorder le temps restant de votre séance. Cependant, si le retard dépasse 15 minutes, il sera nécessaire de reprogrammer le rendez-vous.
-						</p>
-					</div>
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            Que se passe-t-il si je suis en retard ?
+          </h3>
+          <p class="text-gray-600">
+            En cas de retard, je m'efforcerai de vous accorder le temps restant de votre
+            séance. Cependant, si le retard dépasse 15 minutes, il sera nécessaire de
+            reprogrammer le rendez-vous.
+          </p>
+        </div>
 
-					<div class="bg-gray-50 rounded-xl p-6">
-						<h3 class="text-lg font-semibold text-gray-900 mb-3">
-							Puis-je prendre rendez-vous pour quelqu'un d'autre ?
-						</h3>
-						<p class="text-gray-600">
-							Non, chaque personne doit prendre son propre rendez-vous. Cela permet de s'assurer que les informations personnelles et les objectifs sont bien ceux de la personne concernée.
-						</p>
-					</div>
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            Puis-je prendre rendez-vous pour quelqu'un d'autre ?
+          </h3>
+          <p class="text-gray-600">
+            Non, chaque personne doit prendre son propre rendez-vous. Cela permet de
+            s'assurer que les informations personnelles et les objectifs sont bien ceux de
+            la personne concernée.
+          </p>
+        </div>
 
-					<div class="bg-gray-50 rounded-xl p-6">
-						<h3 class="text-lg font-semibold text-gray-900 mb-3">
-							Y a-t-il des créneaux d'urgence disponibles ?
-						</h3>
-						<p class="text-gray-600">
-							Pour les situations d'urgence, n'hésitez pas à me contacter par téléphone. Je peux parfois aménager des créneaux exceptionnels selon les disponibilités.
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
+        <div class="bg-gray-50 rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            Y a-t-il des créneaux d'urgence disponibles ?
+          </h3>
+          <p class="text-gray-600">
+            Pour les situations d'urgence, n'hésitez pas à me contacter par téléphone. Je
+            peux parfois aménager des créneaux exceptionnels selon les disponibilités.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-		<!-- CTA Section -->
-		<section class="section-padding bg-primary-600">
-			<div class="container-max text-center">
-				<h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-					Prêt(e) à commencer votre transformation ?
-				</h2>
-				<p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-					Prenez le premier pas vers votre bien-être en réservant votre consultation dès maintenant.
-				</p>
-				<a href={CALENDLY_URL} class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
-					Réserver ma séance
-				</a>
-			</div>
-		</section>
-
-</BaseLayout> 
+  <!-- CTA Section -->
+  <section class="section-padding bg-primary-600">
+    <div class="container-max text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Prêt(e) à commencer votre transformation ?
+      </h2>
+      <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+        Prenez le premier pas vers votre bien-être en réservant votre consultation dès
+        maintenant.
+      </p>
+      <a
+        href="#calendly-widget"
+        class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg"
+      >
+        Réserver ma séance
+      </a>
+    </div>
+  </section>
+</BaseLayout>

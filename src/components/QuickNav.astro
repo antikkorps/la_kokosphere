@@ -1,5 +1,5 @@
 ---
-import { CALENDLY_URL } from '../consts';
+// Import supprimé car on utilise maintenant /rendez-vous
 
 const quickLinks = [
 	{ text: 'Services', href: '/services', icon: 'heart' },
@@ -39,7 +39,7 @@ const quickLinks = [
 			
 			<!-- Bouton Calendly -->
 			<a 
-				href={CALENDLY_URL}
+				href="/rendez-vous"
 				class="w-12 h-12 bg-green-500 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:scale-110 hover:bg-green-600"
 				title="Prendre rendez-vous"
 			>
@@ -91,7 +91,7 @@ const quickLinks = [
 		
 		<!-- Bouton Calendly mobile -->
 		<a 
-			href={CALENDLY_URL}
+			href="/rendez-vous"
 			class="flex flex-col items-center space-y-1 text-green-600 hover:text-green-700 transition-colors duration-200"
 			title="Prendre rendez-vous"
 		>

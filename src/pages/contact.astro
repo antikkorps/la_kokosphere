@@ -1,5 +1,5 @@
 ---
-import { CALENDLY_URL, SITE_ADDRESS, SITE_EMAIL, SITE_PHONE, SITE_TITLE } from '../consts';
+import { SITE_ADDRESS, SITE_EMAIL, SITE_PHONE, SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
@@ -90,7 +90,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<p class="text-gray-600 mb-4">
 								La façon la plus simple de prendre rendez-vous est d'utiliser notre système de réservation en ligne.
 							</p>
-							<a href={CALENDLY_URL} class="btn-primary">
+							<a href="/rendez-vous" class="btn-primary">
 								Prendre rendez-vous en ligne
 							</a>
 						</div>
@@ -282,7 +282,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
 					Prenez rendez-vous dès aujourd'hui pour votre première consultation d'hypnothérapie.
 				</p>
-				<a href={CALENDLY_URL} class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
+				<a href="/rendez-vous" class="bg-white text-primary-600 hover:bg-gray-100 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg">
 					Prendre rendez-vous
 				</a>
 			</div>

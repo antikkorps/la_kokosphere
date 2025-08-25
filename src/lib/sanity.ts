@@ -98,6 +98,22 @@ export interface ExpertiseDomain {
   body: any[]
 }
 
+export interface LegalDocument {
+  _id: string
+  title: string
+  type: "insurance" | "diploma" | "certification" | "other"
+  description?: string
+  file: {
+    asset: {
+      _ref: string
+      url: string
+    }
+  }
+  validUntil?: string
+  isPublic: boolean
+  order: number
+}
+
 export interface ConsentStats {
   _id: string
   date: string
@@ -202,6 +218,27 @@ export async function getExpertiseDomains(): Promise<ExpertiseDomain[]> {
       order,
       anchor,
       body
+    }
+  `)
+}
+
+// Fonction pour récupérer tous les documents légaux publics
+export async function getLegalDocuments(): Promise<LegalDocument[]> {
+  return await client.fetch(`
+    *[_type == "legalDocument" && isPublic == true] | order(order asc) {
+      _id,
+      title,
+      type,
+      description,
+      file {
+        asset-> {
+          _ref,
+          url
+        }
+      },
+      validUntil,
+      isPublic,
+      order
     }
   `)
 }

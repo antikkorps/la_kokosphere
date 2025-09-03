@@ -1,6 +1,11 @@
 ---
+import LaKokosphere from '@/components/LaKokosphere.astro';
 import { SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getKokosphere } from '../lib/sanity';
+
+// Récupérer les données de la Kokosphere depuis Sanity
+const kokosphereData = await getKokosphere();
 ---
 
 <BaseLayout title={`À propos - ${SITE_TITLE}`} description="Découvrez mon parcours, ma formation et ma philosophie en tant qu'hypnothérapeute professionnelle. Une approche bienveillante et personnalisée pour votre bien-être.">
@@ -186,6 +191,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</section>
 
+		<section class="section-padding bg-gray-50">
+			<LaKokosphere 
+				title={kokosphereData?.title}
+				subtitle={kokosphereData?.subtitle}
+				intro={kokosphereData?.intro}
+				hypnoseDescription={kokosphereData?.hypnoseDescription}
+				workDescription={kokosphereData?.workDescription}
+				workBenefits={kokosphereData?.workBenefits}
+				autoHypnoseDescription={kokosphereData?.autoHypnoseDescription}
+				whyChooseDescription={kokosphereData?.whyChooseDescription}
+				approachDescription={kokosphereData?.approachDescription}
+				conclusion={kokosphereData?.conclusion}
+			/>
+		</section>
 		<!-- Déroulement d'une séance -->
 		<section class="section-padding bg-gray-50">
 			<div class="container-max">

@@ -123,6 +123,22 @@ export interface ConsentStats {
   necessaryConsents: number
 }
 
+export interface Kokosphere {
+  _id: string
+  title: string
+  subtitle: string
+  intro: string
+  hypnoseDescription?: string
+  workDescription: string
+  workBenefits: string[]
+  autoHypnoseDescription: string
+  whyChooseDescription: string
+  approachDescription: string
+  conclusion: string
+  isActive: boolean
+  lastUpdated: string
+}
+
 // Fonction pour récupérer tous les articles
 export async function getPosts(): Promise<Post[]> {
   return await client.fetch(`
@@ -239,6 +255,27 @@ export async function getLegalDocuments(): Promise<LegalDocument[]> {
       validUntil,
       isPublic,
       order
+    }
+  `)
+}
+
+// Fonction pour récupérer les données de la Kokosphere
+export async function getKokosphere(): Promise<Kokosphere | null> {
+  return await client.fetch(`
+    *[_type == "kokosphere" && isActive == true][0] {
+      _id,
+      title,
+      subtitle,
+      intro,
+      hypnoseDescription,
+      workDescription,
+      workBenefits,
+      autoHypnoseDescription,
+      whyChooseDescription,
+      approachDescription,
+      conclusion,
+      isActive,
+      lastUpdated
     }
   `)
 }

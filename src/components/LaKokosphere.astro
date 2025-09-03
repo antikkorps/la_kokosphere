@@ -1,0 +1,737 @@
+---
+// Props pour permettre la personnalisation depuis Sanity
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  intro?: string;
+  hypnoseDescription?: string;
+  workDescription?: string;
+  workBenefits?: string[];
+  autoHypnoseDescription?: string;
+  whyChooseDescription?: string;
+  approachDescription?: string;
+  conclusion?: string;
+}
+
+const {
+  title = "La Kokosphere",
+  subtitle = "Qu'est-ce que l'hypnose ericksonienne ?",
+  intro = "Découvrez l'hypnose ericksonienne, une pratique thérapeutique sérieuse et douce.",
+  hypnoseDescription = "",
+  workDescription = "L'hypnose au service du bien-être en entreprise.",
+  workBenefits = ["Gestion du stress", "Amélioration de la productivité"],
+  autoHypnoseDescription = "Apprenez l'auto-hypnose pour retrouver calme et sérénité au quotidien.",
+  whyChooseDescription = "Choisissez un espace de bien-être où l'écoute et la bienveillance sont au cœur de l'accompagnement.",
+  approachDescription = "L'hypnose est une méthode douce et respectueuse, sans effet secondaire.",
+  conclusion = "La Kokosphere vous accompagne sur le chemin du changement et de la transformation personnelle."
+} = Astro.props;
+---
+
+<section class="kokosphere-content">
+  <div class="container">
+    <!-- En-tête principal -->
+    <header class="hero-section">
+      <h1 class="main-title">{title}</h1>
+    </header>
+
+    <!-- Introduction à l'hypnose ericksonienne -->
+    <div class="content-section">
+      <h2 class="section-title">{subtitle}</h2>
+      <div class="intro-content">
+        <p class="intro-text">{intro}</p>
+        {hypnoseDescription && (
+          <div class="highlight-box">
+            <p>{hypnoseDescription}</p>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Bienfaits de l'hypnose -->
+    <div class="content-section">
+      <h2 class="section-title">Les bienfaits de l'hypnose au quotidien</h2>
+      <div class="benefits-grid">
+        <div class="benefits-intro">
+          <p>L'hypnose est un outil polyvalent, qui peut être utilisé dans de nombreux domaines du bien-être et du développement personnel.</p>
+        </div>
+        <div class="benefits-list">
+          <div class="benefit-item">
+            <h3>🧘‍♀️ Gestion du stress et des émotions</h3>
+            <p>Apprendre à relâcher les tensions, retrouver le calme intérieur et mieux réagir face aux situations difficiles.</p>
+          </div>
+          <div class="benefit-item">
+            <h3>💪 Confiance en soi</h3>
+            <p>Dépasser ses blocages, développer une vision positive de soi et oser avancer.</p>
+          </div>
+          <div class="benefit-item">
+            <h3>😴 Sommeil réparateur</h3>
+            <p>Se libérer des pensées envahissantes et s'offrir un repos réparateur grâce à des techniques d'auto-hypnose.</p>
+          </div>
+          <div class="benefit-item">
+            <h3>🚭 Arrêt du tabac</h3>
+            <p>Se libérer de certaines habitudes en mobilisant ses ressources inconscientes.</p>
+          </div>
+          <div class="benefit-item">
+            <h3>🩹 Douleurs chroniques</h3>
+            <p>Utiliser l'hypnose comme outil complémentaire pour soulager l'inconfort et favoriser le mieux-être.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <p><strong>Chaque séance est unique et s'adapte à vos besoins.</strong> L'hypnose n'impose rien, elle éveille vos ressources pour vous permettre de changer en douceur.</p>
+      </div>
+    </div>
+
+    <!-- Hypnose et travail -->
+    <div class="content-section work-section">
+      <h2 class="section-title">L'hypnose et le monde du travail</h2>
+      <div class="work-content">
+        <div class="work-intro">
+          <p>{workDescription}</p>
+          <p>C'est pourquoi nous proposons des ateliers collectifs et interventions en entreprise, permettant aux collaborateurs de découvrir des techniques simples et efficaces pour :</p>
+        </div>
+        <div class="work-benefits">
+          <ul class="benefits-checklist">
+            {workBenefits.map((benefit: string) => (
+              <li>{benefit}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div class="work-conclusion">
+        <p>En intégrant l'hypnose dans une démarche de bien-être en entreprise, les organisations favorisent non seulement la santé de leurs collaborateurs, mais aussi la performance globale.</p>
+      </div>
+    </div>
+
+    <!-- Auto-hypnose -->
+    <div class="content-section">
+      <h2 class="section-title">L'auto-hypnose : un outil d'autonomie</h2>
+      <div class="auto-hypnose-content">
+        <div class="autonomy-highlight">
+          <p>{autoHypnoseDescription}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pourquoi choisir la Kokosphere -->
+    <div class="content-section why-section">
+      <h2 class="section-title">Pourquoi choisir la Kokosphere ?</h2>
+      <div class="why-content">
+        <p>{whyChooseDescription}</p>
+        <div class="values-grid">
+          <div class="value-item">
+            <span class="value-icon">👂</span>
+            <h4>Écoute personnalisée</h4>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">🤝</span>
+            <h4>Respect et bienveillance</h4>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">🎯</span>
+            <h4>Objectifs adaptés</h4>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">⏱️</span>
+            <h4>À votre rythme</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Approche naturelle -->
+    <div class="content-section approach-section">
+      <h2 class="section-title">Hypnose : une approche naturelle et sans danger</h2>
+      <div class="approach-content">
+        <div class="safety-note">
+          <p>{approachDescription}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="content-section conclusion-section">
+      <h2 class="section-title">La Kokosphere : un pas vers votre transformation</h2>
+      <div class="conclusion-content">
+        <div class="final-message">
+          <p><strong>{conclusion}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .kokosphere-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 0.5rem;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  /* En-tête principal */
+  .hero-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem 1rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 0.5rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c5aa0;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  /* Sections de contenu */
+  .content-section {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    color: #2c5aa0;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e3f2fd;
+    padding-bottom: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .kokosphere-content {
+      padding: 1.5rem 1rem;
+    }
+
+    .hero-section {
+      margin-bottom: 2.5rem;
+      padding: 2rem 1rem;
+      border-radius: 0.75rem;
+    }
+
+    .main-title {
+      font-size: 2rem;
+    }
+
+    .content-section {
+      margin-bottom: 2.5rem;
+      padding: 1.25rem 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 3px solid #e3f2fd;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kokosphere-content {
+      padding: 2rem 1rem;
+    }
+
+    .hero-section {
+      margin-bottom: 3rem;
+      padding: 2rem 0;
+      border-radius: 1rem;
+    }
+
+    .main-title {
+      font-size: 2.5rem;
+    }
+
+    .content-section {
+      margin-bottom: 3rem;
+      padding: 1.5rem 0;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Introduction */
+  .intro-content {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border-left: 3px solid #2c5aa0;
+  }
+
+  .intro-text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .highlight-box {
+    background: #e3f2fd;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    font-style: italic;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .intro-content {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .intro-text {
+      font-size: 1.05rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .highlight-box {
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      margin-top: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .intro-content {
+      padding: 2rem;
+      border-radius: 0.8rem;
+      border-left: 4px solid #2c5aa0;
+    }
+
+    .intro-text {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight-box {
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+  }
+
+  /* Bienfaits */
+  .benefits-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .benefits-intro {
+    background: #fff3e0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .benefits-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .benefit-item {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .benefit-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .benefit-item h3 {
+    color: #2c5aa0;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout {
+    background: #e8f5e8;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    text-align: center;
+    border: 2px solid #4caf50;
+  }
+
+  @media (min-width: 640px) {
+    .benefits-grid {
+      gap: 1.5rem;
+    }
+
+    .benefits-intro {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      font-size: 1.05rem;
+    }
+
+    .benefits-list {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .benefit-item {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .benefit-item h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .callout {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      margin-top: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .benefits-grid {
+      gap: 2rem;
+    }
+
+    .benefits-intro {
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    .benefits-list {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .benefit-item {
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+    }
+
+    .benefit-item h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .callout {
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+      margin-top: 2rem;
+    }
+  }
+
+  /* Section travail */
+  .work-section {
+    background: #fafafa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .work-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .work-intro {
+    font-size: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .work-section {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .work-content {
+      gap: 1.5rem;
+    }
+
+    .work-intro {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .work-content {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .work-section {
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+
+    .work-content {
+      gap: 2rem;
+    }
+
+    .work-intro {
+      font-size: 1.1rem;
+    }
+  }
+
+  .benefits-checklist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .benefits-checklist li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .benefits-checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4caf50;
+    font-weight: bold;
+  }
+
+  .work-conclusion {
+    background: #e3f2fd;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  @media (min-width: 640px) {
+    .work-conclusion {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      margin-top: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .work-conclusion {
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+      margin-top: 1.5rem;
+    }
+  }
+
+  /* Auto-hypnose */
+  .auto-hypnose-content {
+    background: #f3e5f5;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .autonomy-highlight {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border-left: 3px solid #9c27b0;
+  }
+
+  @media (min-width: 640px) {
+    .auto-hypnose-content {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .autonomy-highlight {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .auto-hypnose-content {
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+
+    .autonomy-highlight {
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+      border-left: 4px solid #9c27b0;
+    }
+  }
+
+  /* Valeurs */
+  .why-section {
+    background: #fff8e1;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .value-item {
+    text-align: center;
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e0e0e0;
+  }
+
+  .value-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .value-item h4 {
+    color: #2c5aa0;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 640px) {
+    .why-section {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .values-grid {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.75rem;
+    }
+
+    .value-item {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .value-icon {
+      font-size: 1.75rem;
+    }
+
+    .value-item h4 {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .why-section {
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+
+    .values-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .value-item {
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+    }
+
+    .value-icon {
+      font-size: 2rem;
+    }
+
+    .value-item h4 {
+      font-size: 1rem;
+    }
+  }
+
+  /* Approche */
+  .approach-section {
+    background: #e8f5e8;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .safety-note {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #4caf50;
+  }
+
+  @media (min-width: 640px) {
+    .approach-section {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .safety-note {
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .approach-section {
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+
+    .safety-note {
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+    }
+  }
+
+  /* Conclusion */
+  .conclusion-section {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+
+  .final-message {
+    background: #2c5aa0;
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .conclusion-section {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .final-message {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      margin-top: 1.25rem;
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .conclusion-section {
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+
+    .final-message {
+      padding: 2rem;
+      border-radius: 0.8rem;
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+    }
+  }
+
+</style>

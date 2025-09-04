@@ -1,0 +1,152 @@
+---
+import AnimatedSection from "../components/AnimatedSection.astro";
+import FAQStructuredData from "../components/FAQStructuredData.astro";
+import { SITE_TITLE } from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const faqItems = [
+  {
+    question: "Qu'est-ce que l'hypnothérapie ?",
+    answer: "L'hypnothérapie est une méthode thérapeutique qui utilise l'hypnose pour traiter divers troubles psychologiques et comportementaux. Elle permet d'accéder à l'inconscient pour modifier des schémas de pensée négatifs et favoriser des changements positifs durables."
+  },
+  {
+    question: "L'hypnose est-elle sans danger ?",
+    answer: "Oui, l'hypnose pratiquée par un professionnel qualifié est totalement sans danger. C'est un état naturel de conscience modifiée que nous expérimentons tous quotidiennement. Vous gardez toujours le contrôle et ne pouvez pas être forcé à faire quelque chose contre votre volonté."
+  },
+  {
+    question: "Combien de séances sont nécessaires ?",
+    answer: "Le nombre de séances varie selon la problématique à traiter et la réceptivité de chaque personne. En général, on observe des résultats dès 3 à 5 séances pour des objectifs simples comme l'arrêt du tabac, et 5 à 10 séances pour des problématiques plus complexes."
+  },
+  {
+    question: "Puis-je être hypnotisé ?",
+    answer: "Tout le monde peut être hypnotisé à différents degrés. Certaines personnes entrent plus facilement en transe hypnotique, mais avec un praticien expérimenté, chacun peut bénéficier de l'hypnothérapie selon sa propre réceptivité."
+  },
+  {
+    question: "Que soigne l'hypnothérapie ?",
+    answer: "L'hypnothérapie traite efficacement le stress, l'anxiété, les phobies, les addictions (tabac, alcool), les troubles du sommeil, les problèmes de confiance en soi, la gestion de la douleur, et bien d'autres problématiques psychosomatiques."
+  },
+  {
+    question: "Comment se déroule une séance d'hypnose ?",
+    answer: "Une séance commence par un entretien pour définir vos objectifs. Puis, confortablement installé, vous êtes guidé vers un état de relaxation profonde. C'est dans cet état que le travail thérapeutique s'effectue. La séance se termine par un retour progressif à l'état de veille normal."
+  },
+  {
+    question: "L'hypnose fonctionne-t-elle à distance ?",
+    answer: "Oui, l'hypnose peut être pratiquée efficacement en visioconférence. L'important est d'être dans un environnement calme et confortable. De nombreuses personnes trouvent même plus facile de se détendre chez elles."
+  },
+  {
+    question: "Combien coûte une séance d'hypnose ?",
+    answer: "Le tarif d'une séance d'hypnose varie généralement entre 60 et 90 euros selon la durée et le type d'accompagnement. Les séances durent entre 60 et 90 minutes. N'hésitez pas à me contacter pour un devis personnalisé."
+  },
+  {
+    question: "L'hypnose est-elle remboursée par la Sécurité Sociale ?",
+    answer: "L'hypnothérapie n'est pas remboursée par la Sécurité Sociale. Cependant, certaines mutuelles proposent des forfaits pour les médecines alternatives. Je vous encourage à vérifier auprès de votre mutuelle."
+  },
+  {
+    question: "À partir de quel âge peut-on faire de l'hypnose ?",
+    answer: "L'hypnose peut être pratiquée dès l'âge de 6-7 ans, avec des techniques adaptées à chaque tranche d'âge. Les enfants et adolescents sont souvent très réceptifs à l'hypnose car ils ont une imagination naturellement développée."
+  }
+];
+---
+
+<BaseLayout 
+  title={`FAQ Hypnothérapie - Questions Fréquentes | ${SITE_TITLE}`}
+  description="Toutes vos questions sur l'hypnothérapie : sécurité, efficacité, déroulement des séances, tarifs. Réponses d'un hypnothérapeute certifié au Mans."
+  keywords="FAQ hypnose, questions hypnothérapie, sécurité hypnose, tarif séance hypnose, nombre séances hypnose, hypnose enfant, remboursement mutuelle hypnose"
+  type="website"
+>
+  <!-- Données structurées FAQ -->
+  <FAQStructuredData />
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
+    <AnimatedSection trigger="load" delay={0.2}>
+      <div class="container-max text-center">
+        <div class="max-w-4xl mx-auto">
+          <div class="inline-block mb-6">
+            <span class="px-4 py-2 bg-gradient-to-r from-primary-100 to-secondary-100 text-primary-700 text-sm font-medium rounded-full border border-primary-200/50 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Questions fréquentes
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            Vos questions sur
+            <span class="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              l'hypnothérapie
+            </span>
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-600 mb-8 font-light leading-relaxed">
+            Trouvez les réponses à toutes vos questions sur l'hypnose et l'hypnothérapie
+          </p>
+        </div>
+      </div>
+    </AnimatedSection>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section-padding bg-white">
+    <div class="container-max">
+      <div class="max-w-4xl mx-auto">
+        <div class="space-y-6">
+          {faqItems.map((item, index) => (
+            <AnimatedSection trigger="scroll" delay={index * 0.1}>
+              <details class="group bg-gray-50 rounded-2xl p-6 hover:bg-gray-100 transition-colors duration-300">
+                <summary class="flex justify-between items-center cursor-pointer text-lg font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-300">
+                  <span class="pr-4">{item.question}</span>
+                  <svg class="w-6 h-6 text-primary-600 group-open:rotate-180 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                  <p class="text-gray-700 leading-relaxed">{item.answer}</p>
+                </div>
+              </details>
+            </AnimatedSection>
+          ))}
+        </div>
+
+        <!-- CTA Section -->
+        <AnimatedSection trigger="scroll" delay={0.4}>
+          <div class="mt-16 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-8 lg:p-12 text-center text-white">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">
+              Une question qui n'est pas listée ?
+            </h2>
+            <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+              N'hésitez pas à me contacter pour toute question spécifique sur votre situation
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/contact" class="btn-primary bg-white text-primary-600 hover:bg-gray-100 text-lg px-8 py-4 inline-flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Me contacter
+              </a>
+              <a href="/rendez-vous" class="border-2 border-white/30 text-white hover:bg-white/10 font-semibold py-4 px-8 rounded-xl transition-all duration-300 inline-flex items-center justify-center text-lg backdrop-blur hover:border-white/50">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Prendre rendez-vous
+              </a>
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Style personnalisé pour les details/summary */
+  details[open] summary {
+    margin-bottom: 0;
+  }
+  
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details summary::marker {
+    display: none;
+  }
+</style>

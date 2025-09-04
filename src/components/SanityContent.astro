@@ -50,6 +50,19 @@ function processMarks(text: string, marks: string[] = []) {
 // Fonction pour traiter un bloc de contenu
 function processBlock(block: any) {
   if (block._type === 'block') {
+    // Gérer les éléments de liste
+    if (block.listItem) {
+      return {
+        type: 'listItem',
+        listItem: block.listItem,
+        level: block.level || 1,
+        children: block.children?.map((child: any) => ({
+          text: processMarks(child.text, child.marks),
+          marks: child.marks
+        }))
+      };
+    }
+    
     const style = block.style === 'h1' ? 'text-3xl md:text-4xl font-bold mb-8 mt-12 first:mt-0 text-gray-900 leading-tight' :
                   block.style === 'h2' ? 'text-2xl md:text-3xl font-bold mb-6 mt-10 first:mt-0 text-gray-900 leading-tight' :
                   block.style === 'h3' ? 'text-xl md:text-2xl font-bold mb-4 mt-8 first:mt-0 text-gray-900 leading-tight' :
@@ -107,7 +120,40 @@ function processBlock(block: any) {
   return null;
 }
 
-const processedBlocks = content?.map(processBlock).filter(Boolean) || [];
+// Traitement des blocs avec regroupement des listes
+let processedBlocks = content?.map(processBlock).filter(Boolean) || [];
+
+// Regrouper les éléments de liste consécutifs
+const groupedBlocks: any[] = [];
+let currentList: any = null;
+
+processedBlocks.forEach((block) => {
+  if (block?.type === 'listItem') {
+    if (!currentList || currentList.listItem !== block.listItem) {
+      // Nouvelle liste
+      currentList = {
+        type: 'list',
+        listItem: block.listItem,
+        children: [block]
+      };
+      groupedBlocks.push(currentList);
+    } else {
+      // Ajouter à la liste existante
+      currentList.children.push(block);
+    }
+  } else {
+    currentList = null;
+    groupedBlocks.push(block);
+  }
+});
+
+processedBlocks = groupedBlocks;
+
+// Debug: afficher la structure des blocs en développement
+if (import.meta.env.DEV) {
+  console.log('Contenu Sanity original:', JSON.stringify(content?.slice(0, 5), null, 2));
+  console.log('Blocs traités:', JSON.stringify(processedBlocks?.slice(0, 5), null, 2));
+}
 ---
 
 {processedBlocks.map((block) => {
@@ -161,12 +207,12 @@ const processedBlocks = content?.map(processBlock).filter(Boolean) || [];
   
   if (block.type === 'list') {
     const ListTag = block.listItem === 'bullet' ? 'ul' : 'ol';
-    const listStyle = block.listItem === 'bullet' ? 'list-disc space-y-2' : 'list-decimal space-y-2';
+    const listStyle = block.listItem === 'bullet' ? 'list-disc list-outside space-y-2 pl-6' : 'list-decimal list-outside space-y-2 pl-6';
     
     return (
-      <ListTag class={`${listStyle} ml-6 mb-6 text-gray-700`}>
+      <ListTag class={`${listStyle} mb-6 text-gray-700`}>
         {block.children?.map((item: any) => (
-          <li class="leading-relaxed">
+          <li class="leading-relaxed pl-2">
             {item.children?.map((child: any) => (
               <Fragment set:html={child.text} />
             ))}

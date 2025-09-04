@@ -3,18 +3,31 @@
 // all pages through the use of the <BaseHead /> component.
 import type { ImageMetadata } from "astro"
 import FallbackImage from "../assets/blog-placeholder-1.jpg"
-import { SITE_TITLE } from "../consts"
+import { SITE_TITLE, SITE_URL } from "../consts"
+import StructuredData from "./StructuredData.astro"
 import "../styles/global.css"
 
 interface Props {
   title: string
   description: string
   image?: ImageMetadata
+  keywords?: string
+  author?: string
+  type?: 'website' | 'article' | 'profile' | 'medicalBusiness' | 'service'
+  locale?: string
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title, description, image = FallbackImage } = Astro.props
+const { 
+  title, 
+  description, 
+  image = FallbackImage, 
+  keywords = "", 
+  author = "La Kokosphère",
+  type = 'website',
+  locale = 'fr_FR'
+} = Astro.props
 
 // Charger Netlify Identity uniquement en production
 const isProduction = import.meta.env.PROD
@@ -60,13 +73,28 @@ const isProduction = import.meta.env.PROD
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+{keywords && <meta name="keywords" content={keywords} />}
+<meta name="author" content={author} />
+<meta name="robots" content="index, follow" />
+<meta name="language" content="French" />
+<meta name="revisit-after" content="7 days" />
+<meta name="classification" content="hypnothérapie, bien-être, santé mentale" />
+
+<!-- Géolocalisation -->
+<meta name="geo.region" content="FR-72" />
+<meta name="geo.placename" content="Le Mans" />
+<meta name="geo.position" content="48.0061;0.1996" />
+<meta name="ICBM" content="48.0061, 0.1996" />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={type} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:locale" content={locale} />
+{SITE_URL && <meta property="og:url" content={`${SITE_URL}${Astro.url.pathname}`} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -74,6 +102,9 @@ const isProduction = import.meta.env.PROD
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Structured Data -->
+<StructuredData type={type} title={title} description={description} />
 
 <!-- Netlify Identity - Chargé uniquement en production -->
 {

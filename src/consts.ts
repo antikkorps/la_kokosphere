@@ -1,7 +1,7 @@
 // Site constants
 export const SITE_TITLE = "La Kokosphère"
 export const SITE_DESCRIPTION =
-  "Hypnothérapeute spécialisée dans le bien-être et le développement personnel"
+  "Hypnothérapeute certifiée au Mans. Spécialisée dans le traitement du stress, anxiété, phobies, addictions et troubles du sommeil. Méthode ericksonienne. Séances individuelles et en entreprise. Consultations à domicile disponibles."
 export const SITE_URL = "https://la-kokosphere.fr"
 export const SITE_EMAIL = "kokosphere72@gmail.com"
 export const SITE_PHONE = "+33 6 63 64 10 85"

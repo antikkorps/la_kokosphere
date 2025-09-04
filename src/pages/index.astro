@@ -16,7 +16,12 @@ const expertiseDomains = await getExpertiseDomains()
 const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout 
+  title={`${SITE_TITLE} - Hypnothérapeute Le Mans | Stress, Anxiété, Phobies`}
+  description={SITE_DESCRIPTION}
+  keywords="hypnothérapeute Le Mans, hypnose ericksonienne, stress anxiété, phobies addictions, sommeil insomnie, confiance en soi, hypnose entreprise, séances domicile, thérapie bien-être, développement personnel Le Mans"
+  type="website"
+>
   <!-- Hero Section -->
   <section class="bg-gradient-to-br from-primary-50 to-secondary-50 section-padding">
     <AnimatedSection trigger="load" delay={0.2}>

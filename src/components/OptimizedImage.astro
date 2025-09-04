@@ -1,0 +1,67 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  priority?: boolean;
+}
+
+const { 
+  src, 
+  alt, 
+  width = 800, 
+  height = 600, 
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+  loading = 'lazy',
+  class: className = '',
+  priority = false
+} = Astro.props;
+
+// Générer différentes tailles d'images pour le responsive
+const generateSizes = (baseSrc: string, baseWidth: number) => {
+  const sizes = [320, 640, 768, 1024, 1280, 1920];
+  return sizes.map(size => {
+    if (baseSrc.includes('sanity.io')) {
+      // Pour les images Sanity
+      const url = new URL(baseSrc);
+      url.searchParams.set('w', size.toString());
+      url.searchParams.set('auto', 'format');
+      return `${url.toString()} ${size}w`;
+    }
+    // Pour les images locales (si nécessaire)
+    return `${baseSrc} ${size}w`;
+  }).join(', ');
+};
+
+const srcset = generateSizes(src, width);
+const optimizedSrc = src.includes('sanity.io') 
+  ? `${src}${src.includes('?') ? '&' : '?'}w=${width}&h=${height}&auto=format&fit=crop`
+  : src;
+---
+
+<img 
+  src={optimizedSrc}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={priority ? 'eager' : loading}
+  class={className}
+  fetchpriority={priority ? 'high' : 'auto'}
+  decoding={priority ? 'sync' : 'async'}
+/>
+
+{priority && (
+  <link
+    rel="preload"
+    as="image"
+    href={optimizedSrc}
+    imagesrcset={srcset}
+    imagesizes={sizes}
+  />
+)}

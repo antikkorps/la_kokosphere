@@ -290,6 +290,60 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
     </AnimatedSection>
   </section>
 
+  <!-- Call to Action Section -->
+  <section class="section-padding bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
+    <AnimatedSection trigger="scroll" delay={0.2}>
+      <div class="container-max relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <AnimatedSection trigger="scroll" delay={0.4} direction="left">
+            <div>
+              <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                Prêt(e) à transformer votre vie ?
+              </h2>
+              <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                Ne laissez plus le stress, l'anxiété ou les blocages gouverner votre quotidien. 
+                Prenez rendez-vous dès aujourd'hui et découvrez la puissance de l'hypnothérapie.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="/rendez-vous" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center text-lg leading-tight">
+                  Prendre rendez-vous
+                </a>
+                <a href="/services" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg backdrop-blur-sm">
+                  Découvrir mes services
+                </a>
+              </div>
+            </div>
+          </AnimatedSection>
+          
+          <AnimatedSection trigger="scroll" delay={0.6} direction="right">
+            <div class="relative">
+              <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+                <div class="aspect-video rounded-xl overflow-hidden shadow-2xl">
+                  <img
+                    src="/images/illustrationsSite/Passez-a-l-action.webp"
+                    alt="Passez à l'action - Commencez votre transformation"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              
+              <!-- Élément décoratif -->
+              <div class="absolute -top-4 -right-4 w-24 h-24 bg-primary-500/20 rounded-full blur-2xl"></div>
+              <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary-500/20 rounded-full blur-2xl"></div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </div>
+      
+      <!-- Élements décoratifs de fond -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl"></div>
+      </div>
+    </AnimatedSection>
+  </section>
+
   <!-- Island Vue pour la modal -->
   <TestimonialModal
     client:only="vue"

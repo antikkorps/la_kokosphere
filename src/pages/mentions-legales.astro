@@ -1,18 +1,12 @@
 ---
-import { getCollection, render } from 'astro:content';
-import { SITE_TITLE } from '../consts';
+import { SITE_ADDRESS, SITE_EMAIL, SITE_PHONE, SITE_TITLE, SITE_URL } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Récupérer le contenu de la page
-const pages = await getCollection('pages');
-const mentionsLegales = pages.find(page => page.id === 'mentions-legales');
-
-// Rendre le contenu Markdown
-let Content = null;
-if (mentionsLegales) {
-  const { Content: RenderedContent } = await render(mentionsLegales);
-  Content = RenderedContent;
-}
+const currentDate = new Date().toLocaleDateString('fr-FR', { 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric' 
+});
 ---
 
 <BaseLayout title={`Mentions légales - ${SITE_TITLE}`} description="Informations légales et mentions obligatoires du site.">
@@ -32,7 +26,79 @@ if (mentionsLegales) {
 	<section class="section-padding bg-white">
 		<div class="container-max">
 			<div class="prose prose-lg max-w-4xl mx-auto">
-				{Content && <Content />}
+				<h2>Éditeur du site</h2>
+				<p>
+					<strong>{SITE_TITLE}</strong><br/>
+					Hypnothérapeute<br/>
+					{SITE_ADDRESS}<br/>
+					Téléphone : {SITE_PHONE}<br/>
+					Email : <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>
+				</p>
+
+				<h2>Hébergement</h2>
+				<p>
+					Ce site est hébergé par :<br/>
+					<strong>Netlify, Inc.</strong><br/>
+					2325 3rd Street, Suite 296<br/>
+					San Francisco, CA 94107<br/>
+					États-Unis<br/>
+					Site web : <a href="https://www.netlify.com">https://www.netlify.com</a>
+				</p>
+
+				<h2>Propriété intellectuelle</h2>
+				<p>
+					L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.
+				</p>
+				<p>
+					La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite sauf autorisation expresse du directeur de la publication.
+				</p>
+
+				<h2>Responsabilité</h2>
+				<p>
+					Les informations contenues sur ce site sont aussi précises que possible et le site est périodiquement remis à jour, mais peut toutefois contenir des inexactitudes, des omissions ou des lacunes.
+				</p>
+				<p>
+					Si vous constatez une lacune, erreur ou ce qui parait être un dysfonctionnement, merci de bien vouloir le signaler par email à l'adresse <a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a>, en décrivant le problème de la manière la plus précise possible.
+				</p>
+				<p>
+					Tout contenu téléchargé se fait aux risques et périls de l'utilisateur et sous sa seule responsabilité. En conséquence, {SITE_TITLE} ne saurait être tenue responsable d'un quelconque dommage subi par l'ordinateur de l'utilisateur ou d'une quelconque perte de données consécutives au téléchargement.
+				</p>
+
+				<h2>Liens hypertextes</h2>
+				<p>
+					Les liens hypertextes mis en place dans le cadre du présent site web en direction d'autres ressources présentes sur le réseau Internet ne sauraient engager la responsabilité de {SITE_TITLE}.
+				</p>
+
+				<h2>Cookies</h2>
+				<p>
+					Le site peut-être amené à vous demander l'acceptation des cookies pour des besoins de statistiques et d'affichage. Un cookie ne nous permet pas de vous identifier ; il sert uniquement à enregistrer des informations relatives à la navigation de votre ordinateur sur notre site.
+				</p>
+				<p>
+					Vous pouvez à tout moment désactiver ces cookies et ce gratuitement à partir des possibilités de désactivation qui vous sont offertes et rappelées ci-après, sachant que cela peut réduire ou empêcher l'accessibilité à tout ou partie des services proposés par le site.
+				</p>
+
+				<h2>Droit applicable</h2>
+				<p>
+					Tout litige en relation avec l'utilisation du site {SITE_URL} est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents du Mans.
+				</p>
+
+				<h2>Crédits</h2>
+				<p>
+					<strong>Développement web :</strong> Site développé avec Astro, Tailwind CSS et Sanity CMS<br/>
+					<strong>Images :</strong> Illustrations personnalisées<br/>
+					<strong>Icônes :</strong> Heroicons
+				</p>
+
+				<h2>Dernière mise à jour</h2>
+				<p>
+					Dernière mise à jour de ces mentions légales : {currentDate}
+				</p>
+
+				<hr/>
+				
+				<p>
+					Pour toute question concernant ces mentions légales, contactez-nous via la page <a href="/contact">Contact</a>.
+				</p>
 			</div>
 		</div>
 	</section>

@@ -12,7 +12,7 @@ export const GET: APIRoute = async () => {
       lastmod: new Date().toISOString().split('T')[0]
     },
     {
-      url: '/services',
+      url: '/particuliers',
       changefreq: 'monthly',
       priority: '0.9',
       lastmod: new Date().toISOString().split('T')[0]

@@ -171,16 +171,23 @@ const posts = (await getPosts()).sort(
 							Recevez nos derniers articles et conseils directement dans votre boîte mail pour continuer votre transformation.
 						</p>
 						<div class="max-w-md mx-auto">
-							<div class="flex flex-col sm:flex-row gap-4">
+							<form id="newsletter-form" class="flex flex-col sm:flex-row gap-4">
 								<input 
 									type="email" 
+									id="newsletter-email"
+									name="email"
 									placeholder="Votre adresse email" 
+									required
 									class="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/20"
 								>
-								<button class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+								<button 
+									type="submit"
+									class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+								>
 									S'abonner
 								</button>
-							</div>
+							</form>
+							<p id="newsletter-message" class="text-primary-200 mt-3 text-sm h-5"></p>
 							<p class="text-sm text-primary-200 mt-3">
 								Nous respectons votre vie privée. Désabonnement à tout moment.
 							</p>
@@ -218,6 +225,48 @@ const posts = (await getPosts()).sort(
 		</section>
 
 </BaseLayout>
+
+<script>
+	const newsletterForm = document.getElementById('newsletter-form');
+	if (newsletterForm) {
+		newsletterForm.addEventListener('submit', async function(event) {
+			event.preventDefault();
+
+		const emailInput = document.getElementById('newsletter-email') as HTMLInputElement;
+		const messageElement = document.getElementById('newsletter-message');
+		const button = this.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+		if (!messageElement || !button) return;
+		
+		messageElement.textContent = 'Inscription en cours...';
+		messageElement.classList.remove('text-red-400');
+		button.disabled = true;
+
+        try {
+            const response = await fetch('/.netlify/functions/subscribe-newsletter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: emailInput.value }),
+            });
+
+            if (response.ok) {
+                messageElement.textContent = 'Merci pour votre inscription !';
+                emailInput.value = '';
+            } else {
+                messageElement.textContent = `Une erreur est survenue. Veuillez réessayer.`;
+                messageElement.classList.add('text-red-400');
+            }
+			} catch (error) {
+				messageElement.textContent = 'Erreur de connexion. Veuillez réessayer.';
+				messageElement.classList.add('text-red-400');
+			} finally {
+				button.disabled = false;
+			}
+		});
+	}
+</script>
 
 <style>
 	/* Custom animations for cards */

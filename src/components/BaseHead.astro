@@ -3,8 +3,8 @@
 // all pages through the use of the <BaseHead /> component.
 import type { ImageMetadata } from "astro"
 import { SITE_TITLE } from "../consts"
-import StructuredData from "./StructuredData.astro"
 import "../styles/global.css"
+import StructuredData from "./StructuredData.astro"
 
 interface Props {
   title: string
@@ -12,24 +12,30 @@ interface Props {
   image?: ImageMetadata | string
   keywords?: string
   author?: string
-  type?: 'website' | 'article' | 'profile' | 'medicalBusiness' | 'service'
+  type?: "website" | "article" | "profile" | "medicalBusiness" | "service"
   locale?: string
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const logoURL = new URL("/images/logo/logo_kokosphere.svg", Astro.site)
+const logoURL = new URL("/images/logo/logo_kokosphere.png", Astro.site)
 
-const { 
-  title, 
-  description, 
-  image, 
-  keywords = "", 
+const {
+  title,
+  description,
+  image,
+  keywords = "",
   author = "La Kokosphère",
-  type = 'website',
-  locale = 'fr_FR'
+  type = "website",
+  locale = "fr_FR",
 } = Astro.props
 
-const finalImage = image ? (typeof image === 'string' ? new URL(image, Astro.site) : 'src' in image ? new URL(image.src, Astro.site) : image) : logoURL
+const finalImage = image
+  ? typeof image === "string"
+    ? new URL(image, Astro.site)
+    : "src" in image
+      ? new URL(image.src, Astro.site)
+      : image
+  : logoURL
 
 // Charger Netlify Identity uniquement en production
 const isProduction = import.meta.env.PROD

@@ -1,0 +1,18 @@
+# Robots.txt pour La Kokosphère - Hypnothérapeute Le Mans
+# https://la-kokosphere.fr
+
+User-agent: *
+Allow: /
+
+# Exclure les pages d'administration et API
+Disallow: /admin
+Disallow: /api/
+Disallow: /_/
+Disallow: /netlify/
+
+# Permettre l'accès aux ressources importantes
+Allow: /images/
+Allow: /fonts/
+
+# Sitemap
+Sitemap: https://la-kokosphere.fr/sitemap-index.xml

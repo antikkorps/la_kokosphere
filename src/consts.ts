@@ -1,7 +1,7 @@
 // Site constants
 export const SITE_TITLE = "La Kokosphère"
 export const SITE_DESCRIPTION =
-  "Hypnothérapeute certifiée au Mans. Spécialisée dans le traitement du stress, anxiété, phobies, addictions et troubles du sommeil. Méthode ericksonienne. Séances individuelles et en entreprise. Consultations à domicile disponibles."
+  "Hypnothérapeute certifiée au Mans et en Sarthe. Cécile Pascual, spécialiste en hypnose ericksonienne pour traiter stress, anxiété, phobies, addictions et troubles du sommeil. Séances à domicile au Mans. Prenez RDV."
 export const SITE_URL = "https://la-kokosphere.fr"
 export const SITE_EMAIL = "kokosphere72@gmail.com"
 export const SITE_PHONE = "+33 6 63 64 10 85"

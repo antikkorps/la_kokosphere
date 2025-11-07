@@ -52,14 +52,18 @@ const baseSchema = {
 // Schema pour l'organisation (hypnothérapeute)
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "MedicalBusiness", "HealthAndBeautyBusiness"],
+  "@type": ["LocalBusiness", "MedicalBusiness", "HealthAndBeautyBusiness"],
   "name": SITE_TITLE,
+  "alternateName": "Hypnothérapeute Le Mans",
   "description": SITE_DESCRIPTION,
   "url": SITE_URL,
   "logo": `${SITE_URL}/favicon.png`,
   "image": `${SITE_URL}/images/logo.png`,
   "telephone": SITE_PHONE,
   "email": SITE_EMAIL,
+  "priceRange": "60€ - 90€",
+  "currenciesAccepted": "EUR",
+  "paymentAccepted": "Espèces, Chèque",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "28 RUE EDOUARD FAUCHARD",
@@ -76,10 +80,17 @@ const organizationSchema = {
   "openingHours": [
     "Mo-Fr 09:00-19:00"
   ],
-  "areaServed": {
-    "@type": "City",
-    "name": "Le Mans"
-  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Le Mans",
+      "sameAs": "https://fr.wikipedia.org/wiki/Le_Mans"
+    },
+    {
+      "@type": "State",
+      "name": "Sarthe"
+    }
+  ],
   "serviceArea": {
     "@type": "GeoCircle",
     "geoMidpoint": {
@@ -89,18 +100,58 @@ const organizationSchema = {
     },
     "geoRadius": "50000"
   },
+  "knowsAbout": [
+    "Hypnose ericksonienne",
+    "Gestion du stress",
+    "Traitement de l'anxiété",
+    "Phobies",
+    "Addictions",
+    "Troubles du sommeil",
+    "Confiance en soi",
+    "Développement personnel"
+  ],
   "medicalSpecialty": "Hypnotherapy",
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Services d'hypnothérapie",
+    "name": "Services d'hypnothérapie au Mans",
     "itemListElement": [
       {
         "@type": "Offer",
+        "price": "60",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
         "itemOffered": {
           "@type": "Service",
-          "name": "Hypnothérapie individuelle",
-          "description": "Séances d'hypnose personnalisées pour traiter le stress, l'anxiété, les phobies et addictions",
-          "serviceType": "Hypnotherapy"
+          "name": "Consultation initiale d'hypnothérapie",
+          "description": "Séance initiale de 1h30 pour évaluer votre situation et définir vos objectifs au Mans",
+          "serviceType": "Hypnotherapy",
+          "areaServed": "Le Mans, Sarthe"
+        }
+      },
+      {
+        "@type": "Offer",
+        "price": "80",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Séance d'hypnothérapie individuelle",
+          "description": "Séance d'hypnose personnalisée d'1h pour traiter le stress, l'anxiété, les phobies et addictions au Mans",
+          "serviceType": "Hypnotherapy",
+          "areaServed": "Le Mans, Sarthe"
+        }
+      },
+      {
+        "@type": "Offer",
+        "price": "350",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Pack 5 séances d'hypnothérapie",
+          "description": "Pack de 5 séances d'hypnose pour un accompagnement complet au Mans",
+          "serviceType": "Hypnotherapy",
+          "areaServed": "Le Mans, Sarthe"
         }
       },
       {
@@ -108,8 +159,9 @@ const organizationSchema = {
         "itemOffered": {
           "@type": "Service",
           "name": "Hypnose en entreprise",
-          "description": "Ateliers et formations en hypnose pour améliorer le bien-être au travail",
-          "serviceType": "Corporate Wellness"
+          "description": "Ateliers et formations en hypnose pour améliorer le bien-être au travail au Mans",
+          "serviceType": "Corporate Wellness",
+          "areaServed": "Le Mans, Sarthe"
         }
       },
       {
@@ -117,8 +169,9 @@ const organizationSchema = {
         "itemOffered": {
           "@type": "Service",
           "name": "Hypnose à domicile",
-          "description": "Séances d'hypnothérapie dans le confort de votre domicile",
-          "serviceType": "Home Healthcare"
+          "description": "Séances d'hypnothérapie dans le confort de votre domicile au Mans et en Sarthe",
+          "serviceType": "Home Healthcare",
+          "areaServed": "Le Mans, Sarthe"
         }
       }
     ]

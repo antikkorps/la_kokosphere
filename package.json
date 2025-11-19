@@ -21,7 +21,7 @@
     "@sanity/client": "^7.6.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
-    "astro": "^5.15.3",
+    "astro": "^5.15.9",
     "gsap": "^3.13.0",
     "jose": "^6.0.11",
     "node-fetch": "^3.3.2",

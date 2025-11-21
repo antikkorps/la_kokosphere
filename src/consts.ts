@@ -6,7 +6,14 @@ export const SITE_URL = "https://la-kokosphere.fr"
 export const SITE_EMAIL = "kokosphere72@gmail.com"
 export const SITE_PHONE = "+33 6 63 64 10 85"
 export const SITE_ADDRESS = "BAT A APPT 236 - 28 RUE EDOUARD FAUCHARD - 72000 LE MANS"
+export const SITE_SIRET = "824 632 301 00019"
+export const SITE_RCS = "RCS Le Mans 824 632 301"
+export const SITE_APE = "8690F"
 export const SITE_ADMIN = "https://la-kokosphere.sanity.studio"
+
+// Developer credits
+export const DEVELOPER_NAME = "Dev2Go - Franck Vienot"
+export const DEVELOPER_URL = "https://dev2go.vercel.app"
 
 // Calendly URL
 export const CALENDLY_URL = "https://calendly.com/kokosphere72/30min"

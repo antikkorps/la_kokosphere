@@ -36,9 +36,6 @@ const finalImage = image
       ? new URL(image.src, Astro.site)
       : image
   : logoURL
-
-// Charger Netlify Identity uniquement en production
-const isProduction = import.meta.env.PROD
 ---
 
 <!-- Global Metadata -->
@@ -98,10 +95,3 @@ const isProduction = import.meta.env.PROD
 
 <!-- Structured Data -->
 <StructuredData type={type} title={title} description={description} />
-
-<!-- Netlify Identity - Chargé uniquement en production -->
-{
-  isProduction && (
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" />
-  )
-}

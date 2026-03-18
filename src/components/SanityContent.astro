@@ -24,9 +24,9 @@ function buildImageUrl(imageRef: string, width = 1200, height = 800): string {
 }
 
 // Fonction pour traiter les marques (marks) du Portable Text
-function processMarks(text: string, marks: string[] = []) {
+function processMarks(text: string, marks: string[] = [], markDefs: any[] = []) {
   let processedText = text;
-  
+
   if (marks.includes('strong')) {
     processedText = `<strong class="font-semibold text-gray-900">${processedText}</strong>`;
   }
@@ -39,11 +39,17 @@ function processMarks(text: string, marks: string[] = []) {
   if (marks.includes('code')) {
     processedText = `<code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono text-gray-800">${processedText}</code>`;
   }
-  if (marks.includes('link')) {
-    // Pour les liens, on utilise une classe spéciale
-    processedText = `<a href="#" class="text-primary-600 hover:text-primary-700 underline font-medium">${processedText}</a>`;
+
+  // Chercher les annotations de lien dans markDefs
+  for (const mark of marks) {
+    const markDef = markDefs.find((def: any) => def._key === mark);
+    if (markDef && markDef._type === 'link') {
+      const href = markDef.href || '#';
+      const target = href.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+      processedText = `<a href="${href}"${target} class="text-primary-600 hover:text-primary-700 underline font-medium">${processedText}</a>`;
+    }
   }
-  
+
   return processedText;
 }
 
@@ -57,7 +63,7 @@ function processBlock(block: any) {
         listItem: block.listItem,
         level: block.level || 1,
         children: block.children?.map((child: any) => ({
-          text: processMarks(child.text, child.marks),
+          text: processMarks(child.text, child.marks, block.markDefs),
           marks: child.marks
         }))
       };
@@ -77,12 +83,12 @@ function processBlock(block: any) {
       tag: Tag,
       style,
       children: block.children?.map((child: any) => ({
-        text: processMarks(child.text, child.marks),
+        text: processMarks(child.text, child.marks, block.markDefs),
         marks: child.marks
       }))
     };
   }
-  
+
   if (block._type === 'image') {
     return {
       type: 'image',
@@ -100,7 +106,7 @@ function processBlock(block: any) {
       listItem: block.listItem,
       children: block.children?.map((item: any) => ({
         children: item.children?.map((child: any) => ({
-          text: processMarks(child.text, child.marks),
+          text: processMarks(child.text, child.marks, block.markDefs),
           marks: child.marks
         }))
       }))
@@ -111,7 +117,7 @@ function processBlock(block: any) {
     return {
       type: 'quote',
       children: block.children?.map((child: any) => ({
-        text: processMarks(child.text, child.marks),
+        text: processMarks(child.text, child.marks, block.markDefs),
         marks: child.marks
       }))
     };

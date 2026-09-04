@@ -214,7 +214,7 @@ if (import.meta.env.DEV) {
         </div>
         {block.caption && (
           <figcaption class="text-center text-gray-500 mt-6 text-sm leading-relaxed max-w-2xl mx-auto">
-            <span class="inline-block bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-200 shadow-sm">
+            <span class="inline-block bg-white/80 backdrop-blur-xs px-4 py-2 rounded-full border border-gray-200 shadow-xs">
               {block.caption}
             </span>
           </figcaption>
@@ -242,7 +242,7 @@ if (import.meta.env.DEV) {
   
   if (block.type === 'quote') {
     return (
-      <blockquote class="border-l-4 border-primary-500 pl-6 py-6 my-12 italic text-gray-700 bg-gradient-to-r from-primary-50 to-transparent rounded-r-xl shadow-sm">
+      <blockquote class="border-l-4 border-primary-500 pl-6 py-6 my-12 italic text-gray-700 bg-gradient-to-r from-primary-50 to-transparent rounded-r-xl shadow-xs">
         <div class="text-lg leading-relaxed">
           {block.children?.map((child: any) => (
             <Fragment set:html={child.text} />

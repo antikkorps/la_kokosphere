@@ -248,7 +248,7 @@ if (tags && tags.length > 0) {
 								)}
 								
 								<div class="flex-1 text-center md:text-left">
-									<div class="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium text-primary-700 mb-4 shadow-sm">
+									<div class="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-xs rounded-full text-sm font-medium text-primary-700 mb-4 shadow-xs">
 										<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
 										</svg>
@@ -306,7 +306,6 @@ if (tags && tags.length > 0) {
 			</div>
 		)}
 	</article>
-</AnimatedSection>
 </div>
 </section>
 
@@ -324,7 +323,7 @@ if (tags && tags.length > 0) {
 			</div>
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
 					{relatedPosts.map((post) => (
-						<article class="bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col group">
+						<article class="bg-white rounded-lg shadow-xs border border-gray-100 hover:shadow-md transition-all duration-300 overflow-hidden h-full flex flex-col group">
 								<a href={`/blog/${post.slug?.current || 'article'}/`} class="block h-full flex flex-col">
 									{post.mainImage && (
 										<div class="aspect-video overflow-hidden">

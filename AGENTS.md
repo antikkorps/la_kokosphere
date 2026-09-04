@@ -15,7 +15,15 @@ npm run dev          # Dev Astro
 npm run studio       # Dev Sanity Studio
 npm run dev:all      # Dev Astro + Studio (concurrently)
 npm run build        # Build Astro
+npm test             # Tests SEO sur le build (build préalable requis)
+npm run test:ci      # Build puis tests, comme en CI
 ```
+
+### Tests
+Filet de sécurité issu de l'audit SEO d'août 2026, dans `tests/`. Les assertions
+portent sur `dist/`, pas sur les sources : les régressions visées sont invisibles
+à la compilation. Le site se construit très bien avec dix H1 par page ou un
+sitemap qui pointe dans le vide.
 
 ### Architecture
 - `/src/pages/` - Pages Astro

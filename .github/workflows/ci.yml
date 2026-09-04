@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Build et tests SEO
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Aligné sur netlify.toml : Astro 7 exige node >= 22.12
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      # Les tests portent sur le site construit : ils ont besoin du build,
+      # qui récupère les articles depuis Sanity en lecture publique.
+      - run: npm run test:ci

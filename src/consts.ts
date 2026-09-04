@@ -5,7 +5,7 @@ export const SITE_DESCRIPTION =
 export const SITE_URL = "https://la-kokosphere.fr"
 export const SITE_EMAIL = "kokosphere72@gmail.com"
 export const SITE_PHONE = "+33 6 63 64 10 85"
-export const SITE_ADDRESS = "BAT A APPT 236 - 28 RUE EDOUARD FAUCHARD - 72000 LE MANS"
+export const SITE_ADDRESS = "11 Rue du Docteur LEROY - 72000 LE MANS"
 export const SITE_SIRET = "824 632 301 00019"
 export const SITE_RCS = "RCS Le Mans 824 632 301"
 export const SITE_APE = "8690F"
@@ -180,7 +180,7 @@ export function getColor(category: keyof typeof COLORS, shade?: string): string 
 // Fonction utilitaire pour obtenir une classe Tailwind
 export function getColorClass(
   type: "bg" | "text" | "border",
-  category: "primary" | "secondary"
+  category: "primary" | "secondary",
 ): string {
   const colorConfig = COLOR_CLASSES[category]
   return colorConfig[type] || ""

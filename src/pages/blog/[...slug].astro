@@ -2,6 +2,7 @@
 import SanityContent from '../../components/SanityContent.astro';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { getPosts } from '../../lib/sanity';
+import { excerptFromPortableText, normalizeDescription } from '../../utils/seo';
 
 export async function getStaticPaths() {
 	// Récupérer tous les articles depuis Sanity
@@ -19,13 +20,25 @@ const { post } = Astro.props;
 if (!post) {
 	return Astro.redirect('/404');
 }
+
+// Date de publication : repli sur la date de création si le champ est vide,
+// pour ne jamais afficher le 1er janvier 1970.
+const rawDate = post.publishedAt || post._createdAt;
+const parsedDate = rawDate ? new Date(rawDate) : null;
+const pubDate = parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate : null;
+
+// Description : nettoyée, tronquée proprement, avec repli sur le corps de l'article
+const description = normalizeDescription(
+	post.description,
+	excerptFromPortableText(post.body),
+);
 ---
 
 <BlogPost 
 	_id={post._id}
 	title={post.title}
-	description={post.description}
-	pubDate={new Date(post.publishedAt)}
+	description={description}
+	pubDate={pubDate}
 	tags={post.tags}
 	mainImage={post.mainImage}
 	author={post.author}

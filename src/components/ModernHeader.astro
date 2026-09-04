@@ -1,11 +1,11 @@
 ---
 const navItems = [
   { text: "Accueil", href: "/" },
-  { text: "À propos", href: "/about" },
-  { text: "Particuliers", href: "/particuliers" },
-  { text: "Entreprise", href: "/entreprise" },
-  { text: "Blog", href: "/blog" },
-  { text: "Contact", href: "/contact" },
+  { text: "À propos", href: "/about/" },
+  { text: "Particuliers", href: "/particuliers/" },
+  { text: "Entreprise", href: "/entreprise/" },
+  { text: "Blog", href: "/blog/" },
+  { text: "Contact", href: "/contact/" },
 ]
 ---
 
@@ -19,10 +19,13 @@ const navItems = [
       <div class="flex items-center" id="logo">
         <a href="/" class="flex items-center space-x-3">
           <img
-            src="/images/logo/logo_kokosphere.avif"
+            src="/images/logo/logo_kokosphere-header.avif"
             alt="Logo Kokosphère"
             class="h-20 w-auto"
+            width="333"
+            height="160"
             loading="eager"
+            fetchpriority="high"
           />
         </a>
       </div>
@@ -48,7 +51,7 @@ const navItems = [
       <!-- CTA Button avec animation -->
       <div class="hidden lg:flex items-center space-x-4" id="cta-section">
         <a
-          href="/rendez-vous"
+          href="/rendez-vous/"
           class="btn-primary group relative overflow-hidden"
           id="cta-button"
         >
@@ -100,9 +103,12 @@ const navItems = [
         <div class="flex items-center justify-between p-4 border-b border-gray-100">
           <div class="flex items-center space-x-3">
             <img
-              src="/images/logo/logo_kokosphere.avif"
+              src="/images/logo/logo_kokosphere-header.avif"
               alt="Logo Kokosphère"
               class="h-16 w-auto"
+              width="333"
+              height="160"
+              loading="lazy"
             />
             <span class="text-lg font-bold text-gray-800">Menu</span>
           </div>
@@ -243,7 +249,7 @@ const navItems = [
         <!-- CTA Section -->
         <div class="p-4 border-t border-gray-100 bg-gray-50">
           <a
-            href="/rendez-vous"
+            href="/rendez-vous/"
             class="flex items-center justify-center space-x-2 w-full py-3 px-4 text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 rounded-lg transition-all duration-200 shadow-md"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

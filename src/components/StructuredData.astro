@@ -1,106 +1,126 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL, SITE_EMAIL, SITE_PHONE } from "../consts";
+import {
+  SITE_DESCRIPTION,
+  SITE_EMAIL,
+  SITE_PHONE,
+  SITE_TITLE,
+  SITE_URL,
+} from "../consts"
+import { getSameAs, getSiteSettings } from "../lib/sanity"
 
 interface Props {
-  type?: 'website' | 'medicalBusiness' | 'article' | 'service' | 'profile';
-  title?: string;
-  description?: string;
-  url?: string;
-  author?: {
-    name: string;
-    url?: string;
-  };
+  type?: "website" | "article" | "profile"
+  title?: string
+  description?: string
+  url?: string
+  image?: string
   article?: {
-    datePublished: string;
-    dateModified?: string;
-    headline: string;
-  };
-  service?: {
-    name: string;
-    description: string;
-    areaServed: string;
-    serviceType: string;
-  };
+    publishedTime?: string
+    modifiedTime?: string
+    author?: string
+    tags?: string[]
+  }
 }
 
-const { 
-  type = 'website', 
-  description = SITE_DESCRIPTION, 
-  url = SITE_URL,
-  author,
+const {
+  type = "website",
+  title,
+  description = SITE_DESCRIPTION,
+  url,
+  image,
   article,
-  service 
-} = Astro.props;
+} = Astro.props
 
-const currentUrl = url || `${SITE_URL}${Astro.url.pathname}`;
+const currentUrl = url || `${SITE_URL}${Astro.url.pathname}`
+
+// Réseaux sociaux et identité de la praticienne, éditables dans Sanity
+const settings = await getSiteSettings()
+const sameAs = getSameAs(settings)
+const practitionerName = settings?.practitionerName || "Cécile Pascual"
+const practitionerJobTitle = settings?.practitionerJobTitle || "Hypnothérapeute certifiée"
+const practitionerDescription =
+  settings?.practitionerDescription ||
+  "Hypnothérapeute certifiée spécialisée dans la méthode ericksonienne"
+
+// Identifiants stables : permettent de relier les entités entre elles
+const BUSINESS_ID = `${SITE_URL}/#business`
+const PERSON_ID = `${SITE_URL}/#person`
+
+// Images du panneau de connaissances : un vrai logo, pas la favicon
+const LOGO_URL = `${SITE_URL}/images/logo/logo_kokosphere-512.png`
+const BUSINESS_IMAGE_URL = `${SITE_URL}/images/logo/logo_kokosphere-og.png`
+
+const postalAddress = {
+  "@type": "PostalAddress",
+  streetAddress: "28 RUE EDOUARD FAUCHARD",
+  addressLocality: "Le Mans",
+  postalCode: "72000",
+  addressRegion: "Sarthe",
+  addressCountry: "FR",
+}
 
 // Schema de base pour le site web
 const baseSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": SITE_TITLE,
-  "description": SITE_DESCRIPTION,
-  "url": SITE_URL,
-  "inLanguage": "fr-FR",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": `${SITE_URL}/blog?q={search_term_string}`,
-    "query-input": "required name=search_term_string"
-  }
-};
+  name: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  url: SITE_URL,
+  inLanguage: "fr-FR",
+  publisher: { "@id": BUSINESS_ID },
+}
 
 // Schema pour l'organisation (hypnothérapeute)
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "MedicalBusiness", "HealthAndBeautyBusiness"],
-  "name": SITE_TITLE,
-  "alternateName": "Hypnothérapeute Le Mans",
-  "description": SITE_DESCRIPTION,
-  "url": SITE_URL,
-  "logo": `${SITE_URL}/favicon.png`,
-  "image": `${SITE_URL}/images/logo.png`,
-  "telephone": SITE_PHONE,
-  "email": SITE_EMAIL,
-  "priceRange": "60€ - 90€",
-  "currenciesAccepted": "EUR",
-  "paymentAccepted": "Espèces, Chèque",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "28 RUE EDOUARD FAUCHARD",
-    "addressLocality": "Le Mans",
-    "postalCode": "72000",
-    "addressRegion": "Sarthe",
-    "addressCountry": "FR"
+  "@id": BUSINESS_ID,
+  name: SITE_TITLE,
+  alternateName: "Hypnothérapeute Le Mans",
+  description: SITE_DESCRIPTION,
+  url: SITE_URL,
+  logo: {
+    "@type": "ImageObject",
+    url: LOGO_URL,
+    width: 512,
+    height: 512,
   },
-  "geo": {
+  image: BUSINESS_IMAGE_URL,
+  telephone: SITE_PHONE,
+  email: SITE_EMAIL,
+  priceRange: "60€ - 90€",
+  currenciesAccepted: "EUR",
+  paymentAccepted: "Espèces, Chèque",
+  address: postalAddress,
+  geo: {
     "@type": "GeoCoordinates",
-    "latitude": 48.0061,
-    "longitude": 0.1996
+    latitude: 48.0061,
+    longitude: 0.1996,
   },
-  "openingHours": [
-    "Mo-Fr 09:00-19:00"
-  ],
-  "areaServed": [
+  openingHours: ["Mo-Fr 09:00-19:00"],
+  founder: { "@id": PERSON_ID },
+  employee: { "@id": PERSON_ID },
+  areaServed: [
     {
       "@type": "City",
-      "name": "Le Mans",
-      "sameAs": "https://fr.wikipedia.org/wiki/Le_Mans"
+      name: "Le Mans",
+      sameAs: "https://fr.wikipedia.org/wiki/Le_Mans",
     },
     {
       "@type": "State",
-      "name": "Sarthe"
-    }
-  ],
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": 48.0061,
-      "longitude": 0.1996
+      name: "Sarthe",
     },
-    "geoRadius": "50000"
+  ],
+  serviceArea: {
+    "@type": "GeoCircle",
+    geoMidpoint: {
+      "@type": "GeoCoordinates",
+      latitude: 48.0061,
+      longitude: 0.1996,
+    },
+    geoRadius: "50000",
   },
-  "knowsAbout": [
+  knowsAbout: [
     "Hypnose ericksonienne",
     "Gestion du stress",
     "Traitement de l'anxiété",
@@ -108,198 +128,183 @@ const organizationSchema = {
     "Addictions",
     "Troubles du sommeil",
     "Confiance en soi",
-    "Développement personnel"
+    "Développement personnel",
   ],
-  "medicalSpecialty": "Hypnotherapy",
-  "hasOfferCatalog": {
+  medicalSpecialty: "Hypnotherapy",
+  hasOfferCatalog: {
     "@type": "OfferCatalog",
-    "name": "Services d'hypnothérapie au Mans",
-    "itemListElement": [
+    name: "Services d'hypnothérapie au Mans",
+    itemListElement: [
       {
         "@type": "Offer",
-        "price": "60",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
-        "itemOffered": {
+        price: "60",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        itemOffered: {
           "@type": "Service",
-          "name": "Consultation initiale d'hypnothérapie",
-          "description": "Séance initiale de 1h30 pour évaluer votre situation et définir vos objectifs au Mans",
-          "serviceType": "Hypnotherapy",
-          "areaServed": "Le Mans, Sarthe"
-        }
+          name: "Consultation initiale d'hypnothérapie",
+          description:
+            "Séance initiale de 1h30 pour évaluer votre situation et définir vos objectifs au Mans",
+          serviceType: "Hypnotherapy",
+          areaServed: "Le Mans, Sarthe",
+        },
       },
       {
         "@type": "Offer",
-        "price": "80",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
-        "itemOffered": {
+        price: "80",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        itemOffered: {
           "@type": "Service",
-          "name": "Séance d'hypnothérapie individuelle",
-          "description": "Séance d'hypnose personnalisée d'1h pour traiter le stress, l'anxiété, les phobies et addictions au Mans",
-          "serviceType": "Hypnotherapy",
-          "areaServed": "Le Mans, Sarthe"
-        }
+          name: "Séance d'hypnothérapie individuelle",
+          description:
+            "Séance d'hypnose personnalisée d'1h pour traiter le stress, l'anxiété, les phobies et addictions au Mans",
+          serviceType: "Hypnotherapy",
+          areaServed: "Le Mans, Sarthe",
+        },
       },
       {
         "@type": "Offer",
-        "price": "350",
-        "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock",
-        "itemOffered": {
+        price: "350",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        itemOffered: {
           "@type": "Service",
-          "name": "Pack 5 séances d'hypnothérapie",
-          "description": "Pack de 5 séances d'hypnose pour un accompagnement complet au Mans",
-          "serviceType": "Hypnotherapy",
-          "areaServed": "Le Mans, Sarthe"
-        }
+          name: "Pack 5 séances d'hypnothérapie",
+          description:
+            "Pack de 5 séances d'hypnose pour un accompagnement complet au Mans",
+          serviceType: "Hypnotherapy",
+          areaServed: "Le Mans, Sarthe",
+        },
       },
       {
         "@type": "Offer",
-        "itemOffered": {
+        itemOffered: {
           "@type": "Service",
-          "name": "Hypnose en entreprise",
-          "description": "Ateliers et formations en hypnose pour améliorer le bien-être au travail au Mans",
-          "serviceType": "Corporate Wellness",
-          "areaServed": "Le Mans, Sarthe"
-        }
+          name: "Hypnose en entreprise",
+          description:
+            "Ateliers et formations en hypnose pour améliorer le bien-être au travail au Mans",
+          serviceType: "Corporate Wellness",
+          areaServed: "Le Mans, Sarthe",
+        },
       },
       {
         "@type": "Offer",
-        "itemOffered": {
+        itemOffered: {
           "@type": "Service",
-          "name": "Hypnose à domicile",
-          "description": "Séances d'hypnothérapie dans le confort de votre domicile au Mans et en Sarthe",
-          "serviceType": "Home Healthcare",
-          "areaServed": "Le Mans, Sarthe"
-        }
-      }
-    ]
+          name: "Hypnose à domicile",
+          description:
+            "Séances d'hypnothérapie dans le confort de votre domicile au Mans et en Sarthe",
+          serviceType: "Home Healthcare",
+          areaServed: "Le Mans, Sarthe",
+        },
+      },
+    ],
   },
-  "sameAs": [
-    // Ajoutez ici les réseaux sociaux si disponibles
-  ]
-};
+  // Profils externes renseignés dans Sanity (« Paramètres du site »)
+  ...(sameAs.length > 0 ? { sameAs } : {}),
+}
+
+// Diplômes et certifications déclarés dans Sanity
+const hasCredential = (settings?.credentials ?? [])
+  .filter((credential) => credential?.name)
+  .map((credential) => ({
+    "@type": "EducationalOccupationalCredential",
+    name: credential.name,
+    ...(credential.issuer
+      ? {
+          recognizedBy: {
+            "@type": "Organization",
+            name: credential.issuer,
+            ...(credential.issuerUrl ? { url: credential.issuerUrl } : {}),
+          },
+        }
+      : {}),
+    ...(credential.year ? { dateCreated: credential.year } : {}),
+  }))
 
 // Schema pour la personne (thérapeute)
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Hypnothérapeute La Kokosphère",
-  "jobTitle": "Hypnothérapeute certifiée",
-  "description": "Hypnothérapeute certifiée spécialisée dans la méthode ericksonienne",
-  "url": SITE_URL,
-  "email": SITE_EMAIL,
-  "telephone": SITE_PHONE,
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "28 RUE EDOUARD FAUCHARD",
-    "addressLocality": "Le Mans",
-    "postalCode": "72000",
-    "addressRegion": "Sarthe",
-    "addressCountry": "FR"
-  },
-  "worksFor": {
-    "@type": "Organization",
-    "name": SITE_TITLE
-  },
-  "hasOccupation": {
+  "@id": PERSON_ID,
+  name: practitionerName,
+  jobTitle: practitionerJobTitle,
+  description: practitionerDescription,
+  url: `${SITE_URL}/about/`,
+  email: SITE_EMAIL,
+  telephone: SITE_PHONE,
+  image: BUSINESS_IMAGE_URL,
+  address: postalAddress,
+  worksFor: { "@id": BUSINESS_ID },
+  hasOccupation: {
     "@type": "Occupation",
-    "name": "Hypnothérapeute",
-    "occupationalCategory": "29-1125.00",
-    "skills": ["Hypnose ericksonienne", "Gestion du stress", "Traitement des phobies", "Accompagnement des addictions"]
-  }
-};
-
-let schemas: any[] = [baseSchema, organizationSchema, personSchema];
-
-// Ajouter des schemas spécifiques selon le type de page
-if (type === 'article' && article) {
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": article.headline,
-    "description": description,
-    "url": currentUrl,
-    "datePublished": article.datePublished,
-    "dateModified": article.dateModified || article.datePublished,
-    "author": {
-      "@type": "Person",
-      "name": author?.name || "La Kokosphère",
-      "url": author?.url || SITE_URL
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": SITE_TITLE,
-      "url": SITE_URL,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SITE_URL}/favicon.png`
-      }
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": currentUrl
-    },
-    "inLanguage": "fr-FR"
-  };
-  schemas.push(articleSchema);
+    name: "Hypnothérapeute",
+    occupationalCategory: "29-1125.00",
+    skills: [
+      "Hypnose ericksonienne",
+      "Gestion du stress",
+      "Traitement des phobies",
+      "Accompagnement des addictions",
+    ],
+  },
+  ...(hasCredential.length > 0 ? { hasCredential } : {}),
+  ...(sameAs.length > 0 ? { sameAs } : {}),
 }
 
-if (type === 'service' && service) {
-  const serviceSchema = {
+const schemas: any[] = [baseSchema, organizationSchema, personSchema]
+
+// Article de blog : fraîcheur et paternité du contenu (E-E-A-T)
+if (type === "article" && title) {
+  schemas.push({
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": service.name,
-    "description": service.description,
-    "serviceType": service.serviceType,
-    "provider": {
-      "@type": "Organization",
-      "name": SITE_TITLE,
-      "url": SITE_URL
+    "@type": "BlogPosting",
+    headline: title.length > 110 ? `${title.slice(0, 109)}…` : title,
+    description,
+    url: currentUrl,
+    ...(article?.publishedTime ? { datePublished: article.publishedTime } : {}),
+    dateModified: article?.modifiedTime || article?.publishedTime,
+    author: {
+      "@type": "Person",
+      name: article?.author || practitionerName,
+      url: `${SITE_URL}/about/`,
     },
-    "areaServed": {
-      "@type": "City",
-      "name": service.areaServed
+    publisher: { "@id": BUSINESS_ID },
+    ...(image ? { image } : {}),
+    ...(article?.tags?.length ? { keywords: article.tags.join(", ") } : {}),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": currentUrl,
     },
-    "availableLanguage": "fr"
-  };
-  schemas.push(serviceSchema);
+    inLanguage: "fr-FR",
+  })
 }
 
 // Breadcrumb schema pour toutes les pages sauf la homepage
-if (Astro.url.pathname !== '/') {
-  const pathSegments = Astro.url.pathname.split('/').filter((segment: string) => segment);
-  const breadcrumbList = pathSegments.map((segment: string, index: number) => {
-    const position = index + 2; // +2 car on commence après "Home"
-    const name = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
-    const url = `${SITE_URL}/${pathSegments.slice(0, index + 1).join('/')}`;
-    
-    return {
-      "@type": "ListItem",
-      "position": position,
-      "name": name,
-      "item": url
-    };
-  });
+if (Astro.url.pathname !== "/") {
+  const pathSegments = Astro.url.pathname.split("/").filter((segment: string) => segment)
+  const breadcrumbList = pathSegments.map((segment: string, index: number) => ({
+    "@type": "ListItem",
+    position: index + 2, // +2 car on commence après "Accueil"
+    name: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
+    // URLs canoniques : avec slash final, comme les liens du site
+    item: `${SITE_URL}/${pathSegments.slice(0, index + 1).join("/")}/`,
+  }))
 
-  const breadcrumbSchema = {
+  schemas.push({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": SITE_URL
+        position: 1,
+        name: "Accueil",
+        item: `${SITE_URL}/`,
       },
-      ...breadcrumbList
-    ]
-  };
-  schemas.push(breadcrumbSchema);
+      ...breadcrumbList,
+    ],
+  })
 }
 ---
 
-{schemas.map(schema => (
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-))}
+{schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}

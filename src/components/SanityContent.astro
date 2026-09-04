@@ -47,6 +47,18 @@ function processMarks(text: string, marks: string[] = []) {
   return processedText;
 }
 
+/**
+ * Le titre de la page est déjà un <h1>. Les titres saisis dans le CMS sont donc
+ * descendus d'un niveau pour garder une hiérarchie sémantique valide :
+ * un seul <h1> par page.
+ */
+const HEADING_TAGS: Record<string, string> = {
+  h1: 'h2',
+  h2: 'h3',
+  h3: 'h4',
+  h4: 'h5',
+};
+
 // Fonction pour traiter un bloc de contenu
 function processBlock(block: any) {
   if (block._type === 'block') {
@@ -70,7 +82,7 @@ function processBlock(block: any) {
                   block.style === 'normal' ? 'mb-6 leading-relaxed text-gray-700' :
                   'mb-6 leading-relaxed text-gray-700';
     
-    const Tag = block.style === 'normal' ? 'p' : block.style;
+    const Tag = HEADING_TAGS[block.style] ?? (block.style === 'normal' ? 'p' : block.style);
     
     return {
       type: 'block',

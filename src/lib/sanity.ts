@@ -32,6 +32,7 @@ export interface Post {
   slug: { current: string }
   description: string
   publishedAt: string
+  _createdAt?: string
   mainImage?: {
     _ref: string
     url: string
@@ -148,6 +149,7 @@ export async function getPosts(): Promise<Post[]> {
       slug,
       description,
       publishedAt,
+      _createdAt,
       "mainImage": mainImage.asset->{
         _ref,
         url
@@ -173,6 +175,7 @@ export async function getPost(slug: string): Promise<Post | null> {
       slug,
       description,
       publishedAt,
+      _createdAt,
       "mainImage": mainImage.asset->{
         _ref,
         url
@@ -306,4 +309,127 @@ export async function saveConsentStats(consentData: {
     },
     expiresAt: expiresAt.toISOString(),
   })
+}
+
+// ---------------------------------------------------------------------------
+// Paramètres du site (réseaux sociaux, identité de la praticienne)
+// Éditables depuis le Studio Sanity : « Paramètres du site »
+// ---------------------------------------------------------------------------
+
+export interface SocialLink {
+  key: string
+  label: string
+  url: string
+  showInFooter: boolean
+}
+
+export interface Credential {
+  name: string
+  issuer?: string
+  issuerUrl?: string
+  year?: string
+}
+
+export interface SiteSettings {
+  googleBusinessUrl?: string
+  facebookUrl?: string
+  instagramUrl?: string
+  linkedinUrl?: string
+  youtubeUrl?: string
+  tiktokUrl?: string
+  otherProfiles?: { label: string; url: string; showInFooter?: boolean }[]
+  practitionerName?: string
+  practitionerJobTitle?: string
+  practitionerDescription?: string
+  credentials?: Credential[]
+}
+
+// Les réseaux connus, dans l'ordre d'affichage du pied de page
+const KNOWN_NETWORKS: { key: string; field: keyof SiteSettings; label: string }[] = [
+  { key: "facebook", field: "facebookUrl", label: "Facebook" },
+  { key: "instagram", field: "instagramUrl", label: "Instagram" },
+  { key: "linkedin", field: "linkedinUrl", label: "LinkedIn" },
+  { key: "youtube", field: "youtubeUrl", label: "YouTube" },
+  { key: "tiktok", field: "tiktokUrl", label: "TikTok" },
+  { key: "google", field: "googleBusinessUrl", label: "Google" },
+]
+
+// Un seul appel réseau pour tout le build
+let siteSettingsPromise: Promise<SiteSettings | null> | null = null
+
+export async function getSiteSettings(): Promise<SiteSettings | null> {
+  if (!siteSettingsPromise) {
+    siteSettingsPromise = client
+      .fetch<SiteSettings | null>(
+        `*[_type == "siteSettings"][0] {
+          googleBusinessUrl,
+          facebookUrl,
+          instagramUrl,
+          linkedinUrl,
+          youtubeUrl,
+          tiktokUrl,
+          otherProfiles[]{ label, url, showInFooter },
+          practitionerName,
+          practitionerJobTitle,
+          practitionerDescription,
+          credentials[]{ name, issuer, issuerUrl, year }
+        }`
+      )
+      .catch((error) => {
+        // Le site doit se construire même si Sanity est injoignable
+        console.warn("Paramètres du site indisponibles :", error?.message ?? error)
+        return null
+      })
+  }
+  return siteSettingsPromise
+}
+
+/** Liens sociaux normalisés, prêts à être affichés. */
+export function getSocialLinks(settings: SiteSettings | null): SocialLink[] {
+  if (!settings) return []
+
+  const links: SocialLink[] = KNOWN_NETWORKS.filter(
+    (network) => typeof settings[network.field] === "string" && settings[network.field]
+  ).map((network) => ({
+    key: network.key,
+    label: network.label,
+    url: settings[network.field] as string,
+    showInFooter: true,
+  }))
+
+  for (const profile of settings.otherProfiles ?? []) {
+    if (!profile?.url) continue
+    links.push({
+      key: "link",
+      label: profile.label || profile.url,
+      url: profile.url,
+      showInFooter: profile.showInFooter === true,
+    })
+  }
+
+  return links
+}
+
+/**
+ * Valeur de `sameAs` pour les données structurées : tous les profils publics
+ * déclarés, qu'ils soient affichés ou non dans le pied de page.
+ */
+export function getSameAs(settings: SiteSettings | null): string[] {
+  return Array.from(new Set(getSocialLinks(settings).map((link) => link.url)))
+}
+
+/**
+ * Date de publication exploitable d'un article.
+ * Renvoie `null` plutôt qu'une date invalide (ou le 1er janvier 1970) quand le
+ * champ `publishedAt` est vide en base.
+ */
+export function getPublishedDate(post: {
+  publishedAt?: string
+  _createdAt?: string
+}): Date | null {
+  const raw = post?.publishedAt || post?._createdAt
+  if (!raw) return null
+
+  const date = new Date(raw)
+  return Number.isNaN(date.getTime()) ? null : date
 }

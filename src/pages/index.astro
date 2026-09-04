@@ -38,10 +38,10 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
                 accompagner vers un mieux-être durable.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
-                <a href="/rendez-vous" class="btn-primary text-lg px-8 py-4">
+                <a href="/rendez-vous/" class="btn-primary text-lg px-8 py-4">
                   Prendre rendez-vous
                 </a>
-                <a href="/particuliers" class="btn-outline text-lg px-8 py-4">
+                <a href="/particuliers/" class="btn-outline text-lg px-8 py-4">
                   Découvrir mes services
                 </a>
               </div>
@@ -55,7 +55,10 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
                     src="/images/illustrationsSite/bien-etre.webp"
                     alt="Illustration du bien-être et de l'hypnothérapie"
                     class="w-full h-full object-cover"
+                    width="2048"
+                    height="2048"
                     loading="eager"
+                    fetchpriority="high"
                   />
                 </div>
               </div>
@@ -219,7 +222,7 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
           </div>
 
           <div class="text-center">
-            <a href="/rendez-vous" class="btn-primary text-lg px-8 py-4 inline-flex items-center gap-3">
+            <a href="/rendez-vous/" class="btn-primary text-lg px-8 py-4 inline-flex items-center gap-3">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a1 1 0 011-1h6a1 1 0 011 1v4h3a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2h3z" />
               </svg>
@@ -295,7 +298,7 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <a href="/faq" class="hover:underline">Des questions sur l'hypnothérapie ?</a>
+            <a href="/faq/" class="hover:underline">Des questions sur l'hypnothérapie ?</a>
           </div>
         </div>
 
@@ -353,10 +356,10 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
                 Prenez rendez-vous dès aujourd'hui et découvrez la puissance de l'hypnothérapie.
               </p>
               <div class="flex flex-col sm:flex-row gap-4">
-                <a href="/rendez-vous" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center text-lg leading-tight">
+                <a href="/rendez-vous/" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center text-lg leading-tight">
                   Prendre rendez-vous
                 </a>
-                <a href="/particuliers" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg backdrop-blur-sm">
+                <a href="/particuliers/" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium py-4 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center text-lg backdrop-blur-sm">
                   Découvrir mes services
                 </a>
               </div>
@@ -371,6 +374,8 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
                     src="/images/illustrationsSite/Passez-a-l-action.webp"
                     alt="Passez à l'action - Commencez votre transformation"
                     class="w-full h-full object-cover"
+                    width="1248"
+                    height="832"
                     loading="lazy"
                   />
                 </div>

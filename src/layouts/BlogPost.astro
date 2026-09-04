@@ -3,7 +3,7 @@ import AnimatedSection from '../components/AnimatedSection.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from './BaseLayout.astro';
 import SanityContent from '../components/SanityContent.astro';
-import { getPosts } from '../lib/sanity';
+import { getPosts, getPublishedDate } from '../lib/sanity';
 
 // Fonction pour construire l'URL d'une image Sanity
 function buildImageUrl(imageRef: string, width = 1200, height = 800): string {
@@ -26,7 +26,8 @@ interface Props {
   _id: string;
   title: string;
   description: string;
-  pubDate: Date;
+  /** `null` lorsque l'article n'a pas de date de publication exploitable. */
+  pubDate: Date | null;
   tags?: string[];
   mainImage?: {
     _ref: string;
@@ -69,6 +70,19 @@ interface RelatedPost {
 
 const { _id, title, description, pubDate, tags, mainImage, author } = Astro.props;
 
+// Image de partage : l'illustration de l'article si elle existe
+const shareImage = mainImage
+  ? mainImage.url || buildImageUrl(mainImage._ref, 1200, 630)
+  : undefined;
+
+// Métadonnées Open Graph d'article (og:type="article", dates, auteur)
+const articleMeta = {
+  publishedTime: pubDate?.toISOString(),
+  modifiedTime: pubDate?.toISOString(),
+  author: author?.name,
+  tags,
+};
+
 // Récupérer les articles similaires basés sur les tags
 let relatedPosts: RelatedPost[] = [];
 if (tags && tags.length > 0) {
@@ -83,7 +97,14 @@ if (tags && tags.length > 0) {
 }
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+	title={title}
+	description={description}
+	type="article"
+	image={shareImage}
+	author={author?.name}
+	article={articleMeta}
+>
 		
 		<!-- Hero Section avec image Sanity -->
 		{mainImage && (
@@ -99,12 +120,14 @@ if (tags && tags.length > 0) {
 				</div>
 				<div class="relative z-10 text-center text-white max-w-5xl mx-auto px-6">
 					<AnimatedSection trigger="load" delay={0.2}>
-						<div class="inline-flex items-center px-6 py-3 bg-white/25 backdrop-blur-md rounded-full text-sm font-medium mb-8 border border-white/30 shadow-lg">
-							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-							</svg>
-							<FormattedDate date={pubDate} />
-						</div>
+						{pubDate && (
+							<div class="inline-flex items-center px-6 py-3 bg-white/25 backdrop-blur-md rounded-full text-sm font-medium mb-8 border border-white/30 shadow-lg">
+								<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+								<FormattedDate date={pubDate} />
+							</div>
+						)}
 					</AnimatedSection>
 					<AnimatedSection trigger="load" delay={0.4}>
 						<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-2xl">
@@ -138,12 +161,14 @@ if (tags && tags.length > 0) {
 				<article class="max-w-4xl mx-auto">
 					{!mainImage && (
 						<div class="text-center mb-16">
-							<div class="inline-flex items-center px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium mb-6">
-								<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-								<FormattedDate date={pubDate} />
-							</div>
+							{pubDate && (
+								<div class="inline-flex items-center px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-medium mb-6">
+									<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+									<FormattedDate date={pubDate} />
+								</div>
+							)}
 							<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
 								{title}
 							</h1>
@@ -172,15 +197,17 @@ if (tags && tags.length > 0) {
 			<div class="max-w-3xl mx-auto">
 				<div class="flex flex-col sm:flex-row items-center justify-between gap-4">
 					<div class="flex items-center gap-4">
-						<a href="/blog" class="inline-flex items-center px-3 py-2 text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200 text-sm">
+						<a href="/blog/" class="inline-flex items-center px-3 py-2 text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200 text-sm">
 							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
 							</svg>
 							Retour au blog
 						</a>
-						<div class="text-sm text-gray-500">
-							<FormattedDate date={pubDate} />
-						</div>
+						{pubDate && (
+							<div class="text-sm text-gray-500">
+								<FormattedDate date={pubDate} />
+							</div>
+						)}
 					</div>
 					<button id="shareBtn" class="inline-flex items-center px-3 py-2 text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200 text-sm">
 						<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -265,7 +292,7 @@ if (tags && tags.length > 0) {
 								</div>
 								
 								<div class="flex-shrink-0">
-									<a href="/rendez-vous" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+									<a href="/rendez-vous/" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
 										<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 										</svg>
@@ -319,7 +346,7 @@ if (tags && tags.length > 0) {
 										
 										<div class="flex items-center justify-between mt-auto">
 											<div class="text-sm text-gray-500">
-												<FormattedDate date={new Date(post.publishedAt)} />
+												{getPublishedDate(post) && <FormattedDate date={getPublishedDate(post)!} />}
 											</div>
 											<div class="text-primary-600 font-medium text-sm group-hover:text-primary-700 transition-colors duration-300">
 												Lire →

@@ -85,3 +85,42 @@ export function generateStructuredData(
     ...data,
   }
 }
+
+/**
+ * Nettoie et tronque une méta-description.
+ *
+ * Les descriptions issues du CMS sont parfois extraites brutalement du premier
+ * paragraphe : retours à la ligne, espaces multiples, coupure en milieu de
+ * phrase. On normalise les blancs puis on tronque sur une limite de mot.
+ */
+export const META_DESCRIPTION_MAX_LENGTH = 155
+
+export function normalizeDescription(
+  description: string | undefined | null,
+  fallback = "",
+  maxLength = META_DESCRIPTION_MAX_LENGTH
+): string {
+  const cleaned = (description ?? "").replace(/\s+/g, " ").trim()
+  const source = cleaned || fallback.replace(/\s+/g, " ").trim()
+
+  if (source.length <= maxLength) return source
+
+  // Couper au dernier séparateur de mot avant la limite, en gardant la place du "…"
+  const truncated = source.slice(0, maxLength - 1)
+  const lastBreak = truncated.lastIndexOf(" ")
+  const base = lastBreak > maxLength * 0.6 ? truncated.slice(0, lastBreak) : truncated
+
+  return `${base.replace(/[\s,;:.\-–—]+$/, "")}…`
+}
+
+/** Extrait un texte lisible d'un contenu Portable Text (repli de description). */
+export function excerptFromPortableText(blocks: any[] | undefined | null): string {
+  if (!Array.isArray(blocks)) return ""
+
+  return blocks
+    .filter((block) => block?._type === "block" && block.style === "normal")
+    .flatMap((block) => (block.children ?? []).map((child: any) => child?.text ?? ""))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim()
+}

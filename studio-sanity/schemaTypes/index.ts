@@ -6,6 +6,7 @@ import kokosphere from './kokosphere'
 import legalDocument from './legalDocument'
 import post from './post'
 import service from './service'
+import siteSettings from './siteSettings'
 import testimonial from './testimonial'
 
 export const schemaTypes = [
@@ -13,6 +14,7 @@ export const schemaTypes = [
   service,
   testimonial,
   kokosphere,
+  siteSettings,
   legalDocument,
   author,
   category,

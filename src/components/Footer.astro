@@ -7,8 +7,14 @@ import {
   SITE_SIRET,
   SITE_TITLE,
 } from "../consts"
+import { getSiteSettings, getSocialLinks } from "../lib/sanity"
+import { socialIcons } from "../utils/icons"
 
 const currentYear = new Date().getFullYear()
+
+// Réseaux sociaux renseignés dans Sanity (« Paramètres du site »)
+const settings = await getSiteSettings()
+const socialLinks = getSocialLinks(settings).filter((link) => link.showInFooter)
 ---
 
 <footer class="bg-gray-900 text-white pb-24 md:pb-8">
@@ -51,6 +57,38 @@ const currentYear = new Date().getFullYear()
             {SITE_EMAIL}
           </p>
         </div>
+
+        {
+          socialLinks.length > 0 && (
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold uppercase tracking-wide text-gray-400 mb-3">
+                Suivez-moi
+              </h4>
+              <ul class="flex flex-wrap gap-3">
+                {socialLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer me"
+                      aria-label={link.label}
+                      title={link.label}
+                      class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800 text-gray-300 transition-colors hover:bg-primary-600 hover:text-white"
+                    >
+                      <svg
+                        class="h-5 w-5"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        set:html={socialIcons[link.key] ?? socialIcons.link}
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
       </div>
 
       <!-- Navigation rapide -->
@@ -59,26 +97,26 @@ const currentYear = new Date().getFullYear()
         <ul class="space-y-2 text-gray-300">
           <li><a href="/" class="hover:text-white transition-colors">Accueil</a></li>
           <li>
-            <a href="/about" class="hover:text-white transition-colors">À propos</a>
+            <a href="/about/" class="hover:text-white transition-colors">À propos</a>
           </li>
           <li>
-            <a href="/particuliers" class="hover:text-white transition-colors"
+            <a href="/particuliers/" class="hover:text-white transition-colors"
               >Particuliers</a
             >
           </li>
           <li>
-            <a href="/entreprise" class="hover:text-white transition-colors">Entreprise</a
+            <a href="/entreprise/" class="hover:text-white transition-colors">Entreprise</a
             >
           </li>
-          <li><a href="/blog" class="hover:text-white transition-colors">Blog</a></li>
+          <li><a href="/blog/" class="hover:text-white transition-colors">Blog</a></li>
           <li>
-            <a href="/faq" class="hover:text-white transition-colors">FAQ</a>
+            <a href="/faq/" class="hover:text-white transition-colors">FAQ</a>
           </li>
           <li>
-            <a href="/contact" class="hover:text-white transition-colors">Contact</a>
+            <a href="/contact/" class="hover:text-white transition-colors">Contact</a>
           </li>
           <li>
-            <a href="/documents-legaux" class="hover:text-white transition-colors"
+            <a href="/documents-legaux/" class="hover:text-white transition-colors"
               >Documents légaux</a
             >
           </li>
@@ -91,7 +129,7 @@ const currentYear = new Date().getFullYear()
         <p class="text-gray-300 mb-4">
           Prenez rendez-vous en ligne pour une consultation d'hypnothérapie personnalisée.
         </p>
-        <a href="/rendez-vous" class="btn-primary"> Réserver ma séance </a>
+        <a href="/rendez-vous/" class="btn-primary"> Réserver ma séance </a>
       </div>
     </div>
 
@@ -100,14 +138,14 @@ const currentYear = new Date().getFullYear()
       <!-- Liens légaux -->
       <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
         <a
-          href="/mentions-legales"
+          href="/mentions-legales/"
           class="text-gray-400 hover:text-white text-sm transition-colors"
         >
           Mentions légales
         </a>
         <span class="text-gray-600">•</span>
         <a
-          href="/politique-confidentialite"
+          href="/politique-confidentialite/"
           class="text-gray-400 hover:text-white text-sm transition-colors"
         >
           Politique de confidentialité
@@ -121,7 +159,7 @@ const currentYear = new Date().getFullYear()
         </button>
         <span class="text-gray-600">•</span>
         <a
-          href="/politique-conservation"
+          href="/politique-conservation/"
           class="text-gray-400 hover:text-white text-sm transition-colors"
         >
           Politique de conservation
@@ -131,7 +169,7 @@ const currentYear = new Date().getFullYear()
             <>
               <span class="text-gray-600">•</span>
               <a
-                href="/admin"
+                href="/admin/"
                 class="text-gray-400 hover:text-white text-sm transition-colors"
               >
                 Admin

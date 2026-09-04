@@ -8,17 +8,27 @@ import QuickNav from '../components/QuickNav.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 
 
+interface ArticleMeta {
+	publishedTime?: string;
+	modifiedTime?: string;
+	author?: string;
+	tags?: string[];
+}
+
 interface Props {
 	title: string;
 	description: string;
 	image?: any;
+	/** Conservé pour compatibilité : `keywords` n'est plus émis (ignoré par les moteurs). */
 	keywords?: string;
 	author?: string;
-	type?: 'website' | 'article' | 'medicalBusiness' | 'service';
+	/** Valeurs Open Graph valides uniquement. */
+	type?: 'website' | 'article' | 'profile';
 	locale?: string;
+	article?: ArticleMeta;
 }
 
-const { title, description, image, keywords, author, type, locale } = Astro.props;
+const { title, description, image, author, type, locale, article } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,10 +38,10 @@ const { title, description, image, keywords, author, type, locale } = Astro.prop
 			title={title} 
 			description={description} 
 			image={image}
-			keywords={keywords}
 			author={author}
 			type={type}
 			locale={locale}
+			article={article}
 		/>
 		<ColorTheme />
 	</head>

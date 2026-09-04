@@ -12,7 +12,9 @@ export default defineConfig({
     mdx(), 
     sitemap({
       // Configuration du sitemap
-      changefreq: 'weekly',
+      // 'monthly' reflète la cadence réelle de publication : annoncer 'weekly'
+      // sans la tenir dégrade la confiance accordée au sitemap.
+      changefreq: 'monthly',
       priority: 0.7,
       lastmod: new Date(),
       entryLimit: 45000,
@@ -33,6 +35,10 @@ export default defineConfig({
   },
   vite: {
     build: {
+      // Une seule feuille de style partagée par tout le site : sans cela Astro
+      // émettait deux fichiers contenant chacun l'intégralité de Tailwind,
+      // soit ~165 Ko bloquant le rendu sur chaque page au lieu de ~87 Ko.
+      cssCodeSplit: false,
       rollupOptions: {
         output: {
           // Optimisation des chunks

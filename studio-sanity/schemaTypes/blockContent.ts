@@ -6,13 +6,14 @@ export default {
     {
       title: 'Block',
       type: 'block',
+      // Pas de H1 : le titre de l'article est déjà le H1 de la page.
+      // Un second H1 casse la hiérarchie sémantique et le référencement.
       styles: [
         {title: 'Normal', value: 'normal'},
-        {title: 'H1', value: 'h1'},
-        {title: 'H2', value: 'h2'},
-        {title: 'H3', value: 'h3'},
-        {title: 'H4', value: 'h4'},
-        {title: 'Quote', value: 'blockquote'},
+        {title: 'Titre de section (H2)', value: 'h2'},
+        {title: 'Sous-titre (H3)', value: 'h3'},
+        {title: 'Sous-sous-titre (H4)', value: 'h4'},
+        {title: 'Citation', value: 'blockquote'},
       ],
       lists: [
         {title: 'Bullet', value: 'bullet'},

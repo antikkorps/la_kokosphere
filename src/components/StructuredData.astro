@@ -1,38 +1,63 @@
 ---
-import { SITE_DESCRIPTION, SITE_EMAIL, SITE_PHONE, SITE_TITLE, SITE_URL } from "../consts"
+import {
+  SITE_DESCRIPTION,
+  SITE_EMAIL,
+  SITE_PHONE,
+  SITE_TITLE,
+  SITE_URL,
+} from "../consts"
+import { getSameAs, getSiteSettings } from "../lib/sanity"
 
 interface Props {
-  type?: "website" | "medicalBusiness" | "article" | "service" | "profile"
+  type?: "website" | "article" | "profile"
   title?: string
   description?: string
   url?: string
-  author?: {
-    name: string
-    url?: string
-  }
+  image?: string
   article?: {
-    datePublished: string
-    dateModified?: string
-    headline: string
-  }
-  service?: {
-    name: string
-    description: string
-    areaServed: string
-    serviceType: string
+    publishedTime?: string
+    modifiedTime?: string
+    author?: string
+    tags?: string[]
   }
 }
 
 const {
   type = "website",
+  title,
   description = SITE_DESCRIPTION,
-  url = SITE_URL,
-  author,
+  url,
+  image,
   article,
-  service,
 } = Astro.props
 
 const currentUrl = url || `${SITE_URL}${Astro.url.pathname}`
+
+// Réseaux sociaux et identité de la praticienne, éditables dans Sanity
+const settings = await getSiteSettings()
+const sameAs = getSameAs(settings)
+const practitionerName = settings?.practitionerName || "Cécile Pascual"
+const practitionerJobTitle = settings?.practitionerJobTitle || "Hypnothérapeute certifiée"
+const practitionerDescription =
+  settings?.practitionerDescription ||
+  "Hypnothérapeute certifiée spécialisée dans la méthode ericksonienne"
+
+// Identifiants stables : permettent de relier les entités entre elles
+const BUSINESS_ID = `${SITE_URL}/#business`
+const PERSON_ID = `${SITE_URL}/#person`
+
+// Images du panneau de connaissances : un vrai logo, pas la favicon
+const LOGO_URL = `${SITE_URL}/images/logo/logo_kokosphere-512.png`
+const BUSINESS_IMAGE_URL = `${SITE_URL}/images/logo/logo_kokosphere-og.png`
+
+const postalAddress = {
+  "@type": "PostalAddress",
+  streetAddress: "11 Rue du Docteur LEROY",
+  addressLocality: "Le Mans",
+  postalCode: "72000",
+  addressRegion: "Sarthe",
+  addressCountry: "FR",
+}
 
 // Schema de base pour le site web
 const baseSchema = {
@@ -42,42 +67,39 @@ const baseSchema = {
   description: SITE_DESCRIPTION,
   url: SITE_URL,
   inLanguage: "fr-FR",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE_URL}/blog?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
+  publisher: { "@id": BUSINESS_ID },
 }
 
 // Schema pour l'organisation (hypnothérapeute)
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "MedicalBusiness", "HealthAndBeautyBusiness"],
+  "@id": BUSINESS_ID,
   name: SITE_TITLE,
   alternateName: "Hypnothérapeute Le Mans",
   description: SITE_DESCRIPTION,
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon.png`,
-  image: `${SITE_URL}/images/logo.png`,
+  logo: {
+    "@type": "ImageObject",
+    url: LOGO_URL,
+    width: 512,
+    height: 512,
+  },
+  image: BUSINESS_IMAGE_URL,
   telephone: SITE_PHONE,
   email: SITE_EMAIL,
   priceRange: "60€ - 90€",
   currenciesAccepted: "EUR",
   paymentAccepted: "Espèces, Chèque",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "11 Rue du Docteur LEROY",
-    addressLocality: "Le Mans",
-    postalCode: "72000",
-    addressRegion: "Sarthe",
-    addressCountry: "FR",
-  },
+  address: postalAddress,
   geo: {
     "@type": "GeoCoordinates",
     latitude: 48.0061,
     longitude: 0.1996,
   },
   openingHours: ["Mo-Fr 09:00-19:00"],
+  founder: { "@id": PERSON_ID },
+  employee: { "@id": PERSON_ID },
   areaServed: [
     {
       "@type": "City",
@@ -179,33 +201,42 @@ const organizationSchema = {
       },
     ],
   },
-  sameAs: [
-    // Ajoutez ici les réseaux sociaux si disponibles
-  ],
+  // Profils externes renseignés dans Sanity (« Paramètres du site »)
+  ...(sameAs.length > 0 ? { sameAs } : {}),
 }
+
+// Diplômes et certifications déclarés dans Sanity
+const hasCredential = (settings?.credentials ?? [])
+  .filter((credential) => credential?.name)
+  .map((credential) => ({
+    "@type": "EducationalOccupationalCredential",
+    name: credential.name,
+    ...(credential.issuer
+      ? {
+          recognizedBy: {
+            "@type": "Organization",
+            name: credential.issuer,
+            ...(credential.issuerUrl ? { url: credential.issuerUrl } : {}),
+          },
+        }
+      : {}),
+    ...(credential.year ? { dateCreated: credential.year } : {}),
+  }))
 
 // Schema pour la personne (thérapeute)
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Hypnothérapeute La Kokosphère",
-  jobTitle: "Hypnothérapeute certifiée",
-  description: "Hypnothérapeute certifiée spécialisée dans la méthode ericksonienne",
-  url: SITE_URL,
+  "@id": PERSON_ID,
+  name: practitionerName,
+  jobTitle: practitionerJobTitle,
+  description: practitionerDescription,
+  url: `${SITE_URL}/about/`,
   email: SITE_EMAIL,
   telephone: SITE_PHONE,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "11 Rue du Docteur LEROY",
-    addressLocality: "Le Mans",
-    postalCode: "72000",
-    addressRegion: "Sarthe",
-    addressCountry: "FR",
-  },
-  worksFor: {
-    "@type": "Organization",
-    name: SITE_TITLE,
-  },
+  image: BUSINESS_IMAGE_URL,
+  address: postalAddress,
+  worksFor: { "@id": BUSINESS_ID },
   hasOccupation: {
     "@type": "Occupation",
     name: "Hypnothérapeute",
@@ -217,81 +248,50 @@ const personSchema = {
       "Accompagnement des addictions",
     ],
   },
+  ...(hasCredential.length > 0 ? { hasCredential } : {}),
+  ...(sameAs.length > 0 ? { sameAs } : {}),
 }
 
-let schemas: any[] = [baseSchema, organizationSchema, personSchema]
+const schemas: any[] = [baseSchema, organizationSchema, personSchema]
 
-// Ajouter des schemas spécifiques selon le type de page
-if (type === "article" && article) {
-  const articleSchema = {
+// Article de blog : fraîcheur et paternité du contenu (E-E-A-T)
+if (type === "article" && title) {
+  schemas.push({
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.headline,
-    description: description,
+    "@type": "BlogPosting",
+    headline: title.length > 110 ? `${title.slice(0, 109)}…` : title,
+    description,
     url: currentUrl,
-    datePublished: article.datePublished,
-    dateModified: article.dateModified || article.datePublished,
+    ...(article?.publishedTime ? { datePublished: article.publishedTime } : {}),
+    dateModified: article?.modifiedTime || article?.publishedTime,
     author: {
       "@type": "Person",
-      name: author?.name || "La Kokosphère",
-      url: author?.url || SITE_URL,
+      name: article?.author || practitionerName,
+      url: `${SITE_URL}/about/`,
     },
-    publisher: {
-      "@type": "Organization",
-      name: SITE_TITLE,
-      url: SITE_URL,
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE_URL}/favicon.png`,
-      },
-    },
+    publisher: { "@id": BUSINESS_ID },
+    ...(image ? { image } : {}),
+    ...(article?.tags?.length ? { keywords: article.tags.join(", ") } : {}),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": currentUrl,
     },
     inLanguage: "fr-FR",
-  }
-  schemas.push(articleSchema)
-}
-
-if (type === "service" && service) {
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.name,
-    description: service.description,
-    serviceType: service.serviceType,
-    provider: {
-      "@type": "Organization",
-      name: SITE_TITLE,
-      url: SITE_URL,
-    },
-    areaServed: {
-      "@type": "City",
-      name: service.areaServed,
-    },
-    availableLanguage: "fr",
-  }
-  schemas.push(serviceSchema)
+  })
 }
 
 // Breadcrumb schema pour toutes les pages sauf la homepage
 if (Astro.url.pathname !== "/") {
   const pathSegments = Astro.url.pathname.split("/").filter((segment: string) => segment)
-  const breadcrumbList = pathSegments.map((segment: string, index: number) => {
-    const position = index + 2 // +2 car on commence après "Home"
-    const name = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ")
-    const url = `${SITE_URL}/${pathSegments.slice(0, index + 1).join("/")}`
+  const breadcrumbList = pathSegments.map((segment: string, index: number) => ({
+    "@type": "ListItem",
+    position: index + 2, // +2 car on commence après "Accueil"
+    name: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "),
+    // URLs canoniques : avec slash final, comme les liens du site
+    item: `${SITE_URL}/${pathSegments.slice(0, index + 1).join("/")}/`,
+  }))
 
-    return {
-      "@type": "ListItem",
-      position: position,
-      name: name,
-      item: url,
-    }
-  })
-
-  const breadcrumbSchema = {
+  schemas.push({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -299,17 +299,12 @@ if (Astro.url.pathname !== "/") {
         "@type": "ListItem",
         position: 1,
         name: "Accueil",
-        item: SITE_URL,
+        item: `${SITE_URL}/`,
       },
       ...breadcrumbList,
     ],
-  }
-  schemas.push(breadcrumbSchema)
+  })
 }
 ---
 
-{
-  schemas.map((schema) => (
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-  ))
-}
+{schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}

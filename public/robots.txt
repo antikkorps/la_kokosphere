@@ -4,15 +4,10 @@
 User-agent: *
 Allow: /
 
-# Exclure les pages d'administration et API
+# Zones sans intérêt pour l'indexation
 Disallow: /admin
 Disallow: /api/
-Disallow: /_/
 Disallow: /netlify/
 
-# Permettre l'accès aux ressources importantes
-Allow: /images/
-Allow: /fonts/
-
-# Sitemap
+# Sitemap (généré par Astro)
 Sitemap: https://la-kokosphere.fr/sitemap-index.xml

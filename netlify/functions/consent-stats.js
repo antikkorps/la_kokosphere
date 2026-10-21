@@ -1,4 +1,4 @@
-const { createClient } = require("@sanity/client")
+import { createClient } from "@sanity/client"
 
 const client = createClient({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || "j41wv78y",
@@ -8,7 +8,7 @@ const client = createClient({
   token: process.env.SANITY_TOKEN,
 })
 
-exports.handler = async function (event, context) {
+export async function handler(event, context) {
   // Autoriser les requêtes CORS
   const headers = {
     "Access-Control-Allow-Origin": "*",

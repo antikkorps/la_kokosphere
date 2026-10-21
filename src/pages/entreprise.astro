@@ -1,4 +1,5 @@
 ---
+import AudioGate from '../components/AudioGate.astro';
 import { SITE_TITLE } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
@@ -385,6 +386,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</div>
 		</div>
 	</section>
+
+	<AudioGate
+		audio="regeneration"
+		title="Charge mentale au travail : testez la pause « Régénération »"
+		text="Découvrez un échantillon des ateliers professionnels La Parenthèse. Un audio de 8 minutes de focalisation et de respiration guidée à écouter au bureau pour couper les pensées parasites, faire baisser le stress et retrouver une clarté d'esprit immédiate."
+		emailLabel="Votre adresse email pro"
+		button="Télécharger la pause audio"
+		sectionClass="bg-primary-50"
+	/>
 
 	<!-- Pourquoi choisir la Kokosphere - Design en cartes flottantes -->
 	<section class="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">

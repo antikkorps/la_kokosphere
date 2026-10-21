@@ -1,5 +1,6 @@
 ---
 import AnimatedSection from "../components/AnimatedSection.astro"
+import AudioGate from "../components/AudioGate.astro"
 import ExpertiseDomainCard from "../components/ExpertiseDomainCard.astro"
 import TestimonialCard from "../components/TestimonialCard.astro"
 import TestimonialModal from "../components/TestimonialModal.vue"
@@ -93,6 +94,13 @@ const sortedDomains = expertiseDomains.sort((a, b) => a.order - b.order)
       </div>
     </AnimatedSection>
   </section>
+
+  <AudioGate
+    audio="flux-mental"
+    title="Offrez-vous une pause : téléchargez votre audio de micro-récupération"
+    text="Le flux de vos pensées s'accélère ? Installez-vous confortablement dans votre cocon. Écoutez cet enregistrement exclusif de 10 minutes conçu pour apaiser votre système nerveux, relâcher les tensions musculaires et restaurer le calme intérieur. Idéal en fin de journée ou avant de dormir."
+    button="Télécharger mon audio"
+  />
 
   <!-- Hypnose à domicile Section -->
   <section class="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">

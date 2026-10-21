@@ -1,4 +1,4 @@
-exports.handler = async function(event, context) {
+export async function handler(event, context) {
   // Headers CORS
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -65,4 +65,4 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({ message: 'An error occurred during subscription.' }),
     };
   }
-};
+}

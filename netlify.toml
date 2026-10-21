@@ -38,7 +38,7 @@
     # Seule CSP du site : Netlify ignorait celle de public/_headers. Toute
     # origine ajoutée ici doit correspondre à une ressource réelle, voir
     # tests/csp.test.js.
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://calendly.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.sanity.io https://api.dicebear.com; connect-src 'self'; frame-src https://calendly.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://calendly.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.sanity.io https://api.dicebear.com; connect-src 'self'; frame-src https://calendly.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"

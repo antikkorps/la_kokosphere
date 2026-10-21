@@ -12,7 +12,7 @@ import { DIST, loadPages, readDistFile } from "./helpers.js"
  */
 
 const netlifyToml = readFileSync(new URL("../netlify.toml", import.meta.url), "utf8")
-const tomlPolicies = [...netlifyToml.matchAll(/Content-Security-Policy\s*=\s*"([^"]+)"/gi)].map((m) => m[1])
+const tomlPolicies = [...netlifyToml.matchAll(/^\s*Content-Security-Policy\s*=\s*"([^"]+)"/gim)].map((m) => m[1])
 
 function parsePolicy(policy) {
   const directives = new Map()
@@ -23,16 +23,20 @@ function parsePolicy(policy) {
   return directives
 }
 
+const directives = parsePolicy(tomlPolicies[0] ?? "")
+
 function sourcesFor(directives, name) {
   return directives.get(name) ?? directives.get("default-src") ?? []
 }
 
-/** Une URL relative relève de 'self' ; une absolue, de son origine. */
-function isAllowed(directives, name, url) {
+const SELF = "https://la-kokosphere.invalid"
+
+/** Une URL relative relève de 'self' ; une absolue, y compris //hôte, de son origine. */
+function isAllowed(name, url) {
   const sources = sourcesFor(directives, name)
   if (url.startsWith("data:")) return sources.includes("data:")
-  if (!/^https?:\/\//.test(url)) return sources.includes("'self'")
-  return sources.includes(new URL(url).origin)
+  const { origin } = new URL(url, SELF)
+  return origin === SELF ? sources.includes("'self'") : sources.includes(origin)
 }
 
 function srcsetUrls(srcset) {
@@ -57,7 +61,7 @@ function cssImports() {
   const dir = join(DIST, "_astro")
   return readdirSync(dir)
     .filter((file) => file.endsWith(".css"))
-    .flatMap((file) => [...readFileSync(join(dir, file), "utf8").matchAll(/@import\s+(?:url\()?["']([^"']+)["']/g)])
+    .flatMap((file) => [...readFileSync(join(dir, file), "utf8").matchAll(/@import\s+(?:url\(\s*)?["']?([^"')\s;]+)/g)])
     .map((m) => ({ directive: "style-src", url: m[1], where: "CSS" }))
 }
 
@@ -67,28 +71,26 @@ test("une seule CSP, celle de netlify.toml", () => {
 })
 
 test("la CSP autorise toutes les ressources externes du site", () => {
-  const directives = parsePolicy(tomlPolicies[0] ?? "")
   const loads = [...loadPages().flatMap(pageLoads), ...cssImports()]
-  const blocked = loads.filter(({ directive, url }) => !isAllowed(directives, directive, url))
+  const blocked = loads.filter(({ directive, url }) => !isAllowed(directive, url))
   const report = [...new Set(blocked.map((l) => `${l.directive} ${l.url.slice(0, 60)} (${l.where})`))]
   assert.deepEqual(report.slice(0, 10), [])
 })
 
-test("les polices Google, appelées par leur feuille de style, sont autorisées", () => {
-  const directives = parsePolicy(tomlPolicies[0] ?? "")
-  if (!isAllowed(directives, "style-src", "https://fonts.googleapis.com/css2")) return
-  assert.ok(isAllowed(directives, "font-src", "https://fonts.gstatic.com/s/inter.woff2"))
+// Ressources que le build ne montre pas : la feuille Google Fonts charge ses
+// polices, et le widget Calendly injecte sa propre feuille de style.
+test("la CSP autorise les ressources chargées en cascade", () => {
+  assert.ok(isAllowed("font-src", "https://fonts.gstatic.com/s/inter.woff2"))
+  assert.ok(isAllowed("style-src", "https://assets.calendly.com/assets/external/widget.css"))
 })
 
 test("la CSP autorise les scripts en ligne que le site contient", () => {
-  const directives = parsePolicy(tomlPolicies[0] ?? "")
   const executable = (s) => !s.getAttribute("src") && !/json/.test(s.getAttribute("type") ?? "")
   const hasInline = loadPages().some((page) => page.dom.querySelectorAll("script").some(executable))
   if (hasInline) assert.ok(sourcesFor(directives, "script-src").includes("'unsafe-inline'"))
 })
 
 test("la CSP interdit l'intégration du site dans un cadre et les plugins", () => {
-  const directives = parsePolicy(tomlPolicies[0] ?? "")
   assert.deepEqual(directives.get("frame-ancestors"), ["'none'"])
   assert.deepEqual(directives.get("object-src"), ["'none'"])
 })

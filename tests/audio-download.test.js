@@ -72,9 +72,17 @@ describe("upsertContact", () => {
   afterEach(() => { globalThis.fetch = realFetch })
 
   test("abandonne un appel Brevo qui ne répond pas", { timeout: 1000 }, async () => {
-    // Sans signal d'annulation, cette promesse ne se résout jamais.
+    // Sans signal d'annulation, cette promesse ne se résout jamais. Le timer
+    // tient lieu de socket ouverte : celui d'AbortSignal.timeout ne retient
+    // pas la boucle, et Node 22 l'arrêterait avant l'annulation.
     globalThis.fetch = (url, init) =>
-      new Promise((_, reject) => init.signal?.addEventListener("abort", () => reject(init.signal.reason)))
+      new Promise((_, reject) => {
+        const socket = setInterval(() => {}, 1000)
+        init.signal?.addEventListener("abort", () => {
+          clearInterval(socket)
+          reject(init.signal.reason)
+        })
+      })
     await assert.rejects(upsertContact({ email: "a@b.fr", prenom: "A", listIds: [1] }, "cle", 20))
   })
 })

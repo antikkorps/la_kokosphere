@@ -4,6 +4,8 @@
  * audio-download inscrit le contact dans Brevo et renvoie une URL R2 signée,
  * que le navigateur suit pour lancer le téléchargement.
  */
+import { AUDIOS_EN_LIGNE } from "../consts"
+
 interface Props {
   audio: "flux-mental" | "regeneration"
   title: string
@@ -24,6 +26,7 @@ const {
 const id = `audio-${audio}`
 ---
 
+{AUDIOS_EN_LIGNE && (
 <section class:list={["section-padding", sectionClass]} aria-labelledby={`${id}-title`}>
   <div class="container-max">
     <div class="max-w-3xl mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-xs border border-gray-200">
@@ -65,6 +68,7 @@ const id = `audio-${audio}`
     </div>
   </div>
 </section>
+)}
 
 <script>
   function setMessage(el: HTMLElement, text: string, isError = false) {

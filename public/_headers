@@ -2,15 +2,7 @@
 
 # Pas de Cache-Control ici : il s'appliquerait aussi aux pages HTML. Netlify
 # les sert par défaut en revalidation et purge son CDN à chaque déploiement.
-/*
-  # Sécurité
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: strict-origin-when-cross-origin
-  
-  # Content Security Policy basique
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://cdn.sanity.io https://images.unsplash.com; connect-src 'self' https://j41wv78y.api.sanity.io; frame-src https://calendly.com;
+# En-têtes de sécurité et CSP : dans netlify.toml, pour n'en avoir qu'une source.
 
 /sitemap.xml
   # Cache du sitemap

@@ -25,6 +25,11 @@ portent sur `dist/`, pas sur les sources : les régressions visées sont invisib
 à la compilation. Le site se construit très bien avec dix H1 par page ou un
 sitemap qui pointe dans le vide.
 
+Seule exception, `tests/functions.test.js` charge les fonctions Netlify à la
+source, puisqu'elles ne passent pas par le build Astro. Elles doivent être en
+ESM : le package déclare `"type": "module"` et Netlify refuse de bundler du
+CommonJS.
+
 ### Architecture
 - `/src/pages/` - Pages Astro
 - `/src/layouts/` - Layouts de base

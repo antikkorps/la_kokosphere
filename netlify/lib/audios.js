@@ -5,13 +5,13 @@
  */
 export const AUDIOS = {
   "flux-mental": {
-    key: "flux-mental.mp3",
-    filename: "La-Kokosphere-pause-micro-recuperation.mp3",
+    key: "flux-mental.m4a",
+    filename: "La-Kokosphere-pause-micro-recuperation.m4a",
     listEnv: "BREVO_LIST_AUDIO_FLUX_MENTAL",
   },
   regeneration: {
-    key: "regeneration.mp3",
-    filename: "La-Kokosphere-pause-regeneration.mp3",
+    key: "regeneration.m4a",
+    filename: "La-Kokosphere-pause-regeneration.m4a",
     listEnv: "BREVO_LIST_AUDIO_REGENERATION",
   },
 }

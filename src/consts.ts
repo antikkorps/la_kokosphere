@@ -18,9 +18,10 @@ export const DEVELOPER_URL = "https://dev2go.vercel.app"
 // Calendly URL
 export const CALENDLY_URL = "https://calendly.com/kokosphere72/30min"
 
-// Formulaires d'audio offerts : masqués tant que le bucket R2 n'existe pas,
-// sinon le visiteur reçoit une erreur au lieu de l'audio.
-export const AUDIOS_EN_LIGNE = false
+// Formulaires d'audio offerts. Repasser à false si R2 ou Brevo tombe : le
+// visiteur recevrait une erreur au lieu de l'audio. tests/audios.test.js
+// échouera alors, c'est voulu.
+export const AUDIOS_EN_LIGNE = true
 
 // Charte graphique - Couleurs centralisées
 export const COLORS = {

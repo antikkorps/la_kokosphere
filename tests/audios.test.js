@@ -3,12 +3,15 @@ import assert from "node:assert/strict"
 import { loadPages } from "./helpers.js"
 
 /**
- * Les formulaires d'audio sont en ligne depuis le 21 octobre 2026, mais le
- * bucket R2 n'existe pas encore : un visiteur était inscrit dans Brevo puis
- * recevait une erreur au lieu de l'audio. Ils restent masqués jusqu'à ce que
- * R2 soit configuré. Passer alors AUDIOS_EN_LIGNE à true et retirer ce test.
+ * Chaque audio a sa page : un formulaire qui disparaît, ou qui demande l'audio
+ * de l'autre public, ne casse pas le build mais fausse la liste Brevo concernée.
  */
-test("aucun formulaire d'audio n'est publié tant que R2 n'est pas prêt", () => {
-  const pages = loadPages().filter((page) => page.dom.querySelector("form[data-audio-gate]"))
-  assert.deepEqual(pages.map((page) => page.url), [])
+test("l'accueil et /entreprise publient chacun le formulaire de leur audio", () => {
+  const forms = loadPages().flatMap((page) =>
+    page.dom.querySelectorAll("form[data-audio-gate]").map((form) => [page.url, form.getAttribute("data-audio-gate")])
+  )
+  assert.deepEqual(forms, [
+    ["/", "flux-mental"],
+    ["/entreprise/", "regeneration"],
+  ])
 })

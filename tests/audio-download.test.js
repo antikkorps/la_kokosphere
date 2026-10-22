@@ -24,6 +24,17 @@ const ENV = {
 
 const valid = { prenom: "Léa", email: "lea@example.com", audio: "flux-mental" }
 
+describe("AUDIOS", () => {
+  // Les originaux sont de l'AAC : un .mp3 tromperait le lecteur de la personne
+  // qui télécharge, et l'objet R2 n'existerait pas sous ce nom.
+  for (const [id, { key, filename }] of Object.entries(AUDIOS)) {
+    test(`${id} pointe sur un fichier .m4a`, () => {
+      assert.match(key, /\.m4a$/)
+      assert.match(filename, /\.m4a$/)
+    })
+  }
+})
+
 describe("parseRequest", () => {
   test("accepte une demande complète, newsletter non cochée par défaut", () => {
     const result = parseRequest(valid)

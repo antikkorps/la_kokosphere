@@ -15,3 +15,15 @@ test("l'accueil et /entreprise publient chacun le formulaire de leur audio", () 
     ["/entreprise/", "regeneration"],
   ])
 })
+
+// Durées arrondies des fichiers du bucket R2 : flux-mental.m4a dure 6 min 16,
+// regeneration.m4a 2 min 54. À revoir si Cécile remplace un fichier.
+const DUREES = { "/": "6 minutes", "/entreprise/": "3 minutes" }
+
+for (const [url, duree] of Object.entries(DUREES)) {
+  test(`le formulaire d'audio de ${url} annonce ${duree}`, () => {
+    const page = loadPages().find((p) => p.url === url)
+    const section = page.dom.querySelector("form[data-audio-gate]").closest("section")
+    assert.match(section.textContent, new RegExp(`\\b${duree}\\b`))
+  })
+}
